@@ -1,0 +1,440 @@
+.bs-icon {
+    --bs-icon-size: .75rem;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--bs-icon-size);
+    width: calc(var(--bs-icon-size) * 2);
+    height: calc(var(--bs-icon-size) * 2);
+    color: var(--bs-primary)
+}
+
+.bs-icon-xs {
+    --bs-icon-size: 1rem;
+    width: calc(var(--bs-icon-size) * 1.5);
+    height: calc(var(--bs-icon-size) * 1.5)
+}
+
+.bs-icon-sm {
+    --bs-icon-size: 1rem
+}
+
+.bs-icon-md {
+    --bs-icon-size: 1.5rem
+}
+
+.bs-icon-lg {
+    --bs-icon-size: 2rem
+}
+
+.bs-icon-xl {
+    --bs-icon-size: 2.5rem
+}
+
+.bs-icon.bs-icon-primary {
+    color: var(--bs-white);
+    background: var(--bs-primary)
+}
+
+.bs-icon.bs-icon-primary-light {
+    color: var(--bs-primary);
+    background: rgba(var(--bs-primary-rgb), .2)
+}
+
+.bs-icon.bs-icon-semi-white {
+    color: var(--bs-primary);
+    background: rgba(255, 255, 255, .5)
+}
+
+.bs-icon.bs-icon-rounded {
+    border-radius: .5rem
+}
+
+.bs-icon.bs-icon-circle {
+    border-radius: 50%
+}
+
+.loginbtn {
+    background-color: #00738b
+}
+
+.loginbtn:hover {
+    --bs-btn-hover-bg: #ffffff;
+    background-color: #00454f;
+    --bs-btn-active-color: rgb(255, 255, 255);
+    --bs-btn-active-bg: rgb(81, 81, 81)
+}
+
+.py-3 {
+    padding-top: 1rem;
+    padding-bottom: 1rem
+}
+
+.itemnew:hover, itemnew:hover {
+    color: #004f5f
+}
+
+.itemnew:hover, .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: #00738b
+}
+
+.getcounselr {
+    display: flex;
+    max-height: 420px;
+    min-height: 400px;
+    align-items: end
+}
+
+.watchnow {
+    color: #00454f;
+    background-color: var(--bs-btn-active-color)
+}
+
+.watchnow:hover {
+    color: #fff;
+    background-color: #4d575f;
+    --bs-btn-active-color: rgb(255, 255, 255);
+    --bs-btn-active-bg: rgb(44, 49, 52)
+}
+
+.loginbtn.stressbtn {
+    color: #fff;
+    background-color: #00454f
+}
+
+.loginbtn.stressbtn:hover {
+    background-color: #4d575f
+}
+
+.watchbtn {
+    background-color: #f5f5f5;
+    color: #00738b;
+    font-weight: 700
+}
+
+.watchbtn:hover {
+    background-color: #00738b;
+    color: #fff
+}
+
+.navbar.fixed-top.off-canvas {
+    bottom: 0;
+    right: auto;
+    transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    z-index: 999999999999;
+    width: 100%
+}
+
+.navbar.fixed-top.off-canvas .brand-line, .navbar.fixed-top.off-canvas .nav {
+    width: 100%
+}
+
+.nav.navbar-nav.drawer-menu {
+    overflow-y: auto;
+    flex: 1 1 auto;
+    height: 0;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap
+}
+
+.navbar.fixed-top.off-canvas > div[class*=container-] {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-right: 0;
+    padding-left: 0;
+    height: 100%;
+    align-content: space-between
+}
+
+.navbar.fixed-top.off-canvas .navbar-nav .nav-link {
+    padding-right: 0;
+    padding-left: 0
+}
+
+.navbar.fixed-top.off-canvas.right-drawer, .navbar.fixed-top.off-canvas[data-right-drawer="1"] {
+    right: 0;
+    left: auto;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%)
+}
+
+.navbar.fixed-top.off-canvas.navbar-expand, .navbar.fixed-top.off-canvas.open, .navbar.fixed-top.off-canvas[data-open-drawer="1"] {
+    -webkit-transform: translateX(0);
+    transform: translateX(0)
+}
+
+.navbar.fixed-top.off-canvas.navbar-expand .drawer-knob, .navbar.fixed-top.off-canvas.navbar-expand button[data-dismiss=drawer], .navbar.fixed-top.off-canvas.open .drawer-knob, .navbar.fixed-top.off-canvas[data-open-drawer="1"] .drawer-knob {
+    display: none
+}
+
+.navbar.fixed-top.off-canvas .drawer-knob {
+    position: absolute;
+    top: 10px;
+    right: -36px
+}
+
+.drawer-push.drawer-expand > .drawer-site, .drawer-push.open > .drawer-site {
+    margin-left: 100%
+}
+
+.drawer-slide {
+    position: relative;
+    overflow-x: hidden
+}
+
+.drawer-slide > .drawer-site {
+    transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out
+}
+
+.drawer-slide.open > .drawer-site {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%)
+}
+
+@media (min-width: 576px) {
+    .navbar.fixed-top.off-canvas.navbar-expand-sm {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    .navbar.fixed-top.off-canvas.navbar-expand-sm .drawer-knob, .navbar.fixed-top.off-canvas.navbar-expand-sm button[data-dismiss=drawer] {
+        display: none
+    }
+
+    .navbar.fixed-top.off-canvas {
+        width: 280px
+    }
+
+    .drawer-push.drawer-expand-sm > .drawer-site, .drawer-push.drawer-expand > .drawer-site, .drawer-push.open > .drawer-site {
+        margin-left: 280px
+    }
+
+    .drawer-slide.open > .drawer-site {
+        -webkit-transform: translateX(280px);
+        transform: translateX(280px)
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar.fixed-top.off-canvas.navbar-expand-md {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    .navbar.fixed-top.off-canvas.navbar-expand-md .drawer-knob, .navbar.fixed-top.off-canvas.navbar-expand-md button[data-dismiss=drawer] {
+        display: none
+    }
+
+    .navbar.fixed-top.off-canvas {
+        width: 220px
+    }
+
+    .drawer-push.drawer-expand-md > .drawer-site, .drawer-push.drawer-expand-sm > .drawer-site, .drawer-push.drawer-expand > .drawer-site, .drawer-push.open > .drawer-site {
+        margin-left: 220px
+    }
+
+    .drawer-slide.open > .drawer-site {
+        -webkit-transform: translateX(220px);
+        transform: translateX(220px)
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar.fixed-top.off-canvas.navbar-expand-lg {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    .navbar.fixed-top.off-canvas.navbar-expand-lg .drawer-knob, .navbar.fixed-top.off-canvas.navbar-expand-lg button[data-dismiss=drawer] {
+        display: none
+    }
+
+    .navbar.fixed-top.off-canvas {
+        width: 220px
+    }
+
+    .drawer-push.drawer-expand-lg > .drawer-site, .drawer-push.drawer-expand-md > .drawer-site, .drawer-push.drawer-expand-sm > .drawer-site, .drawer-push.drawer-expand > .drawer-site, .drawer-push.open > .drawer-site {
+        margin-left: 220px
+    }
+
+    .drawer-slide.open > .drawer-site {
+        -webkit-transform: translateX(220px);
+        transform: translateX(220px)
+    }
+}
+
+body > div.drawer-fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    transition: opacity .3s linear;
+    background-color: #000;
+    opacity: 0;
+    z-index: 99999999999
+}
+
+body.drawer-open > div.drawer-fade {
+    width: 100%;
+    opacity: .6
+}
+
+@media (min-width: 1200px) {
+    .navbar.fixed-top.off-canvas.navbar-expand-xl {
+        -webkit-transform: translateX(0);
+        transform: translateX(0)
+    }
+
+    .navbar.fixed-top.off-canvas.navbar-expand-xl .drawer-knob, .navbar.fixed-top.off-canvas.navbar-expand-xl button[data-dismiss=drawer] {
+        display: none
+    }
+
+    .navbar.fixed-top.off-canvas {
+        width: 260px
+    }
+
+    .drawer-push.drawer-expand-lg > .drawer-site, .drawer-push.drawer-expand-md > .drawer-site, .drawer-push.drawer-expand-sm > .drawer-site, .drawer-push.drawer-expand-xl > .drawer-site, .drawer-push.drawer-expand > .drawer-site, .drawer-push.open > .drawer-site {
+        margin-left: 260px
+    }
+
+    .drawer-slide.open > .drawer-site {
+        -webkit-transform: translateX(260px);
+        transform: translateX(260px)
+    }
+
+    .col-lg-4 {
+        flex: 0 0 auto;
+        width: 20%
+    }
+}
+
+.btn-check:checked + .btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check) + .btn:active {
+    color: var(--bs-btn-active-color);
+    background-color: #495057;
+    border-color: #495057
+}
+.youtube{
+    padding: 10px;
+}
+/*youtube button start*/
+/*html,*/
+/*body {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    width: 100%;*/
+/*    height: 100vh;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    background: #000;*/
+/*}*/
+
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #00738BFF;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 0px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 0px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #00454f;
+    left: 0;
+    top: 0;
+    border-radius: 0px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+/*youtube button end*/
+
+/* Style to make the iframe responsive */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio (h / w) */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 20px; /* Add some spacing between videos */
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+/* Media queries to adjust the layout on larger screens */
+@media (min-width: 992px) {
+    .video-container {
+        width: 33.33%; /* Display in one row for L size and larger */
+        padding-bottom: 18.75%; /* Adjust aspect ratio for larger screens if needed */
+        margin-bottom: 0; /* Remove spacing between videos in the row */
+        float: left;
+    }
+
+
+
+
+    .videobackground {
+        /*position: absolute;*/
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /*background: url(https://i.gifer.com/J4o.gif) no-repeat;*/
+        background-size: cover;
+        background-position: center;
+    }
+
+
+}

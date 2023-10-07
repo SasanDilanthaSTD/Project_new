@@ -1,0 +1,18 @@
+.img-row:after {
+    content: "";
+    display: table;
+    clear: both
+}
+
+/*.img-container {*/
+/*    position: relative;*/
+/*}*/
+
+.btnCallEnd:hover{
+    background-color: rgb(216, 93, 84);
+}
+
+.top-container {
+    margin-top: 50px
+}
+

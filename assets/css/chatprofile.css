@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+img {
+    border-radius: 5px
+}
+
+* {
+    outline: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+.loginbtn {
+    background-color: #00454f
+}
+
+.loginbtn:hover {
+    background-color: #005c6f
+}
+
+.greenrowborder{
+    border-radius: 20px;
+    /*margin-left: 5px;*/
+    /*margin-right: 5px;*/
+    margin: 5px;
+}
+
+.glass{
+    margin: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border:1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass2{
+    backdrop-filter: blur(50px);
+}
+
+.popup{
+    margin-right: 150px;
+    margin-left: 150px;
+    /*align-content: center;*/
+    /*align-items: center;*/
+    /*text-align: center;*/
+}
+
+.popupInside{
+    background-color: #00454f;
+}
+
+.callimage{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+}
+
+.image-top {
+    position: relative;
+    overflow: hidden;
+}
+
+.hidden{
+    display: none;
+}
+
+.popupdecline:hover{
+    background-color: darkred;
+}
+
+@media (min-width:1200px) {
+    .col-lg-4 {
+        flex: 0 0 auto;
+        width: 20%
+    }
+    .popup{
+        width: 25%;
+        margin-left: 35rem;
+    }
+}
+
+@media (max-width:992px) {
+    .col-lg-4 {
+        flex: 0 0 auto;
+        width: 25%
+    }
+    .popup{
+        width: 48%;
+    }
+}
+
+@media (max-width:768px) {
+    .col-lg-4 {
+        flex: 0 0 auto;
+        width: 33.33333333%
+    }
+    .popup{
+        width: 51%;
+    }
+}
+
+@media (max-width:576px) {
+    .col-lg-4 {
+        flex: 0 0 auto;
+        width: 25%
+    }
+
+    .btntype2{
+        margin-right: 20px;
+    }
+    .popup{
+        width: 70%;
+    }
+}
+
+@media (max-width:360px) {
+    .col-lg-4 {
+        flex: 0 0 auto;
+        width: 50%
+    }
+    .btntype2{
+        margin-right: 20px;
+    }
+}
+
+@media (min-width:576px){
+
+}

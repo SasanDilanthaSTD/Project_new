@@ -1,0 +1,109 @@
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: rgb(0,115,139);
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgb(0,115,139), rgb(0,38,44));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgb(0,115,139), rgb(0,38,44))
+}
+.doctrbtn{
+    border-radius: 0.5rem;
+    font-size: 15px;
+    font-weight: bold;
+    color: #00454f;
+    border: none;
+}
+.doctrbtn:hover{
+    background-color: #004b5b !important;
+}
+
+
+
+
+/*calling button start*/
+body,
+html {
+    height: 100%;
+}
+.main {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    color: #111e6c;
+    /* Try using a background image
+    background: url('images/frontPageBackground.jpg');*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: all 1s ease;
+    padding-top: 70px;
+}
+.main:before {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    /*background: #111e6c;*/
+    opacity: 0.2;
+    filter: alpha(opacity=90);
+}
+.main-text {
+    top: 20%;
+    left: auto;
+    right: auto;
+    position: relative;
+    color: rgba(53, 53, 53, 0.85);
+}
+.btn-circle,
+#to-top {
+    border-radius: 50%;
+    background: #495057;
+    padding: 6px;
+    font-size: 14px;
+    /* border-radius: 50%; */
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.c2a-btn {
+    margin: 48px auto 0;
+    margin: 4.8rem auto 0;
+}
+
+.btn-default {
+    color: #fff;
+    background-color: #111e6c;
+    border-color: #495057;
+    transition: all 1s ease;
+}
+
+.btn-group-lg > .btn,
+.btn-lg {
+    padding: 18px 28px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 50px;
+}
+
+.btn-group .btn-or {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    box-shadow: 0;
+    border: 2px solid #fff;
+}
+/*calling button end*/
