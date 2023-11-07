@@ -14,6 +14,8 @@ $massage = new \MyApp\MassageCncpt();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akronim&amp;display=swap">
     <link rel="stylesheet" href="assets/css/register.css">
+
+    <?php include_once ('assets/css/set_footer.php');?>
 </head>
 
 <body style="background: url(assets/img/plants-2560x1439.png) center / cover no-repeat;">
@@ -36,7 +38,7 @@ if (isset($_GET["error"])) {
     }
 }
 ?>
-<div style="padding-top: 50px;">
+<div style="padding-top: 50px;" class="content">
     <div class="row d-flex d-xl-flex justify-content-center justify-content-xl-center"
          style="margin-right: 0px;margin-left: 0px;padding-bottom: 50px;padding-left: 20px;padding-right: 20px;margin-top: 0px;padding-top: 0px;">
         <div class="col-sm-12 col-lg-10 col-xl-9 col-xxl-7 reg" style="border-radius: 9px;background: #ffffffb0;">
@@ -48,18 +50,22 @@ if (isset($_GET["error"])) {
                 </div><!-- Start: Register Form -->
                 <form class="user" action="process/signupProcess.php" method="post" enctype="multipart/form-data"><!-- Start: Names -->
                     <div class="row mb-3">
-                        <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text"
-                                                                  name="fname" placeholder="First Name" required=""
-                                                                  style="background: #ababab;"></div>
-                        <div class="col-sm-6"><input class="form-control form-control-user" type="text" name="lname"
-                                                     placeholder="Last Name" required="" style="background: #ababab;">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input class="form-control form-control-user" type="text" name="fname" placeholder="First Name" required="" style="background: #ababab;">
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="form-control form-control-user" type="text" name="lname" placeholder="Last Name" required="" style="background: #ababab;">
                         </div>
                     </div><!-- End: Names --><!-- Start: Username -->
-                    <div class="mb-3"><input class="form-control form-control-user" type="text" name="uname"
-                                             placeholder="Username" required="" style="background: #ababab;"></div>
+                    <div class="mb-3">
+                        <span id="check_username"></span>
+                        <input class="form-control form-control-user" type="text" id="userName" name="uname" placeholder="Username" oninput="checkUsername()" required="" style="background: #ababab;">
+                    </div>
                     <!-- End: Username --><!-- Start: Email -->
-                    <div class="mb-3"><input class="form-control form-control-user" type="email" id="email" name="email"
-                                             placeholder="Email Address" required="" style="background: #ababab;"></div>
+                    <div class="mb-3">
+                        <span id="check_mail"></span>
+                        <input class="form-control form-control-user" type="email" id="email" name="email" placeholder="Email Address" oninput="checkMail()" required="" style="background: #ababab;">
+                    </div>
                     <!-- End: Email --><!-- Start: Password -->
                     <div class="row mb-3">
                         <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" name="pw"
@@ -132,8 +138,9 @@ if (isset($_GET["error"])) {
 
 
                     </div>
-                    <button class="btn btn-primary d-block btn-user w-100 reg-btn" id="submitBtn" name="submit"
-                            type="submit" style="border-style: none;"><strong>Register Account</strong></button>
+                    <button class="btn btn-primary d-block btn-user w-100 reg-btn" id="submitBtn" name="submit" type="submit" style="border-style: none;">
+                        <strong>Register Account</strong>
+                    </button>
                 </form><!-- End: Register Form --><!-- Start: Forgot Password -->
                 <div class="text-center"></div><!-- End: Forgot Password -->
                 <div style="text-align: center;">Already have an account?<a class="forgot-password" href="login.php" style="font-size: 14px;text-decoration: none"><span
@@ -183,6 +190,7 @@ if (isset($_GET["error"])) {
     </footer><!-- End: Footer Basic -->
 </div><!-- End: footer -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<?php include_once "AJAX/check_username_already_exists.php"?>
 </body>
 
 </html>

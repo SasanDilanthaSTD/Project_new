@@ -36,6 +36,9 @@ $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stick+No+Bills&amp;display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/counselors.css">
+
+    <?php include_once ('assets/css/set_footer.php');?>
+
 </head>
 <body style="background: url(assets/img/aboutusbackground.jpg), rgba(0,0,0,0);background-size: cover, auto;">
 <!-- Start: nav bar -->
@@ -63,8 +66,7 @@ $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
 
 
 
-<div class="counselorheader"
-">
+<div class="counselorheader content">
 <h1 style="
     padding-top: 20px;
     padding-bottom: 20px;

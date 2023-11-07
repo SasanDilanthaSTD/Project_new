@@ -64,6 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akronim&amp;display=swap">
     <link rel="stylesheet" href="assets/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+    <?php include_once ('assets/css/set_footer.php');?>
 </head>
 
 <body style="background: url(assets/img/plants-2560x1439.png) right / cover no-repeat, rgb(63,70,79);">
@@ -99,7 +101,7 @@ if (isset($_GET["msg"])) {
 //$massage->setErrorMassage("<hr>$error<hr>");
 ?>
 <!-- Start: form -->
-<div style="padding-top: 50px;"><!-- Start: Google Style Login -->
+<div style="padding-top: 50px;" class="content"><!-- Start: Google Style Login -->
     <div class="login-card" style="background: #ffffffb0;margin-top: 0px;margin-bottom: 50px;border-radius: 13px;">
         <div style="text-align: center;"><img src="assets/img/logo.png" style="width: 200px;"></div>
         <p class="profile-name-card"></p>
