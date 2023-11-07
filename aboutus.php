@@ -31,6 +31,8 @@ if (!$userObj->isLoggedIn()) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stick+No+Bills&amp;display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/aboutus.css">
+
+    <?php include_once ('assets/css/set_footer.php');?>
 </head>
 <body style="background: rgb(184,241,255);"><!-- Start: nav bar -->
 <div><!-- Start: Navbar Right Links -->
@@ -50,7 +52,7 @@ if (!$userObj->isLoggedIn()) {
             </div>
         </div>
     </nav><!-- End: Navbar Right Links --></div><!-- End: nav bar --><!-- Start: DA_About -->
-<div class="d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center highlight-blue"
+<div class="content d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center highlight-blue"
      id="About"
      style="height: 500px;background: url(assets/img/aboutusbackground.jpg), rgba(0,0,0,0);background-size: cover, auto;">
     <div class="container"><!-- Start: Intro -->

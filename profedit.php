@@ -67,6 +67,8 @@ if (!$userObj->isLoggedIn()) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/profedit.css"/>
 
+    <?php include_once ("assets/css/set_footer.php");?>
+
 </head>
 <body style="background: url(assets/img/profileeditbg2.webp) right / cover no-repeat fixed, rgb(63,70,79);">
 <!-- Start: nav bar -->
@@ -92,69 +94,72 @@ if (isset($_GET["msg"])) {
     }
 }
 ?>
+<div class="content">
 <form action="process/editProfile.php" method="post" enctype="multipart/form-data">
-<div class="container profile profile-view" id="profile" style="padding-top: 0px; padding-bottom: 40px">
-    <div class="row profile-row">
 
-        <div class="col-md-4 relative">
-                <div class="avatar" style="background-color: transparent">
-                    <div class="center" style="background: transparent; margin-bottom: 23px">
-                        <img src="<?php echo $userdata->profile_photo; ?>" alt=""
-                             style="width: 230px; border-radius: 1rem">
-                    </div>
-                </div>
-                <input class="form-control form-control" type="file" name="image" accept="image/*"/>
-            <p style="text-align: center">(<string style="color: #a91414">JPG, JPEG, PNG, HEIC </string> files are only allowed.)</p>
-        </div>
-        <div class="col-md-8">
-            <h1 style="color: #013138">Edit Your Profile</h1>
-            <hr style="color: white"/>
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group mb-3">
-                        <label class="form-label" style="color: white">Firstname </label>
-                        <input class="form-control" type="text" name="firstname" value="<?php echo $userdata->firstname; ?>"/>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group mb-3">
-                        <label class="form-label" style="color: white">Lastname </label>
-                        <input class="form-control" type="text" name="lastname" value="<?php echo $userdata->lastname; ?>"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group mb-3">
-                        <label class="form-label" style="color: white">Username</label>
-                        <input class="form-control" type="text" name="username" value="<?php echo $userdata->username; ?>"/>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group mb-3">
-                        <label class="form-label" style="color: white">Email</label>
-                        <input class="form-control" type="email" name="email" value="<?php echo $userdata->email; ?>"/>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group mb-3">
-                <label class="form-label" style="color: white">Change Password </label>
-                <input class="form-control" type="password" name="password"/>
-            </div>
-        </div>
-<!--        <input type="submit" name="submit" value="submit">-->
+        <div class="container profile profile-view" id="profile" style="padding-top: 0px; padding-bottom: 40px">
+            <div class="row profile-row">
 
-        <hr style="color: white"/>
-        <div class="row">
-            <div class="col-md-12 content-right">
-                <button class="btn btn-primary form-btn loginbtn" data-bss-hover-animate="pulse" type="submit" style="border-style: none" name="save">
-                    SAVE
-                </button>
+                <div class="col-md-4 relative">
+                    <div class="avatar" style="background-color: transparent">
+                        <div class="center" style="background: transparent; margin-bottom: 23px">
+                            <img src="<?php echo $userdata->profile_photo; ?>" alt=""
+                                 style="width: 230px; border-radius: 1rem">
+                        </div>
+                    </div>
+                    <input class="form-control form-control" type="file" name="image" accept="image/*"/>
+                    <p style="text-align: center">(<string style="color: #a91414">JPG, JPEG, PNG, HEIC </string> files are only allowed.)</p>
+                </div>
+                <div class="col-md-8">
+                    <h1 style="color: #013138">Edit Your Profile</h1>
+                    <hr style="color: white"/>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group mb-3">
+                                <label class="form-label" style="color: white">Firstname </label>
+                                <input class="form-control" type="text" name="firstname" value="<?php echo $userdata->firstname; ?>"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group mb-3">
+                                <label class="form-label" style="color: white">Lastname </label>
+                                <input class="form-control" type="text" name="lastname" value="<?php echo $userdata->lastname; ?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group mb-3">
+                                <label class="form-label" style="color: white">Username</label>
+                                <input class="form-control" type="text" name="username" value="<?php echo $userdata->username; ?>"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group mb-3">
+                                <label class="form-label" style="color: white">Email</label>
+                                <input class="form-control" type="email" name="email" value="<?php echo $userdata->email; ?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" style="color: white">Change Password </label>
+                        <input class="form-control" type="password" name="password"/>
+                    </div>
+                </div>
+                <!--        <input type="submit" name="submit" value="submit">-->
+
+                <hr style="color: white"/>
+                <div class="row">
+                    <div class="col-md-12 content-right">
+                        <button class="btn btn-primary form-btn loginbtn" data-bss-hover-animate="pulse" type="submit" style="border-style: none" name="save">
+                            SAVE
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
-</form>
 
 <!--</div>-->
 <!-- End: Profile Edit Form --><!-- Start: footer -->

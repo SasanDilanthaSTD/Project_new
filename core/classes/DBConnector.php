@@ -6,8 +6,8 @@ use PDOException;
 class DBConnector{
     private static $host = "localhost";
     private static $db_name = "mhs";
-    private static $db_user = "testuser";
-    private static $db_password = "testuser";
+    private static $db_user = "root";
+    private static $db_password = "";
 
     public static function getConnection(){
         $dsn = "mysql:host=".self::$host.";dbname=".self::$db_name;
@@ -20,4 +20,4 @@ class DBConnector{
     }
 }
 
-?>
+

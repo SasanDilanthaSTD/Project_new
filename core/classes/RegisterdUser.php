@@ -17,7 +17,11 @@ class RegisterdUser extends User{
         $pstmt->bindValue(5, $password);
         $pstmt->bindValue(6, $email);
         $pstmt->bindValue(7, $userID);
-        $pstmt->execute();
+        try {
+            $pstmt->execute();
+        }catch (\PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
 
         if ($pstmt->rowCount() > 0) {
             return true;
