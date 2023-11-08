@@ -3,8 +3,10 @@ require 'core/init.php';
 require 'core/classes/Counselor.php';
 
 if (!$userObj->isLoggedIn()) {
+    $set_btnLog = true;
     $link = "login.php";
 }else{
+    $set_btnLog = false;
     $possition1 = $userObj->newPosition();
     if ($possition1 == "patient") {
         $link = "userprofile.php";
@@ -55,7 +57,11 @@ if (!$userObj->isLoggedIn()) {
                     <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact Us</strong></a></li>
                 </ul>
-                <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a>
+                <?php if($set_btnLog){ ?>
+                    <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a>
+                <?php }else{ ?>
+                    <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Profile</strong></a>
+                <?php }?>
             </div>
         </div>
     </nav>

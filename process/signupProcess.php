@@ -81,10 +81,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if(isset($_GET['key'])){
         $key = $_GET['key'];
 
-        echo "befor verify ".$key;
         if ($userObj->user_verify($key)){
             echo "\n". $key;
-            //header("Location: ../login.php");
+            header("Location: ../login.php?msg=1");
         }
     }
 }
