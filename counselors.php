@@ -14,7 +14,7 @@ if (!$userObj->isLoggedIn()) {
     }elseif ($possition1 == "counselor") {
         $link = "counselorprofile.php";
     }
-    $link2 = "http://localhost/MHS_Project/chatprofile.php?uname=";
+    $link2 = "http://localhost/Project_new/chatprofile.php?uname=";
 }
 $counselorObj = new \MyApp\Counselor();
 $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
