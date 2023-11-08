@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         //login the user
                         $_SESSION["userID"] = $user->user_id;
                         $possition = substr($user->user_id, 0, 3);
+
                         if ($possition == "PAT") {
                             $_SESSION["position"] = "patient";
                             $userObj->redirect('userprofile.php');

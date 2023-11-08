@@ -127,7 +127,7 @@ if (isset($_GET["msg"])) {
                 <div class="col-sm-12 col-md-6">
                     <div class="form-group mb-3">
                         <label class="form-label" style="color: white">Username</label>
-                        <input class="form-control" type="text" name="username" value="<?php echo $userdata->username; ?>"/>
+                        <input class="form-control" type="text" name="username" value="<?php echo $userdata->username; ?>" readonly/>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6">

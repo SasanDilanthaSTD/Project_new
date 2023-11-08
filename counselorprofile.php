@@ -7,6 +7,7 @@ $massage = new \MyApp\MassageCncpt();
 if (!$userObj->isLoggedIn()) {
     $userObj->redirect('login.php');
 }
+$userObj->updateStatus("online");
 $user = $userObj->userData();
 
 ?>
@@ -213,7 +214,7 @@ if (isset($_GET["msg"])) {
                         <h3 style="color: #00738b; font-weight: bold;padding-bottom: 0px" >Connect with<span style="color: #abc7cb"> Patie</span><span style="color: #1a97ad"></span>nt</h3>
                         <h5 style="color: rgba(53,53,53,0.85); padding-bottom: 10px" >via</h5>
                         <div class="btn-group btn-group-lg" role="group" aria-label="Call to action">
-                            <a type="button" class="btn btn-default btn-lg" href="#" style="font-weight: bold">MHS Chat</a>
+                            <a type="button" class="btn btn-default btn-lg" href="chathome.php" style="font-weight: bold">MHS Chat</a>
 <!--                            <span class="btn-circle btn-or">or</span>-->
 <!--                            <a type="button" class="btn btn-default btn-lg" href="videohome.php" style="font-weight: bold">Video Chat</a>-->
                         </div>

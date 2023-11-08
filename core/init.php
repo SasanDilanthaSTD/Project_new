@@ -10,6 +10,6 @@ require 'classes/User.php';
 
 $userObj = new \MyApp\User();
 
-define('BASE_URL','http://localhost/Project_new/');
+define('BASE_URL','http://localhost/MHS_Project/');
 
 ?>

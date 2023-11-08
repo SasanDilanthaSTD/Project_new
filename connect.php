@@ -10,7 +10,7 @@ $userObj->updateSession();
 if (isset($_GET['username']) && !empty($_GET['username'])) {
     $profileData = $userObj->getUserByUsername($_GET['username']);
     $user = $userObj->userData();
-    $user2 = $userObj->getuser();
+//    $user2 = $userObj->getuser();
 //    var_dump($userObj->getUserBySession($user->sessionID));
     if (!$profileData) {
         $userObj->redirect('videohome.php');
@@ -23,8 +23,10 @@ if (isset($_GET['username']) && !empty($_GET['username'])) {
 $possition1 = $userObj->newPosition();
 if ($possition1 == "patient") {
     $link = "userprofile.php";
+    $user2 = $userObj->getDoctors();
 } elseif ($possition1 == "doctor") {
     $link = "doctorprofile.php";
+    $user2 = $userObj->getPatients();
 }
 //var_dump($profileData);
 ?>
@@ -79,12 +81,12 @@ if ($possition1 == "patient") {
 
 <!--alert popup-->
 <!--call popup-->
-<div id="callBox" class="hidden z-10 transition absolute w-full h-full flex item-center justify-center popup " style="background-color: transparent">
-    <div class="pop-up flex justify-between w-96 bg-white rounded overflow-hidden " style="background-color: transparent">
+<div id="callBox" class="hidden z-10 transition absolute w-full h-full flex item-center justify-center popup ">
+    <div class="pop-up flex justify-between w-96 bg-white rounded overflow-hidden ">
         <div class="row popupInside greenrowborder" style="margin-top: 15px" >
             <div class="col d-flex flex-nowrap py-2 overflow-hidden">
                 <img id="profileImage" class="w-full  callimage" src="<?php echo BASE_URL . $profileData->profile_photo; ?>">
-                <h5 id="username" class="mr-auto my-auto" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $profileData->firstname; ?><span style="color: white;font-size: 10px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></h5>
+                <h5 id="username" class="mr-auto my-auto" style="color: white">&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $profileData->firstname." ".$profileData->lastname; ?><span style="color: white;font-size: 10px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></h5>
 
                 <button id="declineBtn" class="popupdecline" style="background-color: red;color: white;border-radius: 50%;width: 46px;height: 46px"><i class="fas fa-times-circle" style="font-size: 20px"></i></button>
                 <button id="answerBtn" style="background-color: white;color: #00454f;border-radius: 50%;width: 46px;height: 46px"><i class="fas fa-phone"></i></button>
@@ -171,7 +173,7 @@ if ($possition1 == "patient") {
                         </div>
                         <div class="row">
                             <div class="col">
-                                <h1 style="margin-bottom: 10px;"><?php echo $profileData->firstname . " " .$profileData->lastname; ?></h1>
+                                <h1 style="margin-bottom: 10px;"><?php echo $profileData->firstname . " " .$profileData->lastname; ?><span style="font-size: 13px">(<?php echo $profileData->status;?>)</span></h1>
                                 <!-- Start: Video call request -->
                                 <div class="row px-3 py-2 greenrowborder"
                                      style="background: rgb(0,69,79);margin-top: 74.5px;color: var(--bs-body-bg);">

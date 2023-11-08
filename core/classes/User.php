@@ -410,5 +410,46 @@ class User{
             echo 'Please check again';
         }
     }
+    public function updateStatus($status){
+        $dbcon = DBConnector::getConnection();
+
+        $query = "UPDATE user SET status = ? WHERE user_id = ?";
+        $pstmt = $dbcon->prepare($query);
+        $pstmt->bindValue(1,$status);
+        $pstmt->bindValue(2, $this->userID);
+        $pstmt->execute();
+        if ($pstmt->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function getDoctors(){
+        $con = DBConnector::getConnection();
+
+        $query = "SELECT * FROM user WHERE user_id LIKE 'DOC%';";
+        $pstmt = $con->prepare($query);
+        $pstmt->execute();
+        $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
+        return $rs;
+    }
+    public function getPatients(){
+        $con = DBConnector::getConnection();
+
+        $query = "SELECT * FROM user WHERE user_id LIKE 'PAT%';";
+        $pstmt = $con->prepare($query);
+        $pstmt->execute();
+        $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
+        return $rs;
+    }
+    public function getDoctorsAndCounselors(){
+        $con = DBConnector::getConnection();
+
+        $query = "SELECT * FROM user WHERE user_id LIKE 'DOC%' OR user_id LIKE 'COU%';";
+        $pstmt = $con->prepare($query);
+        $pstmt->execute();
+        $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
+        return $rs;
+    }
 
 }

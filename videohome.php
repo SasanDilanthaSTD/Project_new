@@ -5,13 +5,15 @@ if (!$userObj->isLoggedIn()) {
     $userObj->redirect('login.php');
 }
 $user = $userObj->userData();
-$user2 = $userObj->getuser();
+//$user2 = $userObj->getuser();
 
 $possition1 = $userObj->newPosition();
 if ($possition1 == "patient") {
     $link = "userprofile.php";
+    $user2 = $userObj->getDoctors();
 } elseif ($possition1 == "doctor") {
     $link = "doctorprofile.php";
+    $user2 = $userObj->getPatients();
 }
 ?>
 

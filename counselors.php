@@ -4,6 +4,7 @@ require 'core/classes/Counselor.php';
 
 if (!$userObj->isLoggedIn()) {
     $link = "login.php";
+    $link2 = "login.php";
 }else{
     $possition1 = $userObj->newPosition();
     if ($possition1 == "patient") {
@@ -13,10 +14,10 @@ if (!$userObj->isLoggedIn()) {
     }elseif ($possition1 == "counselor") {
         $link = "counselorprofile.php";
     }
-
-    $counselorObj = new \MyApp\Counselor();
-    $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
+    $link2 = "http://localhost/MHS_Project/chatprofile.php?uname=";
 }
+$counselorObj = new \MyApp\Counselor();
+$approvedCounselors = $counselorObj->getApprovedCounselorDetails();
 
 ?>
 <!DOCTYPE html>
@@ -99,7 +100,7 @@ if (!$userObj->isLoggedIn()) {
                                 class="float-end price-hp"><?php echo $approvedCounselor->firstname . " " . $approvedCounselor->lastname;?></span></div>
                         <hr><h5 class="card-title text-center"><?php echo $approvedCounselor->description;?></h5>
                         <hr>
-                        <div class="text-center my-4"><a href="#" class="btn btn-warning">Send a Message</a></div>
+                        <div class="text-center my-4"><a href="<?php echo $link2.$approvedCounselor->username;?>" class="btn btn-warning">Send a Message</a></div>
                     </div>
                 </div>
             </div>
