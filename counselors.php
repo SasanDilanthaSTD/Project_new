@@ -14,7 +14,7 @@ if (!$userObj->isLoggedIn()) {
     }elseif ($possition1 == "counselor") {
         $link = "counselorprofile.php";
     }
-    $link2 = "http://localhost/Project_new/chatprofile.php?uname=";
+//    $link2 = "http://localhost/Project_new/chatprofile.php?uname=";
 }
 $counselorObj = new \MyApp\Counselor();
 $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
@@ -88,7 +88,7 @@ $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
         <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
             <?php
             foreach ($approvedCounselors as $approvedCounselor) {
-
+                $link2 = "chatprofile.php?uname=".$approvedCounselor->username;
             ?>
             <div class="col">
                 <div class="card h-100 shadow-sm"><img
@@ -100,7 +100,7 @@ $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
                                 class="float-end price-hp"><?php echo $approvedCounselor->firstname . " " . $approvedCounselor->lastname;?></span></div>
                         <hr><h5 class="card-title text-center"><?php echo $approvedCounselor->description;?></h5>
                         <hr>
-                        <div class="text-center my-4"><a href="<?php echo $link2.$approvedCounselor->username;?>" class="btn btn-warning">Send a Message</a></div>
+                        <div class="text-center my-4"><a href="<?php echo $link2;?>" class="btn btn-warning">Send a Message</a></div>
                     </div>
                 </div>
             </div>
