@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $error = "Please use valid email";
             } else {
                 if ($user = $userObj->emailExists($email)) {
-                    if (password_verify($password, $user->password)) {
+                    if (password_verify($password, $user->password) && $user->verify_key == "verified") {
                         //user logged in
                         session_regenerate_id();
                         //login the user

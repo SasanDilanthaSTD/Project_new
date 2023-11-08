@@ -1,10 +1,57 @@
+<?php
+require_once "core/classes/DBConnector.php";
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+    if (isset($_GET['k'])){
+        $name = $_GET['k'];
+        $pdf_name = $name.".pdf";
+    }
+}elseif ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    if (isset($_POST['btnAccept'])){
+        $id = $_POST['id'];
+        $role = substr($id, 0,3);
+        $table = ($role == "DOC") ? "doctor" : "counselor";
+        $con = \MyApp\DBConnector::getConnection();
+        $sql = "UPDATE therapist SET approval = 'approved' WHERE therapist_id = (SELECT therapist_id FROM $table WHERE user_id = ?)";
+        $stmt = $con->prepare($sql);
+        $stmt->bindValue(1,$id);
+        try {
+            $stmt->execute();
+            if ($stmt->rowCount() >0){
+                header("Location: admin_page.php?msg=accept");
+            }
+        }catch (PDOException $ex){
+            echo "Error" . $ex->getMessage();
+        }
+
+    }elseif (isset($_POST['btnReject'])){
+        $id = $_POST['id'];
+        $role = substr($id, 0,3);
+        $table = ($role == "DOC") ? "doctor" : "counselor";
+        $con = \MyApp\DBConnector::getConnection();
+        $sql = "UPDATE therapist SET approval = 'reject' WHERE therapist_id = (SELECT therapist_id FROM $table WHERE user_id = ?)";
+        $stmt = $con->prepare($sql);
+        $stmt->bindValue(1,$id);
+        try {
+            $stmt->execute();
+            if ($stmt->rowCount() >0){
+                header("Location: admin_page.php?msg=reject");
+            }
+        }catch (PDOException $ex){
+            echo "Error" . $ex->getMessage();
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>email verify</title>
+    <title>PDF View</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aclonica&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor&amp;display=swap">
@@ -32,20 +79,16 @@
     <!-- Start: 2 Rows 1+1 Columns -->
     <div class="container ">
         <div class="row">
-            <div class="col-md-12" style="background: rgba(255,255,255,0.58);padding-top: 0px;">
-                <div style="padding-left: 0px;text-align: center;padding-top: 0px;margin-bottom: 50px;margin-top: 21px;">
-                    <h1 style="margin-bottom: 0px;font-size: 47.52px;"><strong><span style="color: rgb(0, 115, 139);">THANK
-                  YOU</span></strong></h1>
-                    <h6 style="font-size: 22px;"><strong><span style="color: rgb(0, 115, 139);">for register to our
-                  Service</span></strong></h6>
-                    <p style="margin-top: 63px;margin-bottom: 10px;">To verify your Email, Click the button below.</p>
-                    <div><button class="btn btn-primary gotoemailbtn" type="button" style="border-style: none;">Go to the
-                            Email</button></div>
-                </div>
-                <div></div>
-            </div>
+            <iframe src="assets/cv/<?php echo $pdf_name;?>" width="300" height="600"></iframe>
         </div>
         <div class="row">
+            <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+            <div>
+                <input type="hidden" name="id" value="<?php echo $name; ?>">
+                <button class="btn btn-primary gotoemailbtn m-3" type="submit" name="btnAccept" style="border-style: none;" onclick="alert('Are you sure accept this ?')">Accept</button>
+                <button class="btn btn-danger gotoemailbtn m-3" style="background-color: #701010 !important;" type="submit" name="btnReject" style="border-style: none;" onclick="alert('Are you sure reject this ?')">Reject</button>
+            </div>
+            </form>
             <div class="col-md-12" style="background: rgba(255,255,255,0.58);"><!-- Start: Intro -->
                 <div class="intro">
                     <div style="text-align: center;"><img src="assets/img/logo.png"

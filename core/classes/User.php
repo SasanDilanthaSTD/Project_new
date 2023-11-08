@@ -466,7 +466,7 @@ class User{
             $pstmt->execute();
             if($pstmt->rowCount() > 0){
                 $rs = $pstmt->fetch(\PDO::FETCH_OBJ);
-                $sql_update = "UPDATE user SET verify_key = 'verified' WHERE id = ?";
+                $sql_update = "UPDATE user SET verify_key = 'verified' WHERE user_id = ?";
                 $update = $dbcon->prepare($sql_update);
                 $update->bindValue(1, $rs->user_id);
                 try {
