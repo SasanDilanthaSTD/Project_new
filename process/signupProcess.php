@@ -80,9 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }elseif ($_SERVER["REQUEST_METHOD"] === "GET"){
     if(isset($_GET['key'])){
         $key = $_GET['key'];
-
         if ($userObj->user_verify($key)){
-            echo "\n". $key;
             header("Location: ../login.php?msg=1");
         }
     }

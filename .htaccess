@@ -4,3 +4,5 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^([a-zA-Z0-9]+)/?$ connect.php?username=$1
+
+ErrorDocument 404 http://localhost/Project_new/404.php

@@ -34,6 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         } elseif ($possition == "COU") {
                             $_SESSION["position"] = "counselor";
                             $userObj->redirect('counselorprofile.php');
+                        }elseif ($possition == "ADM"){
+                            $_SESSION["position"] = "admin";
+                            $userObj->redirect('admin_page.php');
                         }
                         //redirect user
 //                        $userObj->redirect('videohome.php');

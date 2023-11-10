@@ -1,14 +1,24 @@
 <?php
-require 'core/init.php';
+require_once 'core/init.php';
+require_once 'core/classes/MassageCncpt.php';
+
+
+require_once "core/classes/Admin.php";
+use MyApp\Admin;
+
+$massage = new \MyApp\MassageCncpt();
+
+if (!$userObj->isLoggedIn()) {
+    $userObj->redirect('login.php');
+}
+//$userObj->updateStatus("online");
 $user = $userObj->userData();
+$admin_id = $userObj->ID();
 
-require_once "core/classes/DBConnector.php";
-$con = \MyApp\DBConnector::getConnection();
 
-$sql_table = 'SELECT DISTINCT user.user_id, user.firstname, user.lastname, user.profile_photo, therapist.description, therapist.approval FROM user, therapist, counselor, doctor WHERE (therapist.therapist_id = doctor.therapist_id AND user.user_id = doctor.user_id AND therapist.approval = "pending") OR (therapist.therapist_id = counselor.therapist_id AND user.user_id = counselor.user_id AND therapist.approval = "pending")';
-$pstmt = $con->prepare($sql_table);
-$pstmt->execute();
-$rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
+
+$admin = new Admin();
+$rs = $admin->get_pending_applications();
 
 ?>
 <!doctype html>
@@ -74,15 +84,15 @@ $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
         <!-- Right elements -->
         <ul class="navbar-nav flex-row me-5">
             <li class="nav-item me-3 me-lg-1">
-                <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+                <a class="nav-link d-sm-flex align-items-sm-center">
                     <img
-                            src="assets/img/defaultImage.png"
+                            src="<?php echo $user->profile_photo;?>"
                             class="rounded-circle"
                             height="22"
-                            alt="Black and White Portrait of a Man"
+                            alt="Admin"
                             loading="lazy"
                     />
-                    <strong class="d-none d-sm-block ms-1">John</strong>
+                    <strong class="d-none d-sm-block ms-1"><?php echo $user->firstname." ".$user->lastname;?></strong>
 
                 </a>
             </li>
@@ -174,7 +184,7 @@ $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
                         <a class="dropdown-item" href="#">Another news</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="process/logout.php"> <i class="fa fa-sign-out me-3"></i>Logout</a>
                     </li>
                 </ul>
             </li>
@@ -203,8 +213,7 @@ $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
                             <p class="text-muted mb-2">Page views</p>
                             <p class="mb-0">
                                 <span class="h5 me-2">51 345</span>
-                                <small class="text-danger text-sm"><i
-                                            class="fas fa-arrow-down fasm me-1"></i>23.58%</small>
+                                <small class="text-danger text-sm"><i class="fas fa-arrow-down fasm me-1"></i>23.58%</small>
                             </p>
                         </div>
                     </a>
@@ -221,9 +230,13 @@ $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
                         <div class="ms-4">
                             <p class="text-muted mb-2">Doctors | Councillor</p>
                             <p class="mb-0">
-                                <span class="h5 me-2">124</span>
-                                <small class="text-success text-sm"><i
-                                            class="fas fa-arrow-up fasm me-1"></i>23.58%</small>
+                                <span class="h5 me-2"><span id="countT"></span></span>
+                                <small class="text-warning text-sm">
+                                    <!--<i class="fa-solid fa-user-doctor"></i>-->
+                                    <i class="fa-solid fa-user-doctor fasm me-1"></i><span id="countD"></span> |
+                                    <!--<i class="fa-solid fa-user-nurse"></i>-->
+                                    <i class="fa-solid fa-user-nurse fasm me-1"></i><span id="countC"></span>
+                                </small>
                             </p>
                         </div>
                     </a>
@@ -250,18 +263,23 @@ $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                     <!-- CARD -->
-                    <a href="#"
+                    <a href="add_video.php"
                        class="bg-glass d-flex align-items-center p-4 shadow-4-strong rounded-6 text-reset ripple"
                        data-ripple-color="hsl(0,0%,75%)">
                         <div class="bg-theme p-3 rounded-4">
-                            <i class="fas fa-comments fa-lg text-white fa-fw"></i>
+                            <!--<i class="fas fa-comments fa-lg text-white fa-fw"></i>-->
+                            <i class="fa-solid fa-pen-to-square fa-lg text-white fa-fw"></i>
                         </div>
 
                         <div class="ms-4">
-                            <p class="text-muted mb-2">Messages</p>
+                            <p class="text-muted mb-2">Add New Video</p>
                             <p class="mb-0">
-                                <span class="h5 me-2">51 345</span>
-                                <small class="text-danger text-sm"><i class="fas fa-envelope fasm me-1"></i>23</small>
+                                <span class="h5 me-2"><span id="videoCount"></span></span>
+                                <small class="text-success text-sm" >
+                                    <i class="fa-regular fa-calendar-check me-1"></i>
+                                    <!--<i class="fas fa-envelope fasm me-1"></i>-->
+                                    <span id="newVideo"></span>
+                                </small>
                             </p>
                         </div>
                     </a>
@@ -369,7 +387,7 @@ $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
                 <table class="table text-white align-middle mb-0 table-borderless  ">
                     <thead>
                     <tr class="text-info">
-                        <th scope="col">Name</th>
+                        <th scope="col" class="text-center">Name</th>
                         <th scope="col">Status</th>
                         <th scope="col">Role</th>
                         <th scope="col">Description</th>
@@ -380,6 +398,7 @@ $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
                     <?php
                     if(!empty($rs)){
                     foreach ($rs as $therapist) {
+                        $name = $therapist->firstname . ' ' . $therapist->lastname;
                         ?>
                         <tr class="tb-row">
                             <td>
@@ -388,8 +407,8 @@ $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
                                          style="width: 45px; height: 45px"
                                          class="rounded-circle"/>
                                     <div class="ms-3">
-                                        <p class="fw-bold text-info mb-1"><?php echo $therapist->firstname . ' ' . $user->lastname; ?></p>
-                                        <p class="text-muted mb-0"><?php echo $therapist->email ?></p>
+                                        <p class="fw-bold text-info mb-1"><?php echo  $name ;?></p>
+                                        <p class="text-muted mb-0"><?php echo $therapist->email; ?></p>
                                     </div>
                                 </div>
                             </td>
@@ -430,7 +449,6 @@ $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
 <!--MDB JS-->
 
-
 <!-- Link to Chart.js library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
 <!-- Link to Chart.js library -->
@@ -438,5 +456,7 @@ $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Jquery library-->
 <?php include_once "assets/js/admin_chat_js.php"?>
+<?php include_once "AJAX/admin_js.php"?>
+
 </body>
 </html>

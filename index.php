@@ -16,6 +16,8 @@ if (!$userObj->isLoggedIn()) {
     }elseif ($possition1 == "counselor") {
         header("Location: counselorprofile.php");
         //$link = "counselorprofile.php";
+    }elseif ($possition1 == "admin") {
+        $link = "admin_page.php";
     }
 }
 $resourceLibrarayObj = new \MyApp\ResourceLibrary();

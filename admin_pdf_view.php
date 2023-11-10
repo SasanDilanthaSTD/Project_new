@@ -1,5 +1,13 @@
 <?php
-require_once "core/classes/DBConnector.php";
+require_once 'core/init.php';
+if (!$userObj->isLoggedIn()) {
+    $userObj->redirect('login.php');
+}
+
+use MyApp\Admin;
+
+require_once "core/classes/Admin.php";
+$admin = new Admin();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     if (isset($_GET['k'])){
@@ -11,35 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
         $id = $_POST['id'];
         $role = substr($id, 0,3);
         $table = ($role == "DOC") ? "doctor" : "counselor";
-        $con = \MyApp\DBConnector::getConnection();
-        $sql = "UPDATE therapist SET approval = 'approved' WHERE therapist_id = (SELECT therapist_id FROM $table WHERE user_id = ?)";
-        $stmt = $con->prepare($sql);
-        $stmt->bindValue(1,$id);
-        try {
-            $stmt->execute();
-            if ($stmt->rowCount() >0){
-                header("Location: admin_page.php?msg=accept");
-            }
-        }catch (PDOException $ex){
-            echo "Error" . $ex->getMessage();
-        }
 
+        $admin->accept_therapist($id,$table);
     }elseif (isset($_POST['btnReject'])){
         $id = $_POST['id'];
         $role = substr($id, 0,3);
         $table = ($role == "DOC") ? "doctor" : "counselor";
-        $con = \MyApp\DBConnector::getConnection();
-        $sql = "UPDATE therapist SET approval = 'reject' WHERE therapist_id = (SELECT therapist_id FROM $table WHERE user_id = ?)";
-        $stmt = $con->prepare($sql);
-        $stmt->bindValue(1,$id);
-        try {
-            $stmt->execute();
-            if ($stmt->rowCount() >0){
-                header("Location: admin_page.php?msg=reject");
-            }
-        }catch (PDOException $ex){
-            echo "Error" . $ex->getMessage();
-        }
+
+        $admin->reject_therapist($id,$table);
     }
 }
 
@@ -75,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 <div
         class="content d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center highlight-blue"
         id="About"
-        style="height: 500px;background: url(&quot;/assets/img/aboutusbackground.jpg&quot;), rgba(0,0,0,0);background-size: cover, auto;">
+        style="height: 500px;background: url(&quot;/Project_new/assets/img/aboutusbackground.jpg&quot;), rgba(0,0,0,0);background-size: cover, auto;">
     <!-- Start: 2 Rows 1+1 Columns -->
     <div class="container ">
         <div class="row">
@@ -85,7 +72,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
             <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
             <div>
                 <input type="hidden" name="id" value="<?php echo $name; ?>">
-                <button class="btn btn-primary gotoemailbtn m-3" type="submit" name="btnAccept" style="border-style: none;" onclick="alert('Are you sure accept this ?')">Accept</button>
+                <a href="admin_page.php">
+                    <button class="btn btn-primary gotoemailbtn m-3" type="button" style="border-style: none;"><< BACK</button>
+                </a>
+                <button class="btn btn-success m-3" type="submit" name="btnAccept" style="border-style: none;" onclick="alert('Are you sure accept this ?')">Accept</button>
                 <button class="btn btn-danger gotoemailbtn m-3" style="background-color: #701010 !important;" type="submit" name="btnReject" style="border-style: none;" onclick="alert('Are you sure reject this ?')">Reject</button>
             </div>
             </form>

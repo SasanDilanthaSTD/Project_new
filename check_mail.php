@@ -28,7 +28,7 @@
 <div
         class="content d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center highlight-blue"
         id="About"
-        style="height: 500px;background: url(&quot;/assets/img/aboutusbackground.jpg&quot;), rgba(0,0,0,0);background-size: cover, auto;">
+        style="height: 500px;background: url(&quot;/Project_new/assets/img/aboutusbackground.jpg&quot;), rgba(0,0,0,0);background-size: cover, auto;">
     <!-- Start: 2 Rows 1+1 Columns -->
     <div class="container ">
         <div class="row">

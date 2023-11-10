@@ -3,15 +3,21 @@ require 'core/init.php';
 require 'core/classes/ResourceLibrary.php';
 
 if (!$userObj->isLoggedIn()) {
+    $set_btnLog = true;
     $link = "login.php";
 }else{
+    $set_btnLog = false;
     $possition1 = $userObj->newPosition();
     if ($possition1 == "patient") {
         $link = "userprofile.php";
     } elseif ($possition1 == "doctor") {
-        $link = "doctorprofile.php";
+        header("Location: doctorprofile.php");
+        //$link = "doctorprofile.php";
     }elseif ($possition1 == "counselor") {
-        $link = "counselorprofile.php";
+        header("Location: counselorprofile.php");
+        //$link = "counselorprofile.php";
+    }elseif ($possition1 == "admin") {
+        $link = "admin_page.php";
     }
 }
 $resourceLibrarayObj = new \MyApp\ResourceLibrary();
@@ -58,7 +64,11 @@ $resources = $resourceLibrarayObj->accessResources();
                     <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact Us</strong></a></li>
                 </ul>
-                <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a>
+                <?php if($set_btnLog){ ?>
+                    <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a>
+                <?php }else{ ?>
+                    <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Profile</strong></a>
+                <?php }?>
             </div>
         </div>
     </nav><!-- End: Navbar Right Links -->
