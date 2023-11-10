@@ -509,4 +509,57 @@ class User{
         }
     }
 
+    public function user_verify($key)
+    {
+        $dbcon = DBConnector::getConnection();
+        $sql = "SELECT user_id FROM user WHERE verify_key = ?";
+        $pstmt = $dbcon->prepare($sql);
+        $pstmt->bindValue(1,$key);
+        try{
+            $pstmt->execute();
+            if($pstmt->rowCount() > 0){
+                $rs = $pstmt->fetch(\PDO::FETCH_OBJ);
+                $sql_update = "UPDATE user SET verify_key = 'verified' WHERE user_id = ?";
+                $update = $dbcon->prepare($sql_update);
+                $update->bindValue(1, $rs->user_id);
+                try {
+                    $update->execute();
+                    return ($update->rowCount() > 0) ? true : false ;
+                }catch (PDOException $e){
+                    echo "Error : " . $e->getMessage();
+                }
+            }else{
+                return false;
+            }
+        }catch(PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
+    }
+
+    public  function username_already_exists($username){
+        $dbcon = DBConnector::getConnection();
+        $sql = "SELECT * FROM user WHERE username = ?";
+        $pstmt = $dbcon->prepare($sql);
+        $pstmt->bindValue(1, $username);
+        try {
+            $pstmt->execute();
+            return ($pstmt->rowCount() > 0) ? true : false;
+        }catch (\PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
+    }
+
+    public  function mail_already_exists($mail){
+        $dbcon = DBConnector::getConnection();
+        $sql = "SELECT * FROM user WHERE email = ?";
+        $pstmt = $dbcon->prepare($sql);
+        $pstmt->bindValue(1, $mail);
+        try {
+            $pstmt->execute();
+            return ($pstmt->rowCount() > 0) ? true : false;
+        }catch (\PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
+    }
+
 }
