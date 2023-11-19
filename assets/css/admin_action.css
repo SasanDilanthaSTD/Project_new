@@ -1,0 +1,13 @@
+.addadminbtn:hover {
+    background-color: var(--bs-info-text-emphasis)
+}
+
+.addadminbtn {
+    background-color: #00738b
+}
+
+.btn-check:checked + .btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check) + .btn:active {
+    color: var(--bs-btn-active-color);
+    background-color: var(--bs-dark-text-emphasis);
+    border-color: var(--bs-btn-active-border-color)
+}

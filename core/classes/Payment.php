@@ -36,4 +36,22 @@ class Payment
             echo "Error : " . $ex->getMessage();
         }
     }
+
+    public function insert_payment_data($payment_id, $fee, $description, $user_id, $contact_therapist_id,$treat_therapist_id){
+        $sql = "INSERT INTO payment(payment_id,fee,description,user_id,contact_therapist_id,treat_therapist_id) VALUES (?,?,?,?,?,?)";
+        $pstmt = $this->con->prepare($sql);
+        $pstmt->bindValue(1,$payment_id);
+        $pstmt->bindValue(2,$fee);
+        $pstmt->bindValue(3,$description);
+        $pstmt->bindValue(4,$user_id);
+        $pstmt->bindValue(5,$contact_therapist_id);
+        $pstmt->bindValue(6,$treat_therapist_id);
+
+        try {
+            $pstmt->execute();
+            return ($pstmt->rowCount() > 0) ? true : false;
+        }catch (\PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
+    }
 }

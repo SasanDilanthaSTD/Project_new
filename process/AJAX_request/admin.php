@@ -12,6 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
     if (isset($_REQUEST['video_count'])){
         $arr['video_count'] = $userObj->get_videos_count();
     }
+    if (isset($_REQUEST['patient_count'])){
+        $arr['patient_count'] = $userObj->patient_count();
+    }
 
     // return summury value
     echo json_encode($arr);

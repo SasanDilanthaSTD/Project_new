@@ -75,7 +75,7 @@ $rs = $admin->get_pending_applications();
 
             <li class="nav-item me-3 me-lg-1">
                 <a class="nav-link text-info" href="admin_page.php">
-                    <span><i class="fa fa-quote-left"><strong class="d-none d-sm-block ms-1">welcome to admin panel</strong></i></span>
+                    <span><strong class="d-none d-sm-block ms-1 text-uppercase">welcome to admin panel</strong></span>
                 </a>
             </li>
         </ul>
@@ -95,72 +95,6 @@ $rs = $admin->get_pending_applications();
                     <strong class="d-none d-sm-block ms-1"><?php echo $user->firstname." ".$user->lastname;?></strong>
 
                 </a>
-            </li>
-            <li class="nav-item me-3 me-lg-1">
-                <a class="nav-link" href="#">
-                    <span><i class="fas fa-users fa-lg"></i></span>
-                    <span class="badge rounded-pill badge-notification bg-danger">2</span>
-                </a>
-            </li>
-            <li class="nav-item me-3 me-lg-1">
-                <a class="nav-link" href="#">
-                    <span><i class="fas fa-plus-circle fa-lg"></i></span>
-                </a>
-            </li>
-            <li class="nav-item dropdown me-3 me-lg-1">
-                <a
-                        class="nav-link dropdown-toggle hidden-arrow"
-                        href="#"
-                        id="navbarDropdownMenuLink"
-                        role="button"
-                        data-mdb-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                    <i class="fas fa-comments fa-lg"></i>
-
-                    <span class="badge rounded-pill badge-notification bg-danger">6</span>
-                </a>
-                <ul
-                        class="dropdown-menu dropdown-menu-end"
-                        aria-labelledby="navbarDropdownMenuLink"
-                >
-                    <li>
-                        <a class="dropdown-item" href="#">Some news</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Another news</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown me-3 me-lg-1">
-                <a
-                        class="nav-link dropdown-toggle hidden-arrow"
-                        href="#"
-                        id="navbarDropdownMenuLink"
-                        role="button"
-                        data-mdb-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                    <i class="fas fa-bell fa-lg"></i>
-                    <span class="badge rounded-pill badge-notification bg-danger">12</span>
-                </a>
-                <ul
-                        class="dropdown-menu dropdown-menu-end"
-                        aria-labelledby="navbarDropdownMenuLink"
-                >
-                    <li>
-                        <a class="dropdown-item" href="#">Some news</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Another news</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </li>
-                </ul>
             </li>
             <li class="nav-item dropdown me-3 me-lg-1">
                 <a
@@ -224,6 +158,26 @@ $rs = $admin->get_pending_applications();
                        class="bg-glass d-flex align-items-center p-4 shadow-4-strong rounded-6 text-reset ripple"
                        data-ripple-color="hsl(0,0%,75%)">
                         <div class="bg-theme p-3 rounded-4">
+
+                            <i class="fas fa-wallet fa-lg text-white fa-fw"></i>
+                        </div>
+
+                        <div class="ms-4">
+                            <p class="text-muted mb-2">Registred patients</p>
+                            <p class="mb-0">
+                                <span class="h5 me-2"><span id="pat_T"></span> </span>
+                                <small class="text-success text-sm"><i
+                                            class="fas fa-arrow-up fasm me-1"></i><span id="pat_Tm"></span></small>
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <!-- CARD -->
+                    <a href="admin_action.php"
+                       class="bg-glass d-flex align-items-center p-4 shadow-4-strong rounded-6 text-reset ripple"
+                       data-ripple-color="hsl(0,0%,75%)">
+                        <div class="bg-theme p-3 rounded-4">
                             <i class="fas fa-user-doctor fa-lg text-white fa-fw"></i>
                         </div>
 
@@ -241,26 +195,7 @@ $rs = $admin->get_pending_applications();
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <!-- CARD -->
-                    <a href="#"
-                       class="bg-glass d-flex align-items-center p-4 shadow-4-strong rounded-6 text-reset ripple"
-                       data-ripple-color="hsl(0,0%,75%)">
-                        <div class="bg-theme p-3 rounded-4">
 
-                            <i class="fas fa-wallet fa-lg text-white fa-fw"></i>
-                        </div>
-
-                        <div class="ms-4">
-                            <p class="text-muted mb-2">Earning</p>
-                            <p class="mb-0">
-                                <span class="h5 me-2">$75,200</span>
-                                <small class="text-success text-sm"><i
-                                            class="fas fa-arrow-up fasm me-1"></i>23.58%</small>
-                            </p>
-                        </div>
-                    </a>
-                </div>
                 <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
                     <!-- CARD -->
                     <a href="add_video.php"
@@ -341,7 +276,7 @@ $rs = $admin->get_pending_applications();
                         <div class="p-4 border-bottom">
                             <div class="row align-items-center">
                                 <div class="col-6">
-                                    <p class="text-muted mb-2">Users</p>
+                                    <p class="text-muted mb-2">Therapists</p>
                                     <p class="mb-0">
                                         <span class="h4 me-2">14 567</span>
                                         <small class="text-success text-sm"><i class="fas fa-arrow-up fa-sm me-2"></i>13.45%</small>
@@ -413,7 +348,7 @@ $rs = $admin->get_pending_applications();
                                 </div>
                             </td>
                             <td>
-                                <span class="badge badge-warning d-inline">Pendding</span>
+                                <span class="badge badge-warning d-inline">Pending</span>
                             </td>
                             <td class="text-info">
                                 <?php

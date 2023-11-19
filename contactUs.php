@@ -61,7 +61,7 @@ if (!$userObj->isLoggedIn()) {
                 <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a></div>
         </div>
     </nav><!-- End: Navbar Right Links --></div><!-- End: nav bar --><!-- Start: Contact Details -->
-<section class="position-relative py-4 py-xl-5"
+<section class="position-relative py-4 py-xl-5 content"
          style="background: url(assets/img/aboutusbackground.jpg);background-size: cover;">
     <div class="container position-relative">
         <div class="row mb-5" style="margin-bottom: 19px;padding-bottom: 0px;background: rgba(0,69,79,0.86);">

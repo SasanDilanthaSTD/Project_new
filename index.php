@@ -44,6 +44,7 @@ $resources = $resourceLibrarayObj->accessSixRandomResources();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/home.css">
+    <?php include_once ('assets/css/set_footer.php');?>
 
 </head>
 <body >
@@ -74,7 +75,7 @@ $resources = $resourceLibrarayObj->accessSixRandomResources();
     </nav><!-- End: Navbar Right Links --></div><!-- End: nav bar -->
 <!-- Start: first img -->
 
-<div class="bigdiv"
+<div class="bigdiv "
      style="height: 650px;color: rgb(0,79,95);background: url(assets/img/mental-health-7323725_1280.webp) left / cover no-repeat;padding-bottom: 0px;border-top-style: none;border-right-style: none;border-bottom-style: none;border-left-style: none;">
 
     <!-- Start: caption -->
@@ -159,7 +160,7 @@ $resources = $resourceLibrarayObj->accessSixRandomResources();
 
 <!-- Start: content -->
 <hr style="margin-left: 20px; margin-right: 20px; margin-bottom: 30px;">
-<div class="videobackground" style="background: url(assets/img/indexbg.jpeg) top / cover no-repeat fixed, rgb(63,70,79);">
+<div class="videobackground content" style="background: url(assets/img/indexbg.jpeg) top / cover no-repeat fixed, rgb(63,70,79);">
     <h1 style="@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');text-align: center;font-size: 56.52px;margin-bottom: 8px;padding-top: 20px;margin-top: 8px;color: rgb(253,253,253);text-shadow: 2px 3px 0px rgb(79,115,124);font-weight: bold;">
         <span style="">Relax&nbsp;</span>Yourself
     </h1>

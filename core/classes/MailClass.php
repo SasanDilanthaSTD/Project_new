@@ -112,7 +112,7 @@ class MailClass
         return $msg;
     }
 
-    public function send_mail_verify_key()
+        public function send_mail_verify_key()
     {
         $this->send_mail();
     }

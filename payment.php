@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
             <h3 class="text-center">Payment Details</h3>
             <hr>
             <div class="alert alert-info p-2 pb-3"></div>
-            <form class="form" role="form" autocomplete="off">
+            <form class="form">
                 <div class="form-group">
                     <label>Patient's Name</label>
                     <input type="text" class="form-control"  value="<?=$p_name ?>" disabled>
@@ -102,15 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
                     </div>
                 </div>
                 <hr>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <button type="reset" class="btn btn-info btn-lg btn-block">Cancel</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-success btn-lg btn-block" onclick="paymentGateway()">Conform and go to pay</button>
-                    </div>
-                </div>
             </form>
+            <div>
+                <button class="btn btn-primary gotoemailbtn" type="button" style="border-style: none;">Cansel</button>
+                <button class="btn btn-success" type="button" style="border-style: none;" id="pay">Pay</button>
+            </div>
         </div>
     </div><!-- End: 2 Rows 1+1 Columns -->
 </div><!-- End: DA_About --><!-- Start: footer -->
@@ -152,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 <!-- payhere library -->
 <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 
-<?php include_once "AJAX/payment.php"?>
+<?php require_once "AJAX/payment.php"?>
 
 <script src="assets/js/check_mail.js"></script>
 </body>
