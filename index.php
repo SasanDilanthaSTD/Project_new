@@ -2,6 +2,8 @@
 require 'core/init.php';
 require 'core/classes/ResourceLibrary.php';
 
+include_once ("process/view_count.php");
+
 if (!$userObj->isLoggedIn()) {
     $set_btnLog = true;
     $link = "login.php";

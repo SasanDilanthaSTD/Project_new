@@ -60,7 +60,7 @@ class Admin
     }
 
     public function get_pending_applications(){
-        $sql_table = 'SELECT DISTINCT user.user_id, user.firstname, user.lastname, user.profile_photo, therapist.description, therapist.approval FROM user, therapist, counselor, doctor WHERE (therapist.therapist_id = doctor.therapist_id AND user.user_id = doctor.user_id AND therapist.approval = "pending") OR (therapist.therapist_id = counselor.therapist_id AND user.user_id = counselor.user_id AND therapist.approval = "pending")';
+        $sql_table = "SELECT user.user_id, user.firstname, user.lastname, user.profile_photo, therapist.description, therapist.approval FROM doctor INNER JOIN user ON doctor.user_id = user.user_id INNER JOIN therapist ON doctor.therapist_id = therapist.therapist_id WHERE therapist.approval = 'pending' UNION SELECT user.user_id, user.firstname, user.lastname, user.profile_photo, therapist.description, therapist.approval FROM counselor INNER JOIN user ON counselor.user_id = user.user_id INNER JOIN therapist ON counselor.therapist_id = therapist.therapist_id WHERE therapist.approval = 'pending';";
         $pstmt = $this->con->prepare($sql_table);
         try {
             $pstmt->execute();
@@ -71,6 +71,19 @@ class Admin
             echo "Error : " . $ex->getMessage();
         }
 
+    }
+
+    public function get_pending_applications_count(){
+        $sql = "SELECT COUNT(*) AS sum_pending FROM therapist WHERE therapist.approval = 'pending'";
+        $stmt = $this->con->prepare($sql);
+
+        try {
+            $stmt->execute();
+            $count =  $stmt->fetch(PDO::FETCH_OBJ)->sum_pending;
+            return ($stmt->rowCount() >0) ? $count : 0 ;
+        }catch (\PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
     }
 
     public function get_admin_name($id){
@@ -246,5 +259,39 @@ class Admin
 
     }
 
+    public function get_page_view_counts(){
+        $query = "SELECT SUM(count) AS sum_count FROM view_counts";
+        $stmt = $this->con->prepare($query);
+        try {
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $viewCount = $row['sum_count'];
+
+                return ['count' => $viewCount];
+            } else {
+                return ['count' => 0];
+            }
+        }catch (PDOException $ex){
+            echo "Error" . $ex->getMessage();
+        }
+    }
+    public function get_page_view_month_counts(){
+        $query = "SELECT SUM(count) AS sum_month_count FROM view_counts WHERE date BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND NOW()";
+        $stmt = $this->con->prepare($query);
+        try {
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $viewCount = $row['sum_month_count'];
+
+                return ['count_m' => $viewCount];
+            } else {
+                return ['count_m' => 0];
+            }
+        }catch (PDOException $ex){
+            echo "Error" . $ex->getMessage();
+        }
+    }
 
 }

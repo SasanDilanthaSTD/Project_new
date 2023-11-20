@@ -3,8 +3,14 @@ use MyApp\Admin;
 require_once "../../core/classes/Admin.php";
 
 $userObj = new Admin();
+
 $arr = array();
 if ($_SERVER['REQUEST_METHOD'] === "POST"){
+    if (isset($_REQUEST['page_view'])){
+        $arr['page'] = $userObj->get_page_view_counts();
+        $arr['page_m'] = $userObj->get_page_view_month_counts();
+    }
+
     if (isset($_REQUEST['therapist_count'])){
         $arr['doctor'] = $userObj->get_therapist_count();
     }
@@ -19,3 +25,5 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
     // return summury value
     echo json_encode($arr);
 }
+
+

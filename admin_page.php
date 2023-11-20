@@ -18,6 +18,7 @@ $admin_id = $userObj->ID();
 
 
 $admin = new Admin();
+$pending_count = $admin->get_pending_applications_count();
 $rs = $admin->get_pending_applications();
 
 ?>
@@ -146,8 +147,11 @@ $rs = $admin->get_pending_applications();
                         <div class="ms-4">
                             <p class="text-muted mb-2">Page views</p>
                             <p class="mb-0">
-                                <span class="h5 me-2">51 345</span>
-                                <small class="text-danger text-sm"><i class="fas fa-arrow-down fasm me-1"></i>23.58%</small>
+                                <span class="h5 me-2"><span id="visitCount">0</span></span>
+                                <small class="text-warning text-sm">
+                                    <i class="fa-solid fa-eye fa-beat-fade"></i>
+                                    <span id="visitCountMonth">0</span>
+                                </small>
                             </p>
                         </div>
                     </a>
@@ -166,8 +170,10 @@ $rs = $admin->get_pending_applications();
                             <p class="text-muted mb-2">Registred patients</p>
                             <p class="mb-0">
                                 <span class="h5 me-2"><span id="pat_T"></span> </span>
-                                <small class="text-success text-sm"><i
-                                            class="fas fa-arrow-up fasm me-1"></i><span id="pat_Tm"></span></small>
+                                <small class="text-success text-sm">
+                                    <i class="fa-solid fa-user-tie fa-beat-fade"></i>
+                                    <span id="pat_Tm"></span>
+                                </small>
                             </p>
                         </div>
                     </a>
@@ -186,10 +192,8 @@ $rs = $admin->get_pending_applications();
                             <p class="mb-0">
                                 <span class="h5 me-2"><span id="countT"></span></span>
                                 <small class="text-warning text-sm">
-                                    <!--<i class="fa-solid fa-user-doctor"></i>-->
-                                    <i class="fa-solid fa-user-doctor fasm me-1"></i><span id="countD"></span> |
-                                    <!--<i class="fa-solid fa-user-nurse"></i>-->
-                                    <i class="fa-solid fa-user-nurse fasm me-1"></i><span id="countC"></span>
+                                    <i class="fa-solid fa-user-doctor fa-beat-fade me-1"></i><span id="countD"></span> |
+                                    <i class="fa-solid fa-user-nurse fa-beat-fade me-1"></i><span id="countC"></span>
                                 </small>
                             </p>
                         </div>
@@ -202,7 +206,6 @@ $rs = $admin->get_pending_applications();
                        class="bg-glass d-flex align-items-center p-4 shadow-4-strong rounded-6 text-reset ripple"
                        data-ripple-color="hsl(0,0%,75%)">
                         <div class="bg-theme p-3 rounded-4">
-                            <!--<i class="fas fa-comments fa-lg text-white fa-fw"></i>-->
                             <i class="fa-solid fa-pen-to-square fa-lg text-white fa-fw"></i>
                         </div>
 
@@ -211,8 +214,7 @@ $rs = $admin->get_pending_applications();
                             <p class="mb-0">
                                 <span class="h5 me-2"><span id="videoCount"></span></span>
                                 <small class="text-success text-sm" >
-                                    <i class="fa-regular fa-calendar-check me-1"></i>
-                                    <!--<i class="fas fa-envelope fasm me-1"></i>-->
+                                    <i class="fa-regular fa-file-video fa-beat-fade"></i>
                                     <span id="newVideo"></span>
                                 </small>
                             </p>
@@ -224,6 +226,7 @@ $rs = $admin->get_pending_applications();
 
         <!-- section - statistic -->
         <section class="mb-5 pt-5">
+
             <div class="row gx-lg-5">
                 <div class="col-lg-6 mb-4 mb-lg-0">
                     <!--Card-->
@@ -319,6 +322,19 @@ $rs = $admin->get_pending_applications();
         <!-- section - user details -->
         <section class="mb-5 pt-5">
             <div class="table-responsive bg-glass shadow-4-strong rounded-6">
+                <!--Card header-->
+                <div class="p-4 border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <p class="h3 text-muted mb-2">Pending Theraphists</p>
+                            <p class="mb-0 text-warning">
+                                <i class="fa-solid fa-hourglass-end fa-fade me-2"></i>
+                                <span class="h4  me-2"><?=$pending_count ?></span>
+                            </p>
+                        </div>
+                        <div class="col-6 text-end"></div>
+                    </div>
+                </div>
                 <table class="table text-white align-middle mb-0 table-borderless  ">
                     <thead>
                     <tr class="text-info">

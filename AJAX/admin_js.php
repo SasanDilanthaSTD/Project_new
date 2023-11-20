@@ -19,9 +19,29 @@
                 $("#videoCount").text(obj['video_count']['count']);
                 $("#newVideo").text(obj['video_count']['new_video_count']);
             },
-            error : function (){
-                console.error("ERROR : get videolink count")
+            error : function (xhr, status, error){
+                console.log("Error:", xhr.status, xhr.statusText);
+                console.log("Error message:", xhr.responseText);
             }
         });
     });
+
+    setInterval(function() {
+        $.ajax({
+            url: 'process/AJAX_request/admin.php',
+            dataType: 'json',
+            data : {page_view:""},
+            method: "POST",
+            success: function(viewData) {
+                //let page =  JSON.parse(viewData);
+                console.log(viewData.page.count)
+                $('#visitCount').text(viewData.page.count);
+                $('#visitCountMonth').text(viewData.page_m.count_m);
+            },
+            error : function (xhr, status, error){
+                console.log("Error:", xhr.status, xhr.statusText);
+                console.log("Error message:", xhr.responseText);
+            }
+        });
+    }, 500);
 </script>z
