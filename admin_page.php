@@ -162,8 +162,9 @@ $rs = $admin->get_pending_applications();
                        class="bg-glass d-flex align-items-center p-4 shadow-4-strong rounded-6 text-reset ripple"
                        data-ripple-color="hsl(0,0%,75%)">
                         <div class="bg-theme p-3 rounded-4">
-
-                            <i class="fas fa-wallet fa-lg text-white fa-fw"></i>
+                            <i class="fa-solid fa-hand-holding-medical fa-lg text-white fa-fw"></i>
+                            <!--<i class="fas fa-wallet fa-lg text-white fa-fw"></i>-->
+                            <!--<i class="fa-solid fa-heart-circle-plus"></i>-->
                         </div>
 
                         <div class="ms-4">
@@ -286,25 +287,7 @@ $rs = $admin->get_pending_applications();
                                     </p>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <div class="btn-group shadow-0">
-                                        <button type="button"
-                                                class="btn btn-link  btn-sm btn-outline-info dropdown-toggle"
-                                                data-mdb-toggle="dropdown" aria-expanded="false"><i
-                                                    class="fas fa-filter"></i>
-                                            Filter
-                                        </button>
-                                        <ul class="dropdown-menu bg-glass" style="font-size: 14px">
-                                            <li><a class="dropdown-item text-info" href="#">All</a></li>
-                                            <li><a class="dropdown-item text-info" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item text-info" href="#">This Year</a></li>
-                                            <li>
-                                                <hr class="dropdown-divider"/>
-                                            </li>
-                                            <li><a class="dropdown-item text-info" href="#">Doctors</a></li>
-                                            <li><a class="dropdown-item text-info" href="#">Councillors</a></li>
-                                            <li><a class="dropdown-item text-info" href="#">Patient</a></li>
-                                        </ul>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -328,7 +311,8 @@ $rs = $admin->get_pending_applications();
                         <div class="col-6">
                             <p class="h3 text-muted mb-2">Pending Theraphists</p>
                             <p class="mb-0 text-warning">
-                                <i class="fa-solid fa-hourglass-end fa-fade me-2"></i>
+                                <!--<i class="fa-solid fa-hourglass-end fa-fade me-2"></i>-->
+                                <i class="fa-solid fa-person-dots-from-line fa-fade fa-lg fa-fw me-2"></i>
                                 <span class="h4  me-2"><?=$pending_count ?></span>
                             </p>
                         </div>
