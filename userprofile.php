@@ -27,6 +27,8 @@ $user = $userObj->userData();
     <link rel="stylesheet" href="assets/css/chatprofile.css">
 <!--    <link rel="stylesheet" href="../assets/css/profedit.css">-->
 
+    <?php include_once ("assets/css/set_footer.php");?>
+
 </head>
 <body style="background: url(assets/img/userbg1.jpg) right / cover no-repeat fixed, rgb(63,70,79);">
 <!-- Start: nav bar -->
@@ -82,7 +84,7 @@ if (isset($_GET["msg"])) {
 }
 ?>
 
-<div class="row" style=" margin-right: 0px;margin-left: 0px;">
+<div class="row content" style=" margin-right: 0px;margin-left: 0px;">
     <div class="col-md-8" style="padding: 30px; padding-left: 70px; padding-right: 70px;">
         <!--<section class="vh-100" style="background-color: #e1e1e1; ">-->
         <!--    <div class="container py-5 h-100">-->

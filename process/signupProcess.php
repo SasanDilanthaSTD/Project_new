@@ -1,6 +1,9 @@
 <?php
+require_once '../core/classes/MailClass.php';
+use MyApp\MailClass;
+
 require '../core/init.php';
-session_start();
+
 if ($userObj->isLoggedIn()) {
     $userObj->redirect('videohome.php');
 }
@@ -33,12 +36,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $userObj->setUserName($sanitizedAndValidateduname);
                 $userObj->setEmail($sanitizedAndValidatedemail);
 
+                // setup name and  verify key
+                $name = $sanitizedAndValidatedfname . " " . $sanitizedAndValidatedlname;
+                $key = sha1(rand(5, 10));
+
                 if (isset($_SESSION["UnregUserID"])) {
                     $uuID = $_SESSION["UnregUserID"]; // this session will create sasa
                     $userObj->updateUnregUserIDtoRegUID($uuID, $uID, $hashedpassword);
                 }else{
                     if ($userObj->getPosition() == "patient") {
-                        $userObj->insertUser($uID, $tID, $hashedpassword, "");
+                        if ($userObj->insertUser($uID, $tID, $hashedpassword, "", $key)){
+                            $mail_obj = new MailClass($sanitizedAndValidatedemail, $name, "Account Verification", "verify");
+                            $mail_obj->set_verify_key($key);
+                            $mail_obj->send_mail_verify_key();
+                        }else{
+                            echo 'Please check again';
+                        }
                     } elseif ($userObj->getPosition() == "doctor" || $userObj->getPosition() == "counselor") {
 
                         $targetDirectory = "../assets/cv/";
@@ -64,4 +77,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
     }
+}elseif ($_SERVER["REQUEST_METHOD"] === "GET"){
+    if(isset($_GET['key'])){
+        $key = $_GET['key'];
+        if ($userObj->user_verify($key)){
+            header("Location: ../login.php?msg=1");
+        }
+    }
 }
+

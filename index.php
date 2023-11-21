@@ -2,16 +2,24 @@
 require 'core/init.php';
 require 'core/classes/ResourceLibrary.php';
 
+include_once ("process/view_count.php");
+
 if (!$userObj->isLoggedIn()) {
+    $set_btnLog = true;
     $link = "login.php";
 }else{
+    $set_btnLog = false;
     $possition1 = $userObj->newPosition();
     if ($possition1 == "patient") {
         $link = "userprofile.php";
     } elseif ($possition1 == "doctor") {
-        $link = "doctorprofile.php";
+        header("Location: doctorprofile.php");
+        //$link = "doctorprofile.php";
     }elseif ($possition1 == "counselor") {
-        $link = "counselorprofile.php";
+        header("Location: counselorprofile.php");
+        //$link = "counselorprofile.php";
+    }elseif ($possition1 == "admin") {
+        $link = "admin_page.php";
     }
 }
 $resourceLibrarayObj = new \MyApp\ResourceLibrary();
@@ -38,6 +46,7 @@ $resources = $resourceLibrarayObj->accessSixRandomResources();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/home.css">
+    <?php include_once ('assets/css/set_footer.php');?>
 
 </head>
 <body >
@@ -58,13 +67,17 @@ $resources = $resourceLibrarayObj->accessSixRandomResources();
                     <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact Us</strong></a></li>
                 </ul>
+                <?php if($set_btnLog){ ?>
                 <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a>
+                <?php }else{ ?>
+                <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Profile</strong></a>
+                <?php }?>
             </div>
         </div>
     </nav><!-- End: Navbar Right Links --></div><!-- End: nav bar -->
 <!-- Start: first img -->
 
-<div class="bigdiv"
+<div class="bigdiv "
      style="height: 650px;color: rgb(0,79,95);background: url(assets/img/mental-health-7323725_1280.webp) left / cover no-repeat;padding-bottom: 0px;border-top-style: none;border-right-style: none;border-bottom-style: none;border-left-style: none;">
 
     <!-- Start: caption -->
@@ -149,7 +162,7 @@ $resources = $resourceLibrarayObj->accessSixRandomResources();
 
 <!-- Start: content -->
 <hr style="margin-left: 20px; margin-right: 20px; margin-bottom: 30px;">
-<div class="videobackground" style="background: url(assets/img/indexbg.jpeg) top / cover no-repeat fixed, rgb(63,70,79);">
+<div class="videobackground content" style="background: url(assets/img/indexbg.jpeg) top / cover no-repeat fixed, rgb(63,70,79);">
     <h1 style="@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');text-align: center;font-size: 56.52px;margin-bottom: 8px;padding-top: 20px;margin-top: 8px;color: rgb(253,253,253);text-shadow: 2px 3px 0px rgb(79,115,124);font-weight: bold;">
         <span style="">Relax&nbsp;</span>Yourself
     </h1>

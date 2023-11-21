@@ -3,9 +3,11 @@ require 'core/init.php';
 require 'core/classes/Counselor.php';
 
 if (!$userObj->isLoggedIn()) {
+    $set_btnLog = true;
     $link = "login.php";
     $link2 = "login.php";
 }else{
+    $set_btnLog = false;
     $possition1 = $userObj->newPosition();
     if ($possition1 == "patient") {
         $link = "userprofile.php";
@@ -36,6 +38,9 @@ $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stick+No+Bills&amp;display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/counselors.css">
+
+    <?php include_once ('assets/css/set_footer.php');?>
+
 </head>
 <body style="background: url(assets/img/aboutusbackground.jpg), rgba(0,0,0,0);background-size: cover, auto;">
 <!-- Start: nav bar -->
@@ -53,7 +58,11 @@ $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
                     <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact Us</strong></a></li>
                 </ul>
-                <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a>
+                <?php if($set_btnLog){ ?>
+                    <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a>
+                <?php }else{ ?>
+                    <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Profile</strong></a>
+                <?php }?>
             </div>
         </div>
     </nav>
@@ -63,8 +72,7 @@ $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
 
 
 
-<div class="counselorheader"
-">
+<div class="counselorheader content">
 <h1 style="
     padding-top: 20px;
     padding-bottom: 20px;

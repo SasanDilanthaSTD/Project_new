@@ -21,16 +21,18 @@ class ResourceLibrary{
         $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
         return $rs;
     }
-    public function insertResourcelink($link){
+    public function insertResourcelink($link, $id){
         $con = DBConnector::getConnection();
-        $query = "INSERT INTO videolinks(link) VALUES (?)";
+        $query = "INSERT INTO videolinks(link,user_id) VALUES (?,?)";
         $pstmt = $con->prepare($query);
         $pstmt->bindValue(1, $link);
-        $pstmt->execute();
-        if ($pstmt->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
+        $pstmt->bindValue(2, $id);
+        try {
+            $pstmt->execute();
+            $link =  ($pstmt->rowCount() > 0) ? "add_video.php?video_inser_msg=1" : "add_video.php?video_inser_msg=2";
+            header("Location: $link");
+        }catch (\PDOException $ex){
+            echo "Error : ". $ex->getMessage();
         }
     }
     public function deleteResourcelink($linkID){

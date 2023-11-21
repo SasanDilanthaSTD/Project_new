@@ -1,6 +1,6 @@
 <?php
 namespace MyApp;
-//require 'DBConnector.php';
+
 use MyApp\DBConnector;
 use PDO;
 
@@ -305,59 +305,63 @@ class User{
         }
         return $this->therapistID;
     }
-    public function insertUser($uid, $tid, $password, $cv) {
+    public function insertUser($uid, $tid, $password, $cv, $key) {
         $dbcon = DBConnector::getConnection();
 
         // Use parent class property names here
         if ($this->position == "patient") {
-            $query = "INSERT INTO user(user_id, firstname, lastname, username, profile_photo, password, email) VALUES (?,?,?,?,?,?,?)";
+            $query = "INSERT INTO user(user_id, firstname, lastname, username, profile_photo, password, email, verify_key) VALUES (?,?,?,?,?,?,?,?)";
         } elseif ($this->position == "doctor") {
-            $query = "INSERT INTO user(user_id, firstname, lastname, username, profile_photo, password, email) VALUES (?,?,?,?,?,?,?)";
+            $query = "INSERT INTO user(user_id, firstname, lastname, username, profile_photo, password, email, verify_key) VALUES (?,?,?,?,?,?,?,?)";
             $query2 = "INSERT INTO therapist(therapist_id, description, cv) VALUES (?,?,?)";
             $query3 = "INSERT INTO doctor(user_id, therapist_id) VALUES (?,?)";
         } elseif ($this->position == "counselor") {
-            $query = "INSERT INTO user(user_id,firstname, lastname, username, profile_photo, password, email) VALUES (?,?,?,?,?,?,?)";
+            $query = "INSERT INTO user(user_id,firstname, lastname, username, profile_photo, password, email, verify_key) VALUES (?,?,?,?,?,?,?,?)";
             $query2 = "INSERT INTO therapist(therapist_id , description, cv) VALUES (?,?,?)";
             $query3 = "INSERT INTO counselor(user_id, therapist_id) VALUES (?,?)";
         }
 
-        if ($this->position == "patient") {
-            $pstmt = $dbcon->prepare($query);
-            $pstmt->bindValue(1, $uid);
-            $pstmt->bindValue(2, $this->firstName);
-            $pstmt->bindValue(3, $this->lastName);
-            $pstmt->bindValue(4, $this->userName);
-            $pstmt->bindValue(5, "assets/img/defaultImage.png");
-            $pstmt->bindValue(6, $password);
-            $pstmt->bindValue(7, $this->email);
+        $pstmt = $dbcon->prepare($query);
+        $pstmt->bindValue(1, $uid);
+        $pstmt->bindValue(2, $this->firstName);
+        $pstmt->bindValue(3, $this->lastName);
+        $pstmt->bindValue(4, $this->userName);
+        $pstmt->bindValue(5, "assets/img/defaultImage.png");
+        $pstmt->bindValue(6, $password);
+        $pstmt->bindValue(7, $this->email);
+        $pstmt->bindValue(8,$key);
+        try {
             $pstmt->execute();
-        } elseif ($this->position == "doctor" || $this->position == "counselor") {
-            $pstmt = $dbcon->prepare($query);
-            $pstmt->bindValue(1, $uid);
-            $pstmt->bindValue(2, $this->firstName);
-            $pstmt->bindValue(3, $this->lastName);
-            $pstmt->bindValue(4, $this->userName);
-            $pstmt->bindValue(5, "assets/img/defaultImage.png");
-            $pstmt->bindValue(6, $password);
-            $pstmt->bindValue(7, $this->email);
-            $pstmt->execute();
-
+        }catch (\PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
+        if ($this->position == "doctor" || $this->position == "counselor") {
             $pstmt2 = $dbcon->prepare($query2);
             $pstmt2->bindValue(1, $tid);
             $pstmt2->bindValue(2, "Therapist Description");
             $pstmt2->bindValue(3, $cv);
-            $pstmt2->execute();
+            try {
+                $pstmt2->execute();
+            }catch (\PDOException $ex){
+                echo "Error : " . $ex->getMessage();
+            }
 
             $pstmt3 = $dbcon->prepare($query3);
             $pstmt3->bindValue(1, $uid);
             $pstmt3->bindValue(2, $tid);
-            $pstmt3->execute();
+            try {
+                $pstmt3->execute();
+            }catch (\PDOException $ex){
+                echo "Error : " . $ex->getMessage();
+            }
         }
 
         if ($pstmt->rowCount() > 0) {
-            $this->redirect("login.php?msg=1");
+            //$this->redirect("login.php?msg=1");
+            return true;
         } else {
-            echo 'Please check again';
+            //echo 'Please check again';
+            return false;
         }
     }
     public function createUnregUserID(){
@@ -450,6 +454,59 @@ class User{
         $pstmt->execute();
         $rs = $pstmt->fetchAll(PDO::FETCH_OBJ);
         return $rs;
+    }
+
+    public function user_verify($key)
+    {
+        $dbcon = DBConnector::getConnection();
+        $sql = "SELECT user_id FROM user WHERE verify_key = ?";
+        $pstmt = $dbcon->prepare($sql);
+        $pstmt->bindValue(1,$key);
+        try{
+            $pstmt->execute();
+            if($pstmt->rowCount() > 0){
+                $rs = $pstmt->fetch(\PDO::FETCH_OBJ);
+                $sql_update = "UPDATE user SET verify_key = 'verified' WHERE user_id = ?";
+                $update = $dbcon->prepare($sql_update);
+                $update->bindValue(1, $rs->user_id);
+                try {
+                    $update->execute();
+                    return ($update->rowCount() > 0) ? true : false ;
+                }catch (PDOException $e){
+                    echo "Error : " . $e->getMessage();
+                }
+            }else{
+                return false;
+            }
+        }catch(PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
+    }
+
+    public  function username_already_exists($username){
+        $dbcon = DBConnector::getConnection();
+        $sql = "SELECT * FROM user WHERE username = ?";
+        $pstmt = $dbcon->prepare($sql);
+        $pstmt->bindValue(1, $username);
+        try {
+            $pstmt->execute();
+            return ($pstmt->rowCount() > 0) ? true : false;
+        }catch (\PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
+    }
+
+    public  function mail_already_exists($mail){
+        $dbcon = DBConnector::getConnection();
+        $sql = "SELECT * FROM user WHERE email = ?";
+        $pstmt = $dbcon->prepare($sql);
+        $pstmt->bindValue(1, $mail);
+        try {
+            $pstmt->execute();
+            return ($pstmt->rowCount() > 0) ? true : false;
+        }catch (\PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
     }
 
 }

@@ -31,6 +31,8 @@ if (!$userObj->isLoggedIn()) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="../assets/js/contact_us.js" type="text/javascript"></script>
     <link rel="stylesheet" href="assets/css/contactUs.css">
+
+    <?php include_once ('assets/css/set_footer.php');?>
 </head>
 <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
@@ -59,7 +61,7 @@ if (!$userObj->isLoggedIn()) {
                 <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a></div>
         </div>
     </nav><!-- End: Navbar Right Links --></div><!-- End: nav bar --><!-- Start: Contact Details -->
-<section class="position-relative py-4 py-xl-5"
+<section class="position-relative py-4 py-xl-5 content"
          style="background: url(assets/img/aboutusbackground.jpg);background-size: cover;">
     <div class="container position-relative">
         <div class="row mb-5" style="margin-bottom: 19px;padding-bottom: 0px;background: rgba(0,69,79,0.86);">
