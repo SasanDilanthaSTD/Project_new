@@ -98,7 +98,7 @@ if (isset($_GET["msg"])) {
     }elseif ($_GET["msg"] == 2){
         $massage->setSuccessMassage("<hr>Patient was successfully registered to the system.<hr>");
     }elseif ($_GET["msg"] == 3){
-        $massage->setSuccessMassage("<hr>Account reset mail successfully sent.<hr>");
+        $massage->setSuccessMassage("<hr>Account reset mail was sent successfully.<hr>");
     }elseif ($_GET["msg"] == 4){
         $massage->setSuccessMassage("<hr>Account password reset successfully.<br>Please login with your new password<hr>");
     }

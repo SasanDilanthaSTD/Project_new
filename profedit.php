@@ -97,53 +97,6 @@ if (isset($_GET["msg"])) {
 <div class="content">
 <form action="process/editProfile.php" method="post" enctype="multipart/form-data">
 
-        <div class="col-md-4 relative">
-                <div class="avatar" style="background-color: transparent">
-                    <div class="center" style="background: transparent; margin-bottom: 23px">
-                        <img src="<?php echo $userdata->profile_photo; ?>" alt=""
-                             style="width: 230px; border-radius: 1rem">
-                    </div>
-                </div>
-                <input class="form-control form-control" type="file" name="image" accept="image/*"/>
-            <p style="text-align: center">(<string style="color: #a91414">JPG, JPEG, PNG, HEIC </string> files are only allowed.)</p>
-        </div>
-        <div class="col-md-8">
-            <h1 style="color: #013138">Edit Your Profile</h1>
-            <hr style="color: white"/>
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group mb-3">
-                        <label class="form-label" style="color: white">Firstname </label>
-                        <input class="form-control" type="text" name="firstname" value="<?php echo $userdata->firstname; ?>"/>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group mb-3">
-                        <label class="form-label" style="color: white">Lastname </label>
-                        <input class="form-control" type="text" name="lastname" value="<?php echo $userdata->lastname; ?>"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group mb-3">
-                        <label class="form-label" style="color: white">Username</label>
-                        <input class="form-control" type="text" name="username" value="<?php echo $userdata->username; ?>" readonly/>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group mb-3">
-                        <label class="form-label" style="color: white">Email</label>
-                        <input class="form-control" type="email" name="email" value="<?php echo $userdata->email; ?>"/>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group mb-3">
-                <label class="form-label" style="color: white">Change Password </label>
-                <input class="form-control" type="password" name="password"/>
-            </div>
-        </div>
-<!--        <input type="submit" name="submit" value="submit">-->
         <div class="container profile profile-view" id="profile" style="padding-top: 0px; padding-bottom: 40px">
             <div class="row profile-row">
 
@@ -178,7 +131,7 @@ if (isset($_GET["msg"])) {
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group mb-3">
                                 <label class="form-label" style="color: white">Username</label>
-                                <input class="form-control" type="text" name="username" value="<?php echo $userdata->username; ?>"/>
+                                <input class="form-control" type="text" name="username" value="<?php echo $userdata->username; ?>" readonly/>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
