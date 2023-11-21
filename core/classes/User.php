@@ -508,5 +508,13 @@ class User{
             echo "Error : " . $ex->getMessage();
         }
     }
+    public function updatePassword($password){
+        $dbcon = DBConnector::getConnection();
+        $sql = "UPDATE user SET password = ? WHERE email = ?";
+        $pstmt = $dbcon->prepare($sql);
+        $pstmt->bindValue(1, $password);
+        $pstmt->bindValue(2, $this->email);
+        $pstmt->execute();
+    }
 
 }

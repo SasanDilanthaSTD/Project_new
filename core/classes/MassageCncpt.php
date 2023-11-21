@@ -17,7 +17,7 @@ class MassageCncpt
     public function setSuccessMassage($msg)
     {
         echo '<div class="alert alert-success" role="alert" style="text-align: center;margin-left: 35vw;margin-right: 35vw;margin-top: 2vw;background: rgba(102, 255, 39, 0.3);border: none">';
-        echo $msg.'</div>';;
+        echo $msg. '</div>';;
     }
 
 }

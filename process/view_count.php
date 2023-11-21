@@ -4,7 +4,7 @@ use MyApp\DBConnector;
 
 require_once "core/classes/DBConnector.php";
 
-session_start();
+//session_start();
 $con = DBConnector::getConnection();
 
 // Check if a cookie named 'visited' exists
@@ -59,19 +59,47 @@ if (!isset($_COOKIE['visited'])) {
         }
     }
 }elseif ($_COOKIE['visited'] == 'true'){
-    $old_count = $_SESSION['visited_count_today'];
-    $new_count = $old_count + 1;
-    $date = date('Y-m-d');
+    if (isset($_SESSION['visited_count_today'])){
+        $old_count = $_SESSION['visited_count_today'];
+        $new_count = $old_count + 1;
+        $date = date('Y-m-d');
 
-    $query = "UPDATE view_counts SET count = ? WHERE date = ?";
-    $pstmt = $con->prepare($query);
-    $pstmt->bindValue(1, $new_count);
-    $pstmt->bindValue(2, $date);
-    try {
-        $pstmt->execute();
-        $_SESSION['visited_count_today'] = $new_count;
-    }catch (PDOException $ex_3){
-        echo "Error : ". $ex_3->getMessage();
+        $query = "UPDATE view_counts SET count = ? WHERE date = ?";
+        $pstmt = $con->prepare($query);
+        $pstmt->bindValue(1, $new_count);
+        $pstmt->bindValue(2, $date);
+        try {
+            $pstmt->execute();
+            $_SESSION['visited_count_today'] = $new_count;
+        }catch (PDOException $ex_3){
+            echo "Error : ". $ex_3->getMessage();
+        }
+    }else{
+        $date = date('Y-m-d');
+
+        $query = "SELECT count FROM view_counts WHERE date = ?";
+        $pstmt = $con->prepare($query);
+        $pstmt->bindValue(1, $date);
+
+        try {
+            $pstmt->execute();
+            // If there is a view count for the current date, increment the count
+            $row = $pstmt->fetchAll(PDO::FETCH_ASSOC);
+            $count = $row['count'] + 1;
+
+            $query = "UPDATE view_counts SET count = ? WHERE date = ?";
+            $pstmt_3 = $con->prepare($query);
+            $pstmt_3->bindValue(1, $count);
+            $pstmt_3->bindValue(2, $date);
+            try {
+                $pstmt_3->execute();
+                $_SESSION['visited_count_today'] = $count;
+            }catch (PDOException $ex_3){
+                echo "Error : ". $ex_3->getMessage();
+            }
+        }catch (PDOException $ex){
+            echo "Error : ". $ex->getMessage();
+        }
     }
 
 }

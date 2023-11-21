@@ -65,6 +65,8 @@ class MailClass
                 if ($this->mail_usage == "verify") {
                     $link = "../check_mail.php";
                     //header("Location: ../check_mail.php");
+                } elseif ($this->mail_usage == "reset"){
+                    $link = "../login.php?msg=3";
                 } else {
                     $link = "../reg.php?M=VF1";
                     //header("Location: ../reg.php?M=VF1");
@@ -83,6 +85,10 @@ class MailClass
     {
         if ($this->mail_usage == "verify") {
             $msg_body = "<p style=\"line-height: 24px;margin-bottom:15px;\">We are delighted to welcome you to the Mental Health Service, a dedicated place of support and healing. Our committed team is here to guide you on your journey to improved mental health.</p><p style=\"line-height: 24px; margin-bottom:20px;\"><b>To verify your account or explore the various ways we can assist you, please click the <span style=\"color: #5caad2;\">\"Verify\"</span>  button below.</b></p><p style=\"line-height: 24px;margin-bottom:15px;\">We understand that your mental well-being is a priority, and we are here for you every step of the way.</P>";
+        }
+        if ($this->mail_usage == "reset") {
+            $msg_body = "To reset your account password";
+//            $msg_body = "<p style=\"line-height: 24px;margin-bottom:15px;\">We are delighted to welcome you to the Mental Health Service, a dedicated place of support and healing. Our committed team is here to guide you on your journey to improved mental health.</p><p style=\"line-height: 24px; margin-bottom:20px;\"><b>To verify your account or explore the various ways we can assist you, please click the <span style=\"color: #5caad2;\">\"Verify\"</span>  button below.</b></p><p style=\"line-height: 24px;margin-bottom:15px;\">We understand that your mental well-being is a priority, and we are here for you every step of the way.</P>";
         }
 
         return $msg_body;
@@ -103,7 +109,13 @@ class MailClass
         $msg .= "<p style=\"line-height: 24px; margin-bottom:15px;\">" . $this->receiver_name . "</p>";
         $msg .= $this->mail_body_content();
         $msg .= "<table border=\"0\" align=\"center\" width=\"180\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"5caad2\" style=\"margin-bottom:20px;\"><tr><td height=\"10\" style=\"font-size: 10px; line-height: 10px;\">&nbsp;</td></tr><tr><td align=\"center\" style=\"color: #ffffff; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 22px; letter-spacing: 2px;\"><div style=\"line-height: 22px;\">";
-        $msg .= ($this->mail_usage == "verify") ? "<a href=\"http://localhost/Project_new/process/signupProcess.php?key={$this->verify_key}\" style=\"color: #ffffff; text-decoration: none;\">VERIFY</a>" : "<a href=\"http://localhost/test_mail/process/visit.php\" style=\"color: #ffffff; text-decoration: none;\">VIEW PROFILE</a>";
+        if ($this->mail_usage == "verify"){
+            $msg .= "<a href=\"http://localhost/Project_new/process/signupProcess.php?key={$this->verify_key}\" style=\"color: #ffffff; text-decoration: none;\">VERIFY</a>";
+        } elseif ($this->mail_usage == "reset"){
+        $msg .= "<a href=\"http://localhost/Project_new/resetPassword.php?mail={$this->receiver_mail}\" style=\"color: #ffffff; text-decoration: none;\">Click Here</a>";
+        } else{
+            $msg .= "<a href=\"http://localhost/test_mail/process/visit.php\" style=\"color: #ffffff; text-decoration: none;\">VIEW PROFILE</a>";
+        }
         $msg .= "</div></td></tr><tr><td height=\"10\" style=\"font-size: 10px; line-height: 10px;\">&nbsp;</td></tr></table><p style=\"line-height: 24px\">Warm regards,<br>Mental Health Service</p></td></tr></table></td></tr></table></td></tr><tr><td height=\"40\" style=\"font-size: 40px; line-height: 40px;\">&nbsp;</td></tr></table>";
         $msg .= "<table border=\"0\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"f4f4f4\"><tr><td height=\"25\" style=\"font-size: 25px; line-height: 25px;\">&nbsp;</td></tr><tr><td align=\"center\" class=\"text_color\"><div style=\"color: #333333; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; font-weight: 600; mso-line-height-rule: exactly; line-height: 23px;\">Email us: <br/><span style=\"color: #888888; font-size: 14px; font-family: 'Hind Siliguri', Calibri, Sans-serif; font-weight: 400;\">project1.mhs@gmail.com</span></div></td></tr><tr><td height=\"25\" style=\"font-size: 25px; line-height: 25px;\">&nbsp;</td></tr></table>";
         $msg .= "</body>";

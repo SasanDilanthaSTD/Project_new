@@ -1,72 +1,22 @@
 <?php
-require 'core/init.php';
+?>
+<?php
 require 'core/classes/MassageCncpt.php';
 
 $massage = new \MyApp\MassageCncpt();
-
-if ($userObj->isLoggedIn()) {
-    $userObj->redirect('videohome.php');
-}
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST)) {
-        $email = trim(stripcslashes(htmlentities($_POST["email"])));
-        $password = $_POST["password"];
-
-        if (!empty($email) && !empty($password)) {
-            //validate
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $error = "Please use valid email";
-            } else {
-                if ($user = $userObj->emailExists($email)) {
-                    if (password_verify($password, $user->password) && $user->verify_key == "verified") {
-                        //user logged in
-                        session_regenerate_id();
-                        //login the user
-                        $_SESSION["userID"] = $user->user_id;
-                        $possition = substr($user->user_id, 0, 3);
-
-                        if ($possition == "PAT") {
-                            $_SESSION["position"] = "patient";
-                            $userObj->redirect('userprofile.php');
-                        } elseif ($possition == "DOC") {
-                            $_SESSION["position"] = "doctor";
-                            $userObj->redirect('doctorprofile.php');
-                        } elseif ($possition == "COU") {
-                            $_SESSION["position"] = "counselor";
-                            $userObj->redirect('counselorprofile.php');
-                        }elseif ($possition == "ADM"){
-                            $_SESSION["position"] = "admin";
-                            $userObj->redirect('admin_page.php');
-                        }
-                        //redirect user
-//                        $userObj->redirect('videohome.php');
-//                        $userObj->redirect('userprofile.php');
-                        //header("Location:videohome.php");
-                    } else {
-                        $error = "Incorrect email or password";
-                    }
-                }else{
-                    $error = "Incorrect email or password";
-                }
-            }
-        } else {
-            $error = "Please insert email and password";
-        }
-    }
-}
 ?>
-
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>sign in</title>
+    <title>Reset Password</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Akronim&amp;display=swap">
     <link rel="stylesheet" href="assets/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <?php include_once ('assets/css/set_footer.php');?>
 </head>
@@ -77,16 +27,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <nav class="navbar navbar-expand-md bg-body py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"
                                   style="padding-bottom: 0px;margin-top: 0px;padding-top: 0px;"><img
-                        src="assets/img/logo.png" style="width: 109px;"></a>
+                    src="assets/img/logo.png" style="width: 109px;"></a>
             <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span
-                        class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link itemnew" href="index.php"><strong>Home</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact Us</strong></a></li>
                 </ul>
-<!--                <a class="btn btn-primary ms-md-2 reg-btn" role="button" href="login.php" style="border-style: none;"><strong>Login</strong></a>-->
+                <!--                <a class="btn btn-primary ms-md-2 reg-btn" role="button" href="login.php" style="border-style: none;"><strong>Login</strong></a>-->
             </div>
         </div>
     </nav><!-- End: Navbar Right Links -->
@@ -94,17 +44,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <?php
 if (isset($_GET["msg"])) {
     if ($_GET["msg"] == 1) {
-        $massage->setSuccessMassage("<hr>Welcome to MHS System!<br> You have successfully registered.<hr>");
-    }elseif ($_GET["msg"] == 2){
-        $massage->setSuccessMassage("<hr>Patient was successfully registered to the system.<hr>");
-    }elseif ($_GET["msg"] == 3){
-        $massage->setSuccessMassage("<hr>Account reset mail successfully sent.<hr>");
-    }elseif ($_GET["msg"] == 4){
-        $massage->setSuccessMassage("<hr>Account password reset successfully.<br>Please login with your new password<hr>");
+        $massage->setErrorMassage("<hr>Password Mismatch ! Please Check Again.<hr>");
     }
-} elseif (isset($error)) {
-    $massage->setErrorMassage("<hr>$error<hr>");
+//    elseif ($_GET["msg"] == 2){
+//        $massage->setSuccessMassage("<hr>Patient was successfully registered to the system.<hr>");
+//    }
 }
+//elseif (isset($error)) {
+//    $massage->setErrorMassage("<hr>$error<hr>");
+//}
 //$massage->setErrorMassage("<hr>$error<hr>");
 ?>
 <!-- Start: form -->
@@ -112,28 +60,29 @@ if (isset($_GET["msg"])) {
     <div class="login-card" style="background: #ffffffb0;margin-top: 0px;margin-bottom: 50px;border-radius: 13px;">
         <div style="text-align: center;"><img src="assets/img/logo.png" style="width: 200px;"></div>
         <p class="profile-name-card"></p>
-        <form class="form-signin" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-            <span class="reauth-email"> </span><input class="form-control" type="email" name="email" id="inputEmail"
-                                                      required="" placeholder="Email address" autofocus=""
+        <form class="form-signin" action="process/resetpwd.php" method="post">
+            <span class="reauth-email"> </span><input class="form-control" type="text" name="password" id="password"
+                                                      required="" placeholder="Enter Password" autofocus=""
                                                       style="background: #ababab;">
-            <input class="form-control" type="password" name="password" id="inputPassword" required=""
-                   placeholder="Password" style="background: rgb(171,171,171);">
-            <div class="checkbox">
-            </div>
+                        <input class="form-control" type="text" name="rpassword" id="rpassword" required=""
+                               placeholder="Re-enter Password" style="background: rgb(171,171,171);">
+                        <input type="hidden" name="email" value="<?php echo $_GET["mail"]?>">
+                        <div class="checkbox">
+                        </div>
             <button class="btn btn-primary d-block btn-user w-100 reg-btn" data-bss-hover-animate="pulse" name="submit"
-                    id="submitBtn" type="submit" style="border-style: none;"><strong>Sign in</strong></button>
+                    id="submitBtn" type="submit" style="border-style: none;"><strong>Update Password</strong></button>
         </form>
         <div style="text-align: center; color: white; background-color: red; border-radius: 7px; width: 80%;margin-left: 25px;margin-right: 25px">
 
         </div>
-        <div class="row">
-            <div class="col"><a class="forgot-password" href="forgotPassword.php" style="text-decoration: none"><span
-                            style="rgb(0, 115, 139);">Forgot your password?</span></a></div>
-        </div>
-        <div class="row">
-            <div class="col"><a class="forgot-password" href="register.php" style="text-decoration: none"><span
-                            style="color: rgb(0, 115, 139);">Create Account...</span></a></div>
-        </div>
+        <!--        <div class="row">-->
+        <!--            <div class="col"><a class="forgot-password" href="#" style="text-decoration: none"><span-->
+        <!--                        style="rgb(0, 115, 139);">Forgot your password?</span></a></div>-->
+        <!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col"><a class="forgot-password" href="login.php" style="text-decoration: none"><span-->
+<!--                        style="color: rgb(0, 115, 139);">Back to Login</span></a></div>-->
+<!--        </div>-->
     </div><!-- End: Google Style Login -->
 </div><!-- End: form --><!-- Start: footer -->
 <div><!-- Start: Footer Basic -->
@@ -141,10 +90,10 @@ if (isset($_GET["msg"])) {
         <div class="container text-muted py-4 py-lg-5">
             <ul class="list-inline" style="margin-top: -25px;">
                 <li class="list-inline-item me-4"><a class="link-secondary" href="#"><br><span
-                                style="color: RGBA(86,94,100,var(--bs-link-opacity,1)) ;">mentalhealthservice@gmail.com</span></a>
+                            style="color: RGBA(86,94,100,var(--bs-link-opacity,1)) ;">mentalhealthservice@gmail.com</span></a>
                 </li>
                 <li class="list-inline-item me-4"><a class="link-secondary" href="#"><br><span
-                                style="color: RGBA(86,94,100,var(--bs-link-opacity,1)) ;">+94 91 890 4444</span></a>
+                            style="color: RGBA(86,94,100,var(--bs-link-opacity,1)) ;">+94 91 890 4444</span></a>
                 </li>
             </ul>
             <ul class="list-inline">
@@ -173,10 +122,8 @@ if (isset($_GET["msg"])) {
 </div><!-- End: footer -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/script.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>
+
 
