@@ -53,7 +53,7 @@ $user = $userObj->userData();
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link itemnew" href="index.php"><strong>Home</strong></a>
+                        <a class="nav-link itemnew" href="home.php"><strong>Home</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link itemnew" href="aboutus.php"
@@ -194,8 +194,9 @@ if (isset($_GET["msg"])) {
 
         </div>
         <div class="d-grid gap-2" >
-            <button class="btn btn-primary loginbtn" type="button" style="border: none">Treatment</button>
-            <!--            <button class="btn btn-primary doctrbtn" type="button">Appointment</button>-->
+            <a href="doctors.php">
+            <button class="btn btn-primary loginbtn" type="button" style="border: none">Appointment</button>
+            </a>
         </div>
 
         <!--            </div>-->

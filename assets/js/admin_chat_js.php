@@ -14,26 +14,32 @@
     // +++++++++ Step of create chart +++++++++++++
     //** Setup Blok - set data variable
     const data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        <?php
+        if ($chart == "month" ){?>
+        labels: ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
         datasets: [
             {
-                label: 'Data Set 1',
+                label: 'Mothly Visit',
                 borderColor: 'rgba(75, 192, 192, 0.7)',
                 backgroundColor: gradiatFill_2,
-                data: [10, 30, 20, 25, 35, 30],
+                data: [<?=$viw_data[0]?>,<?=$viw_data[1]?>,<?=$viw_data[2]?>,<?=$viw_data[3]?>,<?=$viw_data[4]?>,<?=$viw_data[5]?>,<?=$viw_data[6]?>,<?=$viw_data[7]?>,<?=$viw_data[8]?>,<?=$viw_data[9]?>,<?=$viw_data[10]?>,<?=$viw_data[11]?>],
                 tension: 0.3,
                 fill:true
-            },
-            // Add more datasets if needed
+            }
+        ],
+        <?php }else {?>
+        labels: ['<?=$viw_data_m[0]['day']?>', '<?=$viw_data_m[1]['day']?>', '<?=$viw_data_m[2]['day']?>', '<?=$viw_data_m[3]['day']?>', '<?=$viw_data_m[4]['day']?>'],
+        datasets: [
             {
-                label: 'Data Set 2',
+                label: 'Nearest 5 days',
                 borderColor: 'rgba(26,72,153,0.7)',
                 backgroundColor: gradiatFill_1,
-                data: [45, 12, 15, 52, 25, 26],
+                data: [<?=$viw_data_m[0]['count']?>, <?=$viw_data_m[1]['count']?>, <?=$viw_data_m[2]['count']?>, <?=$viw_data_m[3]['count']?>, <?=$viw_data_m[4]['count']?>],
                 tension: 0.3,
                 fill: true
-            },
+            }
         ],
+        <?php }?>
     };
 
     //** Render Bock
@@ -106,22 +112,22 @@
     // +++++++++ Step of create chart +++++++++++++
     //** Setup Blok - set data variable
     const B_data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        labels: ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
         datasets: [
             {
-                label: 'Data Set 1',
+                label: 'Doctors',
                 borderColor: 'rgba(75, 192, 192, 0.7)',
                 backgroundColor: gradiatFill_2,
-                data: [10, 30, 20, 25, 35, 30],
+                data: [<?=$doc_data[0]?>, <?=$doc_data[1]?>, <?=$doc_data[2]?>, <?=$doc_data[3]?>, <?=$doc_data[4]?>, <?=$doc_data[5]?>,<?=$doc_data[6]?>,<?=$doc_data[7]?>,<?=$doc_data[8]?>,<?=$doc_data[9]?>,<?=$doc_data[10]?>,<?=$doc_data[11]?>],
                 tension: 0.3,
                 fill:true
             },
             // Add more datasets if needed
             {
-                label: 'Data Set 2',
+                label: 'Couselor',
                 borderColor: 'rgba(26,72,153,0.7)',
                 backgroundColor: gradiatFill_1,
-                data: [45, 12, 15, 52, 25, 26],
+                data: [<?=$cou_data[0]?>,<?=$cou_data[1]?>,<?=$cou_data[2]?>,<?=$cou_data[3]?>,<?=$cou_data[4]?>,<?=$cou_data[5]?>,<?=$cou_data[6]?>,<?=$cou_data[7]?>,<?=$cou_data[8]?>,<?=$cou_data[9]?>,<?=$cou_data[10]?>,<?=$cou_data[11]?>],
                 tension: 0.3,
                 fill: true
             },

@@ -577,12 +577,12 @@ AJAX.registerOnload('sql.js', function () {
           var url;
           if (data.db) {
             if (data.table) {
-              url = 'index.php?route=/table/sql';
+              url = 'home.php?route=/table/sql';
             } else {
-              url = 'index.php?route=/database/sql';
+              url = 'home.php?route=/database/sql';
             }
           } else {
-            url = 'index.php?route=/server/sql';
+            url = 'home.php?route=/server/sql';
           }
           CommonActions.refreshMain(url, function () {
             $('#sqlqueryresultsouter').show().html(data.message);
@@ -753,14 +753,14 @@ AJAX.registerOnload('sql.js', function () {
     var url;
     if (action === 'edit') {
       submitData = submitData + argsep + 'default_action=update';
-      url = 'index.php?route=/table/change/rows';
+      url = 'home.php?route=/table/change/rows';
     } else if (action === 'copy') {
       submitData = submitData + argsep + 'default_action=insert';
-      url = 'index.php?route=/table/change/rows';
+      url = 'home.php?route=/table/change/rows';
     } else if (action === 'export') {
-      url = 'index.php?route=/table/export/rows';
+      url = 'home.php?route=/table/export/rows';
     } else if (action === 'delete') {
-      url = 'index.php?route=/table/delete/confirm';
+      url = 'home.php?route=/table/delete/confirm';
     } else {
       return;
     }

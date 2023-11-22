@@ -173,7 +173,7 @@ AJAX.registerOnload('database/structure.js', function () {
    * Event handler on select of "Make consistent with central list"
    */
   $('select[name=submit_mult]').on('change', function (event) {
-    var url = 'index.php?route=/database/structure';
+    var url = 'home.php?route=/database/structure';
     var action = $(this).val();
     if (action === 'make_consistent_with_central_list') {
       event.preventDefault();
@@ -200,16 +200,16 @@ AJAX.registerOnload('database/structure.js', function () {
       var formData = $('#tablesForm').serialize();
       var modalTitle = '';
       if (action === 'copy_tbl') {
-        url = 'index.php?route=/database/structure/copy-form';
+        url = 'home.php?route=/database/structure/copy-form';
         modalTitle = Messages.strCopyTablesTo;
       } else if (action === 'add_prefix_tbl') {
-        url = 'index.php?route=/database/structure/add-prefix';
+        url = 'home.php?route=/database/structure/add-prefix';
         modalTitle = Messages.strAddPrefix;
       } else if (action === 'replace_prefix_tbl') {
-        url = 'index.php?route=/database/structure/change-prefix-form';
+        url = 'home.php?route=/database/structure/change-prefix-form';
         modalTitle = Messages.strReplacePrefix;
       } else if (action === 'copy_tbl_change_prefix') {
-        url = 'index.php?route=/database/structure/change-prefix-form';
+        url = 'home.php?route=/database/structure/change-prefix-form';
         modalTitle = Messages.strCopyPrefix;
       }
       $.ajax({
@@ -233,27 +233,27 @@ AJAX.registerOnload('database/structure.js', function () {
       return;
     }
     if (action === 'analyze_tbl') {
-      url = 'index.php?route=/table/maintenance/analyze';
+      url = 'home.php?route=/table/maintenance/analyze';
     } else if (action === 'sync_unique_columns_central_list') {
-      url = 'index.php?route=/database/structure/central-columns/add';
+      url = 'home.php?route=/database/structure/central-columns/add';
     } else if (action === 'delete_unique_columns_central_list') {
-      url = 'index.php?route=/database/structure/central-columns/remove';
+      url = 'home.php?route=/database/structure/central-columns/remove';
     } else if (action === 'check_tbl') {
-      url = 'index.php?route=/table/maintenance/check';
+      url = 'home.php?route=/table/maintenance/check';
     } else if (action === 'checksum_tbl') {
-      url = 'index.php?route=/table/maintenance/checksum';
+      url = 'home.php?route=/table/maintenance/checksum';
     } else if (action === 'drop_tbl') {
-      url = 'index.php?route=/database/structure/drop-form';
+      url = 'home.php?route=/database/structure/drop-form';
     } else if (action === 'empty_tbl') {
-      url = 'index.php?route=/database/structure/empty-form';
+      url = 'home.php?route=/database/structure/empty-form';
     } else if (action === 'export') {
-      url = 'index.php?route=/export/tables';
+      url = 'home.php?route=/export/tables';
     } else if (action === 'optimize_tbl') {
-      url = 'index.php?route=/table/maintenance/optimize';
+      url = 'home.php?route=/table/maintenance/optimize';
     } else if (action === 'repair_tbl') {
-      url = 'index.php?route=/table/maintenance/repair';
+      url = 'home.php?route=/table/maintenance/repair';
     } else if (action === 'show_create') {
-      url = 'index.php?route=/database/structure/show-create';
+      url = 'home.php?route=/database/structure/show-create';
     } else {
       $('#tablesForm').trigger('submit');
       return;

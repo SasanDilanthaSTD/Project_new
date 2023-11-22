@@ -1,11 +1,37 @@
 <?php
 require 'core/init.php';
 require 'core/classes/ResourceLibrary.php';
+require_once 'core/classes/MassageCncpt.php';
+
+include_once ("process/view_count.php");
+
+$msg = new \MyApp\MassageCncpt();
+$cookie = $btnstreeess = "";
 
 if (!$userObj->isLoggedIn()) {
     $set_btnLog = true;
     $link = "login.php";
-} else {
+
+    if (isset($_GET)) {
+        if (isset($_GET['setcookie'])) {
+            if ($_GET['setcookie'] === 'yes') {
+                $unregid = $_GET['id'];
+                setcookie('unreg_id', $unregid, time() + 3600);
+            }
+        }
+    }
+
+    if (isset($_COOKIE['unreg'])) {
+        $cookie = true;
+    } else {
+        $cookie = false;
+        setcookie('unreg', "first_time", time() + (3600*24*365));
+    }
+    if (isset($_POST['btnstress'])) {
+        $btnstreeess = true;
+    }
+
+}else{
     $set_btnLog = false;
     $possition1 = $userObj->newPosition();
     if ($possition1 == "patient") {
@@ -13,22 +39,22 @@ if (!$userObj->isLoggedIn()) {
     } elseif ($possition1 == "doctor") {
         header("Location: doctorprofile.php");
         //$link = "doctorprofile.php";
-    } elseif ($possition1 == "counselor") {
+    }elseif ($possition1 == "counselor") {
         header("Location: counselorprofile.php");
         //$link = "counselorprofile.php";
-    } elseif ($possition1 == "admin") {
+    }elseif ($possition1 == "admin") {
         $link = "admin_page.php";
     }
 }
 $resourceLibrarayObj = new \MyApp\ResourceLibrary();
-$resources = $resourceLibrarayObj->accessResources();
+$resources = $resourceLibrarayObj->accessSixRandomResources();
 ?>
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Mind Relaxing Resources</title>
+    <title>home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aclonica&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor&amp;display=swap">
@@ -42,15 +68,12 @@ $resources = $resourceLibrarayObj->accessResources();
     <link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/css/home.css">
-
-    <?php include_once('assets/css/set_footer.php'); ?>
+    <?php include_once ('assets/css/set_footer.php');?>
 
 </head>
-<body>
+<body >
 <!--style="background: rgb(221,221,221);"-->
 
 <!-- Start: nav bar -->
@@ -58,64 +81,152 @@ $resources = $resourceLibrarayObj->accessResources();
     <nav class="navbar navbar-expand-md bg-body py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"
                                   style="padding-bottom: 0px;margin-top: 0px;padding-top: 0px;"><img
-                        src="assets/img/logo.png" style="width: 109px;"></a>
+                    src="assets/img/logo.png" style="width: 109px;"></a>
             <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span
-                        class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span>
+                    class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link itemnew" href="home.php"><strong>Home</strong></a></li>
-                    <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact
-                                Us</strong></a></li>
+                    <li class="nav-item"><a class="nav-link active itemnew" href="home.php"><strong>Home</strong></a></li>
+                    <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
+                    <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact Us</strong></a></li>
                 </ul>
-                <?php if ($set_btnLog) { ?>
-                    <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link; ?>"
-                       style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp
-                            Login</strong></a>
-                <?php } else { ?>
-                    <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link; ?>"
-                       style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp
-                            Profile</strong></a>
-                <?php } ?>
+                <?php if($set_btnLog){ ?>
+                <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a>
+                <?php }else{ ?>
+                <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Profile</strong></a>
+                <?php }?>
             </div>
         </div>
-    </nav><!-- End: Navbar Right Links -->
-</div><!-- End: nav bar -->
+    </nav><!-- End: Navbar Right Links --></div><!-- End: nav bar -->
+<!-- Start: first img -->
+
+<div class="bigdiv "
+     style="height: 650px;color: rgb(0,79,95);background: url(assets/img/mental-health-7323725_1280.webp) left / cover no-repeat;padding-bottom: 0px;border-top-style: none;border-right-style: none;border-bottom-style: none;border-left-style: none;">
+
+    <!-- Start: caption -->
+    <div style="padding-top: 20px;padding-left: 20px;">
+
+        <h1
+            style="margin-bottom: 0px;text-shadow: 0px 0px 20px var(--bs-tertiary-color);"><span
+                style="color: rgb(255, 255, 255);">Feeling Sad?</span></h1>
+        <h1 style="margin-bottom: 0px;border-radius: 17px;border-width: 5px;border-style: none;padding-top: 0px;margin-top: 0px;text-shadow: 0px 0px 20px var(--bs-tertiary-color);font-family: Kavivanar, serif;">
+            <span style="color: rgb(255, 255, 255);">சோகமாக இருக்கிறதா?</span></h1>
+        <h1 style="margin-bottom: 0px;font-family: 'Stick No Bills', sans-serif;text-shadow: 0px 0px 20px var(--bs-tertiary-color);">
+            <span style="color: rgb(255, 255, 255);">දුකක් දැනෙනවාද?</span></h1>
+        <form method="post" action="<?=$_SERVER['PHP_SELF']?>" >
+        <button class="btn btn-primary loginbtn stressbtn" data-bss-hover-animate="pulse" type="submit" name="btnstress"
+                style="border-style: none;height: 61px;margin-top: 21px;box-shadow: 0px 0px 20px var(--bs-border-color-translucent);width: 202.125px;font-size: 20px;border-radius: 20px;">
+            <strong>Check Stress Level</strong>
+        </button>
+        </form>
+    </div>
+
+    <!-- End: caption -->
+</div>
+
+<!-- End: first img -->
+
+<!--free counseling button start-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .fill-button {
+            text-align: center;
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+
+        .counselorbtn {
+            border: 3px solid #00454f;
+            color: #00454f;
+            background: none;
+            cursor: pointer;
+            padding: 2% 6%; /* Adjust padding as needed */
+            font-size: 2vw; /* Adjust font size as needed */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            outline: none;
+            position: relative;
+            transition: all 1s;
+        }
+
+        .counselorbtn:hover {
+            color: #fff;
+        }
+
+        .counselorbtn::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            transition: all 1s;
+            width: 0%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: #00454f;
+        }
+
+        .counselorbtn:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body >
+<?php
+if (!$cookie || $btnstreeess) {
+    include "stress_level_1.php";
+}
+?>
+<?php
+if (isset($_GET["msg"])) {
+    if ($_GET["msg"] == 1) {
+        $msg->setSuccessMassage("<hr>Appointment Schedule  successfully<hr>");
+    }elseif ($_GET["err"] == 1){
+        $msg->setErrorMassage("<hr>DB ERROR<hr>");
+    }
+}
+?>
+<hr style="margin-left: 20px; margin-right: 20px; margin-bottom: 30px;">
+<div class="fill-button">
+    <a href="counselors.php" style="text-decoration: none"><button class="counselorbtn">Free Counseling</button></a>
+</div>
+</body>
+</html>
+<!--free counseling button end-->
 
 <!-- Start: content -->
 <hr style="margin-left: 20px; margin-right: 20px; margin-bottom: 30px;">
-<div class="videobackground content"
-     style="background: url(assets/img/indexbg.jpeg) top / cover no-repeat fixed, rgb(63,70,79);">
+<div class="videobackground content" style="background: url(assets/img/indexbg.jpeg) top / cover no-repeat fixed, rgb(63,70,79);">
     <h1 style="@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');text-align: center;font-size: 56.52px;margin-bottom: 8px;padding-top: 20px;margin-top: 8px;color: rgb(253,253,253);text-shadow: 2px 3px 0px rgb(79,115,124);font-weight: bold;">
         <span style="">Relax&nbsp;</span>Yourself
     </h1>
 
     <div>
-        <?php
-        foreach ($resources as $resource) {
+<?php
+foreach ($resources as $resource) {
 
-            ?>
-            <div class="video-container">
-                <iframe src="<?php echo $resource->link; ?>" title="YouTube video" allowfullscreen></iframe>
-            </div>
-            <?php
-        }
+?>
+        <div class="video-container">
+            <iframe src="<?php echo $resource->link;?>" title="YouTube video" allowfullscreen></iframe>
+        </div>
+        <?php
+}
         ?>
 
     </div>
 
+    <div style="text-align: center; padding-bottom: 50px;border-radius: 50px">
+        <a href="resourceVideosView.php" style="text-decoration: none"><button class="glow-on-hover" type="button" style="font-weight: bold; border-radius: 20px">Watch More</button></a>
+    </div>
 
 </div>
-    <div class="mt-5" style="text-align: center; border-radius: 50px">
-        <a href="home.php" style="text-decoration: none">
-            <button class="glow-on-hover" type="button" style="font-weight: bold; border-radius: 20px"><i
-                        class="fa-solid fa-backward fa-beat-fade"></i> &nbsp Back to Home
-            </button>
-        </a>
-    </div>
-<!--<hr style="margin-left: 20px; margin-right: 20px; margin-top: 30px;">-->
 <!-- End: chatcounselor -->
 <!-- Start: footer -->
 <div>

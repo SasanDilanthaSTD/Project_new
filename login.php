@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link itemnew" href="index.php"><strong>Home</strong></a></li>
+                    <li class="nav-item"><a class="nav-link itemnew" href="home.php"><strong>Home</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact Us</strong></a></li>
                 </ul>

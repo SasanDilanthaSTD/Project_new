@@ -126,7 +126,7 @@ var ErrorReport = {
     var buttonHtml = '<button class="btn btn-primary" id="show_error_report_' + key + '">';
     buttonHtml += Messages.strShowReportDetails;
     buttonHtml += '</button>';
-    var settingsUrl = 'index.php?route=/preferences/features&server=' + CommonParams.get('server');
+    var settingsUrl = 'home.php?route=/preferences/features&server=' + CommonParams.get('server');
     buttonHtml += '<a class="ajax" href="' + settingsUrl + '">';
     buttonHtml += Functions.getImage('s_cog', Messages.strChangeReportSettings);
     buttonHtml += '</a>';

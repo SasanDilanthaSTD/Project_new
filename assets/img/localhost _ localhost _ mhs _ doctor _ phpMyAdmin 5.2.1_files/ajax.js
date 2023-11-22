@@ -398,7 +398,7 @@ var AJAX = {
     if (typeof data.success !== 'undefined' && data.success) {
       // reload page if user trying to login has changed
       if (CommonParams.get('user') !== data.params.user) {
-        window.location = 'index.php';
+        window.location = 'home.php';
         Functions.ajaxShowMessage(Messages.strLoading, false);
         AJAX.active = false;
         AJAX.xhr = null;
@@ -499,9 +499,9 @@ var AJAX = {
           var source = data.selflink.split('?')[0];
           // Check for faulty links
           var $selflinkReplace = {
-            'index.php?route=/import': 'index.php?route=/table/sql',
-            'index.php?route=/table/chart': 'index.php?route=/sql',
-            'index.php?route=/table/gis-visualization': 'index.php?route=/sql'
+            'index.php?route=/import': 'home.php?route=/table/sql',
+            'index.php?route=/table/chart': 'home.php?route=/sql',
+            'index.php?route=/table/gis-visualization': 'home.php?route=/sql'
           };
           if ($selflinkReplace[source]) {
             var replacement = $selflinkReplace[source];

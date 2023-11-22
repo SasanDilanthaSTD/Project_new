@@ -15,11 +15,15 @@ class Admin
         $this->con = DBConnector::getConnection();
     }
 
-    private function crate_admin_id(){
+    private function crate_id($set){
         $min = 1;
         $max = 100000;
         $randomNumberInRange = rand($min, $max);
-        $user_id = "ADM" . $randomNumberInRange;
+        if ($set == "admin"){
+            $user_id = "ADM" . $randomNumberInRange;
+        }elseif($set == "unreg"){
+            $user_id = "URP" . $randomNumberInRange;
+        }
 
         $query = "SELECT * FROM payment WHERE user_id = ?";
         $pstmt = $this->con->prepare($query);
@@ -27,7 +31,7 @@ class Admin
         try {
             $pstmt->execute();
             if ($pstmt->rowCount() > 0){
-                create_pay_id();
+                create_id();
             }else{
                 return $user_id;
             }
@@ -217,7 +221,7 @@ class Admin
 
 
     public function reg_admin($first_name, $last_name,$username, $email, $password){
-        $admin_id = $this->crate_admin_id();
+        $admin_id = $this->crate_id("admin");
         $sql = "INSERT INTO user(user_id, firstname, lastname, username,password, email,verify_key) VALUES (?,?,?,?,?,?,?)";
         $pstmt = $this->con->prepare($sql);
         $pstmt->bindValue(1,$admin_id);
@@ -293,5 +297,144 @@ class Admin
             echo "Error" . $ex->getMessage();
         }
     }
+
+    public function for_barchart_c(){
+        $sql_c = "SELECT MONTH(user.time) AS registration_month, COUNT(*) AS registered_count  FROM user WHERE user.user_id LIKE 'COU%' GROUP BY MONTH(user.time) ORDER BY registration_month DESC";
+        $stmt_c = $this->con->prepare($sql_c);
+        try {
+            $stmt_c->execute();
+            if ($stmt_c->rowCount() > 0) {
+                return $stmt_c->fetchAll(PDO::FETCH_OBJ);
+            }else{
+                echo $stmt_c->rowCount();
+            }
+        }catch (\PDOException $ex){
+            echo "Error : ". $ex->getMessage();
+        }
+
+    }
+    public function for_barchart_d(){
+        $sql_d = "SELECT MONTH(user.time) AS registration_month, COUNT(*) AS registered_count FROM user WHERE user.user_id LIKE 'DOC%' GROUP BY MONTH(user.time) ORDER BY registration_month DESC";
+        $stmt = $this->con->prepare($sql_d);
+        try {
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
+            }else{
+                echo $stmt->rowCount();
+            }
+        }catch (\PDOException $ex){
+            echo "Error : ". $ex->getMessage();
+        }
+    }
+
+    public function for_view_chart_month(){
+        $sql = "SELECT MONTH(date) AS month, SUM(count) AS total_count FROM view_counts GROUP BY MONTH(date)";
+        $stmt = $this->con->prepare($sql);
+        try {
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }catch (\PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
+    }
+    public function for_view_chart_day(){
+        $sql = "SELECT date, count FROM view_counts WHERE date >= CURDATE() - INTERVAL 5 DAY";
+        $stmt = $this->con->prepare($sql);
+        try {
+            $stmt->execute();
+            if ($stmt->rowCount() > 0){
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
+            }else{
+                echo $stmt->rowCount();
+            }
+
+        }catch (\PDOException $ex){
+            echo "Error : " . $ex->getMessage();
+        }
+    }
+
+    public function stress_tool_type_1(){
+        $set_indexing = array();
+        $sql = "SELECT stress_tool.q_id, stress_tool.questions FROM stress_tool WHERE stress_tool.method = 'PSS' ORDER BY RAND()";
+        $resutl = $this->con->prepare($sql);
+        try {
+            $resutl->execute();
+            if ($resutl->rowCount() > 0){
+                while ($result_set = $resutl->fetch(PDO::FETCH_OBJ)) {
+                    $set_indexing[] = array(
+                        "q_id" => $result_set->q_id,
+                        "q" => $result_set->questions
+                    );
+                }
+                return $set_indexing;
+            }
+        }catch (\PDOException $ex){
+            echo  $ex->getMessage();
+        }
+    }
+    public function stress_tool_type_2(){
+        $set_indexing = array();
+        $sql = "SELECT * FROM stress_tool WHERE stress_tool.method = 'DASS21' ORDER BY RAND()";
+        $resutl = $this->con->prepare($sql);
+        try {
+            $resutl->execute();
+            if ($resutl->rowCount() > 0){
+                while ($result_set = $resutl->fetch(PDO::FETCH_OBJ)) {
+                    $set_indexing[] = array(
+                        "type" => $result_set->type,
+                        "q" => $result_set->questions
+                    );
+                }
+                return $set_indexing;
+            }
+        }catch (\PDOException $ex){
+            echo  $ex->getMessage();
+        }
+    }
+
+    public function get_unreg_id(){
+       return $this->crate_id("unreg");
+    }
+
+    public function insert_unreg_user($id){
+        $sql = "INSERT INTO user(user_id) VALUES (?)";
+        $pstmt = $this->con->prepare($sql);
+        $pstmt->bindValue(1,$id);
+        try {
+            $pstmt->execute();
+            return ($pstmt->rowCount() > 0) ? true : false;
+        }catch (\PDOException $ex){
+            echo $ex->getMessage();
+        }
+    }
+    public function stress_tool_insert_1($user_id,$history,$status){
+        $sql = "INSERT INTO patient(user_id,History_of_medicine,status) VALUES (?,?,?)";
+        $pstmt = $this->con->prepare($sql);
+        $pstmt->bindValue(1,$user_id);
+        $pstmt->bindValue(2,$history);
+        $pstmt->bindValue(3,$status);
+        try {
+            $pstmt->execute();
+            return ($pstmt->rowCount() > 0) ? true : false;
+        }catch (\PDOException $ex){
+            echo $ex->getMessage();
+        }
+    }
+    public function stress_tool_update_1($user_id,$history,$status){
+        $sql = "UPDATE patient SET History_of_medicine = ?,status = ? WHERE user_id = ? ";
+        $pstmt = $this->con->prepare($sql);
+        $pstmt->bindValue(1,$history);
+        $pstmt->bindValue(2,$status);
+        $pstmt->bindValue(3,$user_id);
+        try {
+            $pstmt->execute();
+            return ($pstmt->rowCount() > 0) ? true : false;
+        }catch (\PDOException $ex){
+            echo $ex->getMessage();
+        }
+    }
+
+
 
 }

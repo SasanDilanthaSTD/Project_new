@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     if ($userObj->getPosition() == "patient") {
                         if ($userObj->insertUser($uID, $tID, $hashedpassword, "", $key)){
                             $mail_obj = new MailClass($sanitizedAndValidatedemail, $name, "Account Verification", "verify");
-                            $mail_obj->set_verify_key($key);
+                            $mail_obj->set_key($key);
                             $mail_obj->send_mail_verify_key();
                         }else{
                             echo 'Please check again';

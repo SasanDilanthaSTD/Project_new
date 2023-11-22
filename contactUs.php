@@ -53,7 +53,7 @@ if (!$userObj->isLoggedIn()) {
             </button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link itemnew" href="index.php"><strong>Home</strong></a></li>
+                    <li class="nav-item"><a class="nav-link itemnew" href="home.php"><strong>Home</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
                     <li class="nav-item"><a class="nav-link active itemnew" href="contactUs.php"><strong>Contact Us</strong></a>
                     </li>

@@ -1,29 +1,34 @@
 <?php
-use MyApp\Admin;
-use MyApp\ResourceLibrary;
-
 require_once 'core/init.php';
-require_once "core/classes/Admin.php";
-require 'core/classes/ResourceLibrary.php';
-require 'core/classes/MassageCncpt.php';
+require_once 'core/classes/MassageCncpt.php';
+require_once 'core/classes/Payment.php';
 
-if (!$userObj->isLoggedIn()) {
-    $userObj->redirect('login.php');
-}
+use MyApp\Payment;
 
-$massage = new \MyApp\MassageCncpt();
+$appointmenr_obj = new Payment();
 
-$admin = new Admin();
-$resourceLib = new ResourceLibrary();
-$admin_name = $admin->get_admin_name($userObj->ID());
+$msg = new \MyApp\MassageCncpt();
 
-if (isset($_POST['btnSubmit'])){
-    $url = $_POST['url'];
-    $resourceLib->insertResourcelink($url,$userObj->ID());
+if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+    if (isset($_GET['key'])){
+        $key = $_GET['key'];
+        $c_id = substr($key,0,8);
+        $d_id = substr($key,8,8);
+        $p_id = substr($key,16,8);
+
+        // counseller name
+        $counseler = $userObj->userData($c_id);
+        $c_name = $counseler->firstname . " " . $counseler->lastname;
+        // doctor name
+        $doctor = $userObj->userData($d_id);
+        $d_name = $doctor->firstname . " " . $doctor->lastname;
+        //patient name
+        $patient = $userObj->userData($p_id);
+        $p_name = $patient->firstname . " " . $patient->lastname;
+    }
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
@@ -31,23 +36,7 @@ if (isset($_POST['btnSubmit'])){
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Add Video Content</title>
-    <!-- Font Awesome -->
-    <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        rel="stylesheet"
-    />
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-        rel="stylesheet"
-    />
-    <!-- MDB -->
-    <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"
-        rel="stylesheet"
-    />
-
+    <title>Appointment Details</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aclonica&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor&amp;display=swap">
@@ -57,6 +46,10 @@ if (isset($_POST['btnSubmit'])){
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kavivanar&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stick+No+Bills&amp;display=swap">
 
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <link rel="stylesheet" href="assets/css/check_mail.css">
     <?php include_once ('assets/css/set_footer.php');?>
 </head>
@@ -64,60 +57,53 @@ if (isset($_POST['btnSubmit'])){
 <body style="background: rgb(184,241,255);"><!-- Start: nav bar -->
 <div><!-- Start: Navbar Right Links -->
     <nav class="navbar navbar-expand-md bg-body py-3">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="home.php" style="padding-bottom: 0px;margin-top: 0px;padding-top: 0px;"><img src="assets/img/logo.png" style="width: 109px;"></a></div>
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#" style="padding-bottom: 0px;margin-top: 0px;padding-top: 0px;"><img src="assets/img/logo.png" style="width: 109px;"></a></div>
     </nav><!-- End: Navbar Right Links -->
-</div><!-- End: nav bar -->
+</div><!-- End: nav bar --><!-- Start: DA_About -->
 
-<?php
-if (isset($_GET["video_inser_msg"])) {
-    if ($_GET["video_inser_msg"] == 1) {
-        $massage->setSuccessMassage("<hr>Insert successfully.<hr>");
-    }elseif ($_GET["video_inser_msg"] == 2){
-        $massage->setSuccessMassage("<hr>Insert Error.<hr>");
-    }
-}
-?>
 
-<!-- Start: DA_About -->
-<div
-    class="content d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center highlight-blue"
-    id="About"
-    style="height: 500px;background: url(&quot;/Project_new/assets/img/aboutusbackground.jpg&quot;), rgba(0,0,0,0);background-size: cover, auto;">
+<div class="content d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center highlight-blue" id="About" style="height: 500px;background: url(&quot;/Project_new/assets/img/aboutusbackground.jpg&quot;), rgba(0,0,0,0);background-size: cover, auto;">
     <!-- Start: 2 Rows 1+1 Columns -->
-    <div class="container ">
-        <div class="row">
-            <div class="col-md-12" style="background: rgba(255,255,255,0.58);padding-top: 0px;">
-                <div style="padding-left: 0px;text-align: center;padding-top: 0px;margin-bottom: 50px;margin-top: 21px;">
-                    <h6 style="font-size: 22px;"><strong><span style="color: rgb(0, 115, 139);">Add new video content</span></strong></h6>
-                    <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="row g-3 needs-validation" novalidate>
-                        <div class="col-md-4">
-                            <div class="form-outline">
-                                <input type="text" class="form-control" id="validationCustom01" value="<?php echo $admin_name ;?>" disabled />
-                                <label for="validationCustom01" class="form-label">Admin name</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-outline">
-                                <input type="text" name="url" class="form-control" id="validationCustom03" required />
-                                <label for="validationCustom03" class="form-label">Enter the URL</label>
-                                <div class="invalid-feedback">Text fild is empty. Enterth URL then submit</div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <a href="admin_page.php"><button class="btn btn-primary gotoemailbtn mt-lg-5" style="border: none" type="button"><< BACK</button></a>
-                            <button class="btn btn-primary gotoemailbtn mt-lg-5" style="border: none" type="submit" name="btnSubmit">Submit</button>
-                        </div>
-                    </form>
+    <div class="container card card-outline-secondary">
+        <div class="card-body">
+            <h3 class="text-center">Appointment Details</h3>
+            <hr>
+            <div class="alert alert-info p-2 pb-3"></div>
+            <form class="form" action="process/appointment.php" method="post">
+                <div class="form-group">
+                    <label>Patient's Username</label>
+                    <input type="text" class="form-control" name="p_name"  value="<?=$p_name?>" disabled>
                 </div>
-                <div></div>
+                <div class="form-group">
+                    <label>Counselor's Name</label>
+                    <input type="text" class="form-control" name="c_name" value="<?=$c_name ?>" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Doctor's Name</label>
+                    <input type="text" class="form-control" name="d_name" value="<?=$d_name ?>" disabled>
+                </div>
+                <div class="row">
+                    <label class="col-md-12">Set date & time</label>
+                </div>
+                <div class="form-inline">
+                    <div class="input-group">
+                        <input type="date" class="form-control text-right" id="date" name="date"/>
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <input type="time" id="time" name="time">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            <div>
+                <input type="hidden" value="<?=$key ?>" name="key">
+                <input type="hidden" value="<?=$c_id ?>" name="cou">
+                <input type="hidden" value="<?=$d_id ?>" name="doc">
+                <input type="hidden" value="<?=$p_id ?>" name="pat">
+                <button class="btn btn-success" type="submit" name="btn_schedule" style="border-style: none;">Schedule</button>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12" style="background: rgba(255,255,255,0.58);"><!-- Start: Intro -->
-                <div class="intro">
-                    <div style="text-align: center;"><img src="assets/img/logo.png" style="width: 168px;padding-top: 20px;padding-bottom: 20px;"></div>
-                </div><!-- End: Intro -->
-            </div>
+            </form>
         </div>
     </div><!-- End: 2 Rows 1+1 Columns -->
 </div><!-- End: DA_About --><!-- Start: footer -->
@@ -154,30 +140,10 @@ if (isset($_GET["video_inser_msg"])) {
         </div>
     </footer><!-- End: Footer Basic -->
 </div><!-- End: footer -->
-<!-- MDB -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/js/check_mail.js"></script>
-<script>
-    (() => {
-        'use strict';
 
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.needs-validation');
 
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms).forEach((form) => {
-            form.addEventListener('submit', (event) => {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    })();
-</script>
+<script src="assets/js/check_mail.js"></script>
 </body>
 
 </html>
