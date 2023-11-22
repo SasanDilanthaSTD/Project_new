@@ -15,6 +15,8 @@ if (!$userObj->isLoggedIn()) {
         $link = "doctorprofile.php";
     }elseif ($possition1 == "counselor") {
         $link = "counselorprofile.php";
+    }elseif ($possition1 == "admin") {
+        $link = "admin_page.php";
     }
 //    $link2 = "http://localhost/Project_new/chatprofile.php?uname=";
 }
@@ -54,7 +56,7 @@ $approvedCounselors = $counselorObj->getApprovedCounselorDetails();
                         class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link itemnew" href="index.php"><strong>Home</strong></a></li>
+                    <li class="nav-item"><a class="nav-link itemnew" href="home.php"><strong>Home</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact Us</strong></a></li>
                 </ul>

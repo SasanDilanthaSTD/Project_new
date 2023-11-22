@@ -54,9 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 <body style="background: rgb(184,241,255);"><!-- Start: nav bar -->
 <div><!-- Start: Navbar Right Links -->
     <nav class="navbar navbar-expand-md bg-body py-3">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"
-                                  style="padding-bottom: 0px;margin-top: 0px;padding-top: 0px;"><img src="assets/img/logo.png"
-                                                                                                     style="width: 109px;"></a></div>
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="home.php" style="padding-bottom: 0px;margin-top: 0px;padding-top: 0px;"><img src="assets/img/logo.png" style="width: 109px;"></a>
+        </div>
     </nav><!-- End: Navbar Right Links -->
 </div><!-- End: nav bar --><!-- Start: DA_About -->
 <div

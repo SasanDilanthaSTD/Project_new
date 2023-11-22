@@ -88,7 +88,7 @@ const GitInfo = {
     }
   },
   /**
-   * Loads Git revision data from ajax for index.php
+   * Loads Git revision data from ajax for home.php
    */
   displayGitRevision: function () {
     $('#is_git_revision').remove();

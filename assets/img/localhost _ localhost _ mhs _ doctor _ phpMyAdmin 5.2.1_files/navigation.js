@@ -874,7 +874,7 @@ Navigation.selectCurrentDatabase = function () {
 Navigation.treePagination = function ($this) {
   var $msgbox = Functions.ajaxShowMessage();
   var isDbSelector = $this.closest('div.pageselector').is('.dbselector');
-  var url = 'index.php?route=/navigation';
+  var url = 'home.php?route=/navigation';
   var params = 'ajax_request=true';
   if ($this[0].tagName === 'A') {
     params += CommonParams.get('arg_separator') + $this.getPostData();

@@ -130,7 +130,7 @@ var CommonActions = {
    * Refreshes the main frame
    *
    * @param {any} url Undefined to refresh to the same page
-   *                  String to go to a different page, e.g: 'index.php'
+   *                  String to go to a different page, e.g: 'home.php'
    * @param {function | undefined} callback
    *
    * @return {void}

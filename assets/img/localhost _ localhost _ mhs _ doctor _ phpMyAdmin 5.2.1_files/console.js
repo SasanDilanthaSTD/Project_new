@@ -82,7 +82,7 @@ var Console = {
     Console.$consoleTemplates = $('#pma_console').find('>.templates');
 
     // Generate a form for post
-    Console.$requestForm = $('<form method="post" action="index.php?route=/import">' + '<input name="is_js_confirmed" value="0">' + '<textarea name="sql_query"></textarea>' + '<input name="console_message_id" value="0">' + '<input name="server" value="">' + '<input name="db" value="">' + '<input name="table" value="">' + '<input name="token" value="">' + '</form>');
+    Console.$requestForm = $('<form method="post" action="home.php?route=/import">' + '<input name="is_js_confirmed" value="0">' + '<textarea name="sql_query"></textarea>' + '<input name="console_message_id" value="0">' + '<input name="server" value="">' + '<input name="db" value="">' + '<input name="table" value="">' + '<input name="token" value="">' + '</form>');
     Console.$requestForm.children('[name=token]').val(CommonParams.get('token'));
     Console.$requestForm.on('submit', AJAX.requestHandler);
 

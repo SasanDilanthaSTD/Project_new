@@ -9,6 +9,10 @@ if (!$userObj->isLoggedIn()) {
 }
 $userObj->updateStatus("online");
 $user = $userObj->userData();
+$visible = false;
+if (isset($_POST['btnStress'])){
+    $visible = true;
+}
 ?>
 
 <!doctype html>
@@ -53,7 +57,7 @@ $user = $userObj->userData();
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link itemnew" href="index.php"><strong>Home</strong></a>
+                        <a class="nav-link itemnew" href="home.php"><strong>Home</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link itemnew" href="aboutus.php"
@@ -82,6 +86,11 @@ if (isset($_GET["msg"])) {
         $massage->setWarningMassage("<hr>There is some issues. Please try again in few minutes.<hr>");
     }
 }
+
+if ($visible){
+    include_once "stress_level_2.php";
+}
+
 ?>
 
 <div class="row content" style=" margin-right: 0px;margin-left: 0px;">
@@ -142,17 +151,11 @@ if (isset($_GET["msg"])) {
             </div>
 
         </div>
+        <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
         <div class="d-grid gap-2" >
-            <button class="btn btn-primary loginbtn" type="button" style="border: none">Check Your Stress Level</button>
-            <!--            <button class="btn btn-primary doctrbtn" type="button">Appointment</button>-->
+            <button class="btn btn-primary loginbtn" type="submit" name="btnStress" style="border: none">Check Your Stress Level (Advance module)</button>
         </div>
-
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--    </div>-->
-        <!--    </div>-->
-        <!---->
-        <!--</section>-->
+        </form>
     </div>
     <div class="col-md-4" style="padding-bottom: 30px">
         <div>

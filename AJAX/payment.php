@@ -16,7 +16,7 @@
                 },
                 method: 'POST',
                 success: function (data) {
-                    alert(data);
+                    console.log(data);
                     let obj = $.parseJSON(data);
                     // Payment completed. It can be a successful failure.
                     payhere.onCompleted = function onCompleted(orderId) {
@@ -42,7 +42,7 @@
                         "merchant_id": "1224607",
                         "return_url": "http://localhost/Project_new/payment.php",     // Important
                         "cancel_url": "http://localhost/Project_new/payment.php",     // Important
-                        "notify_url": "http://sample.com/notify",
+                        "notify_url": "http://localhost/Project_new/userprofile.php",
                         "order_id": obj['order_id'],
                         "items": obj['item'],
                         "amount": obj['amount'],

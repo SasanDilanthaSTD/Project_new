@@ -4,6 +4,7 @@ require_once 'core/classes/MassageCncpt.php';
 
 
 require_once "core/classes/Admin.php";
+
 use MyApp\Admin;
 
 $massage = new \MyApp\MassageCncpt();
@@ -11,15 +12,132 @@ $massage = new \MyApp\MassageCncpt();
 if (!$userObj->isLoggedIn()) {
     $userObj->redirect('login.php');
 }
-//$userObj->updateStatus("online");
+$userObj->updateStatus("online");
 $user = $userObj->userData();
 $admin_id = $userObj->ID();
-
 
 
 $admin = new Admin();
 $pending_count = $admin->get_pending_applications_count();
 $rs = $admin->get_pending_applications();
+
+// doctor data for bar chart
+$doc_data_set = $admin->for_barchart_d();
+$doc_data = [];
+
+if (!empty($doc_data_set)){
+    foreach ($doc_data_set as $doc) {
+        if ($doc->registration_month == "1") {
+            $doc_data[0] = $doc->registered_count;
+        } elseif ($doc->registration_month == "2") {
+            $doc_data[1] = $doc->registered_count;
+        } elseif ($doc->registration_month == "3") {
+            $doc_data[2] = $doc->registered_count;
+        } elseif ($doc->registration_month == "4") {
+            $doc_data[3] = $doc->registered_count;
+        } elseif ($doc->registration_month == "5") {
+            $doc_data[4] = $doc->registered_count;
+        } elseif ($doc->registration_month == "6") {
+            $doc_data[5] = $doc->registered_count;
+        } elseif ($doc->registration_month == "7") {
+            $doc_data[6] = $doc->registered_count;
+        } elseif ($doc->registration_month == "8") {
+            $doc_data[7] = $doc->registered_count;
+        } elseif ($doc->registration_month == "9") {
+            $doc_data[8] = $doc->registered_count;
+        } elseif ($doc->registration_month == "10") {
+            $doc_data[9] = $doc->registered_count;
+        } elseif ($doc->registration_month == "11") {
+            $doc_data[10] = $doc->registered_count;
+        } elseif ($doc->registration_month == "12") {
+            $doc_data[11] = $doc->registered_count;
+        }
+    }
+}
+
+// counselor data for bar chart
+$cou_data_set = $admin->for_barchart_c();
+$cou_data = [];
+
+foreach ($cou_data_set as $doc) {
+    if ($doc->registration_month == 1) {
+        $cou_data[0] = $doc->registered_count;
+    } elseif ($doc->registration_month == 2) {
+        $cou_data[1] = $doc->registered_count;
+    } elseif ($doc->registration_month == 3) {
+        $cou_data[2] = $doc->registered_count;
+    } elseif ($doc->registration_month == 4) {
+        $cou_data[3] = $doc->registered_count;
+    } elseif ($doc->registration_month == 5) {
+        $cou_data[4] = $doc->registered_count;
+    } elseif ($doc->registration_month == 6) {
+        $cou_data[5] = $doc->registered_count;
+    } elseif ($doc->registration_month == 7) {
+        $cou_data[6] = $doc->registered_count;
+    } elseif ($doc->registration_month == 8) {
+        $cou_data[7] = $doc->registered_count;
+    } elseif ($doc->registration_month == 9) {
+        $cou_data[8] = $doc->registered_count;
+    } elseif ($doc->registration_month == 10) {
+        $cou_data[9] = $doc->registered_count;
+    } elseif ($doc->registration_month == 11) {
+        $cou_data[10] = $doc->registered_count;
+    } elseif ($doc->registration_month == 12) {
+        $cou_data[11] = $doc->registered_count;
+    }
+
+    //view data for chart
+    $chart = "month";
+    if (isset($_GET['chart'])){
+        if ($_GET['chart'] == "day")
+        $chart = "day";
+    }
+    $viw_data_set_m = "";
+    $viw_data_set = $admin->for_view_chart_month();
+    $viw_data = [];
+    $viw_data[0]=$viw_data[1]=$viw_data[2]=$viw_data[3]=$viw_data[4]=$viw_data[5]=$viw_data[6]=$viw_data[7]=$viw_data[8]=$viw_data[9]=$viw_data[10]=$viw_data[11]=0;
+    foreach ($viw_data_set as $view){
+        if ($view->month == 1){
+            $viw_data[0] = $view->total_count;
+        }elseif ($view->month == 2){
+            $viw_data[1] = $view->total_count;
+        }elseif ($view->month == 3){
+            $viw_data[2] = $view->total_count;
+        }elseif ($view->month == 4){
+            $viw_data[3] = $view->total_count;
+        }elseif ($view->month == 5){
+            $viw_data[4] = $view->total_count;
+        }elseif ($view->month == 6){
+            $viw_data[5] = $view->total_count;
+        }elseif ($view->month == 7){
+            $viw_data[6] = $view->total_count;
+        }elseif ($view->month == 8){
+            $viw_data[7] = $view->total_count;
+        }elseif ($view->month == 9){
+            $viw_data[8] = $view->total_count;
+        }elseif ($view->month == 10){
+            $viw_data[9] = $view->total_count;
+        }elseif ($view->month == 11){
+            $viw_data[10] = $view->total_count;
+        }elseif ($view->month == 12){
+            $viw_data[11] = $view->total_count;
+        }
+    }
+
+    $viw_data_set_m = $admin->for_view_chart_day();
+    $viw_data_m =[];
+    $i = 0;
+    if (!empty($viw_data_set_m)){
+        foreach ($viw_data_set_m  as $day){
+            $viw_data_m[$i]['day'] = $day->date;
+            $viw_data_m[$i]['count'] = $day->count;
+            $i++;
+        }
+    }else{
+        echo "erro";
+    }
+}
+
 
 ?>
 <!doctype html>
@@ -59,7 +177,7 @@ $rs = $admin->get_pending_applications();
         <!-- Left elements -->
         <div class="d-flex">
             <!-- Brand -->
-            <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="index.php">
+            <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="home.php">
                 <img
                         src="assets/img/logo.png"
                         height="40"
@@ -87,13 +205,13 @@ $rs = $admin->get_pending_applications();
             <li class="nav-item me-3 me-lg-1">
                 <a class="nav-link d-sm-flex align-items-sm-center">
                     <img
-                            src="<?php echo $user->profile_photo;?>"
+                            src="<?php echo $user->profile_photo; ?>"
                             class="rounded-circle"
                             height="22"
                             alt="Admin"
                             loading="lazy"
                     />
-                    <strong class="d-none d-sm-block ms-1"><?php echo $user->firstname." ".$user->lastname;?></strong>
+                    <strong class="d-none d-sm-block ms-1"><?php echo $user->firstname . " " . $user->lastname; ?></strong>
 
                 </a>
             </li>
@@ -119,7 +237,8 @@ $rs = $admin->get_pending_applications();
                         <a class="dropdown-item" href="#">Another news</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="process/logout.php"> <i class="fa fa-sign-out me-3"></i>Logout</a>
+                        <a class="dropdown-item" href="process/logout.php"> <i
+                                    class="fa fa-sign-out me-3"></i>Logout</a>
                     </li>
                 </ul>
             </li>
@@ -214,7 +333,7 @@ $rs = $admin->get_pending_applications();
                             <p class="text-muted mb-2">Add New Video</p>
                             <p class="mb-0">
                                 <span class="h5 me-2"><span id="videoCount"></span></span>
-                                <small class="text-success text-sm" >
+                                <small class="text-success text-sm">
                                     <i class="fa-regular fa-file-video fa-beat-fade"></i>
                                     <span id="newVideo"></span>
                                 </small>
@@ -236,11 +355,11 @@ $rs = $admin->get_pending_applications();
                         <div class="p-4 border-bottom">
                             <div class="row align-items-center">
                                 <div class="col-6">
-                                    <p class="text-muted mb-2">Users</p>
-                                    <p class="mb-0">
+                                    <p class="text-muted mb-2">Web Visit</p>
+                                    <!--<p class="mb-0">
                                         <span class="h4 me-2">14 567</span>
                                         <small class="text-success text-sm"><i class="fas fa-arrow-up fa-sm me-2"></i>13.45%</small>
-                                    </p>
+                                    </p>-->
                                 </div>
                                 <div class="col-6 text-end">
                                     <div class="btn-group shadow-0">
@@ -251,15 +370,8 @@ $rs = $admin->get_pending_applications();
                                             Filter
                                         </button>
                                         <ul class="dropdown-menu bg-glass">
-                                            <li><a class="dropdown-item text-info" href="#">All</a></li>
-                                            <li><a class="dropdown-item text-info" href="#">This Month</a></li>
-                                            <li><a class="dropdown-item text-info" href="#">This Year</a></li>
-                                            <li>
-                                                <hr class="dropdown-divider"/>
-                                            </li>
-                                            <li><a class="dropdown-item text-info" href="#">Doctors</a></li>
-                                            <li><a class="dropdown-item text-info" href="#">Councillors</a></li>
-                                            <li><a class="dropdown-item text-info" href="#">Patient</a></li>
+                                            <li><a class="dropdown-item text-info" href="admin_page.php?chart=month">Monthly</a></li>
+                                            <li><a class="dropdown-item text-info" href="admin_page.php?chart=day">Nearest 5 days</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -267,7 +379,8 @@ $rs = $admin->get_pending_applications();
                         </div>
                         <!--Card body-->
                         <div class="p-4">
-                            <div class="card-body chart-container" style="position: relative; height: auto; width: 100%;">
+                            <div class="card-body chart-container"
+                                 style="position: relative; height: auto; width: 100%;">
                                 <canvas id="myChart"></canvas>
                             </div>
                         </div>
@@ -281,10 +394,10 @@ $rs = $admin->get_pending_applications();
                             <div class="row align-items-center">
                                 <div class="col-6">
                                     <p class="text-muted mb-2">Therapists</p>
-                                    <p class="mb-0">
+                                    <!--<p class="mb-0">
                                         <span class="h4 me-2">14 567</span>
                                         <small class="text-success text-sm"><i class="fas fa-arrow-up fa-sm me-2"></i>13.45%</small>
-                                    </p>
+                                    </p>-->
                                 </div>
                                 <div class="col-6 text-end">
 
@@ -293,7 +406,8 @@ $rs = $admin->get_pending_applications();
                         </div>
                         <!--Card body-->
                         <div class="p-4">
-                            <div class="card-body chart-container" style="position: relative; height: auto; width: 100%;">
+                            <div class="card-body chart-container"
+                                 style="position: relative; height: auto; width: 100%;">
                                 <canvas id="barChart"></canvas>
                             </div>
                         </div>
@@ -313,7 +427,7 @@ $rs = $admin->get_pending_applications();
                             <p class="mb-0 text-warning">
                                 <!--<i class="fa-solid fa-hourglass-end fa-fade me-2"></i>-->
                                 <i class="fa-solid fa-person-dots-from-line fa-fade fa-lg fa-fw me-2"></i>
-                                <span class="h4  me-2"><?=$pending_count ?></span>
+                                <span class="h4  me-2"><?= $pending_count ?></span>
                             </p>
                         </div>
                         <div class="col-6 text-end"></div>
@@ -331,42 +445,45 @@ $rs = $admin->get_pending_applications();
                     </thead>
                     <tbody>
                     <?php
-                    if(!empty($rs)){
+                    if (!empty($rs)) {
                     foreach ($rs as $therapist) {
-                        $name = $therapist->firstname . ' ' . $therapist->lastname;
-                        ?>
-                        <tr class="tb-row">
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="<?php echo $therapist->profile_photo; ?>" alt=""
-                                         style="width: 45px; height: 45px"
-                                         class="rounded-circle"/>
-                                    <div class="ms-3">
-                                        <p class="fw-bold text-info mb-1"><?php echo  $name ;?></p>
-                                        <p class="text-muted mb-0"><?php echo $therapist->email; ?></p>
-                                    </div>
+                    $name = $therapist->firstname . ' ' . $therapist->lastname;
+                    ?>
+                    <tr class="tb-row">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="<?php echo $therapist->profile_photo; ?>" alt=""
+                                     style="width: 45px; height: 45px"
+                                     class="rounded-circle"/>
+                                <div class="ms-3">
+                                    <p class="fw-bold text-info mb-1"><?php echo $name; ?></p>
+                                    <p class="text-muted mb-0"><?php echo $therapist->email; ?></p>
                                 </div>
-                            </td>
-                            <td>
-                                <span class="badge badge-warning d-inline">Pending</span>
-                            </td>
-                            <td class="text-info">
-                                <?php
-                                 $role = substr($therapist->user_id,0,3);
-                                     echo ($role == "DOC") ? "Doctor" : "Counselor";
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge badge-warning d-inline">Pending</span>
+                        </td>
+                        <td class="text-info">
+                            <?php
+                            $role = substr($therapist->user_id, 0, 3);
+                            echo ($role == "DOC") ? "Doctor" : "Counselor";
 
-                                ?>
-                            </td>
-                            <td>
-                                <p class="text-muted mb-0"><?php echo $therapist->description ?></p>
-                            </td>
-                            <td>
-                                <a href="admin_pdf_view.php?k=<?php echo $therapist->user_id ;?>">
-                                    <button type="button" class="btn btn-link  btn-sm btn-rounded btn-outline-info">Check</button>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php }}else {?>
+                            ?>
+                        </td>
+                        <td>
+                            <p class="text-muted mb-0"><?php echo $therapist->description ?></p>
+                        </td>
+                        <td>
+                            <a href="admin_pdf_view.php?k=<?php echo $therapist->user_id; ?>">
+                                <button type="button" class="btn btn-link  btn-sm btn-rounded btn-outline-info">
+                                    Check
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php }
+                    } else { ?>
                         <tr class="tb-row">
                             <p class="h3 text-info">New Application haven't Arrived !</p>
                         </tr>
@@ -390,8 +507,8 @@ $rs = $admin->get_pending_applications();
 <!-- Jquery library-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Jquery library-->
-<?php include_once "assets/js/admin_chat_js.php"?>
-<?php include_once "AJAX/admin_js.php"?>
+<?php include_once "assets/js/admin_chat_js.php" ?>
+<?php include_once "AJAX/admin_js.php" ?>
 
 </body>
 </html>

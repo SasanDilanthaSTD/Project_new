@@ -883,7 +883,7 @@ AJAX.registerOnload('functions.js', function () {
     idleSecondsCounter++;
   }
   function UpdateIdleTime() {
-    var href = 'index.php?route=/';
+    var href = 'home.php?route=/';
     var guid = 'default';
     if (isStorageSupported('sessionStorage')) {
       guid = window.sessionStorage.guid;
@@ -2431,7 +2431,7 @@ AJAX.registerOnload('functions.js', function () {
             // Redirect to table structure page on creation of new table
             var argsep = CommonParams.get('arg_separator');
             var params12 = 'ajax_request=true' + argsep + 'ajax_page_request=true';
-            var tableStructureUrl = 'index.php?route=/table/structure' + argsep + 'server=' + data.params.server + argsep + 'db=' + data.params.db + argsep + 'token=' + data.params.token + argsep + 'goto=' + encodeURIComponent('index.php?route=/database/structure') + argsep + 'table=' + data.params.table + '';
+            var tableStructureUrl = 'home.php?route=/table/structure' + argsep + 'server=' + data.params.server + argsep + 'db=' + data.params.db + argsep + 'token=' + data.params.token + argsep + 'goto=' + encodeURIComponent('home.php?route=/database/structure') + argsep + 'table=' + data.params.table + '';
             $.get(tableStructureUrl, params12, AJAX.responseHandler);
           } else {
             Functions.ajaxShowMessage('<div class="alert alert-danger" role="alert">' + data.error + '</div>', false);
@@ -2551,7 +2551,7 @@ Functions.checkPassword = function ($theForm) {
 };
 
 /**
- * Attach Ajax event handlers for 'Change Password' on index.php
+ * Attach Ajax event handlers for 'Change Password' on home.php
  */
 AJAX.registerOnload('functions.js', function () {
   /* Handler for hostname type */
@@ -2945,7 +2945,7 @@ AJAX.registerOnload('functions.js', function () {
     return false;
   });
   $(document).on('click', 'a.central_columns_dialog', function () {
-    var href = 'index.php?route=/database/central-columns';
+    var href = 'home.php?route=/database/central-columns';
     var db = CommonParams.get('db');
     var table = CommonParams.get('table');
     var maxRows = $(this).data('maxrows');
@@ -3233,10 +3233,10 @@ Functions.indexDialogModal = function (routeUrl, url, title, callbackSuccess, ca
 };
 
 Functions.indexEditorDialog = function (url, title, callbackSuccess, callbackFailure) {
-  Functions.indexDialogModal('index.php?route=/table/indexes', url, title, callbackSuccess, callbackFailure);
+  Functions.indexDialogModal('home.php?route=/table/indexes', url, title, callbackSuccess, callbackFailure);
 };
 Functions.indexRenameDialog = function (url, title, callbackSuccess, callbackFailure) {
-  Functions.indexDialogModal('index.php?route=/table/indexes/rename', url, title, callbackSuccess, callbackFailure);
+  Functions.indexDialogModal('home.php?route=/table/indexes/rename', url, title, callbackSuccess, callbackFailure);
 };
 Functions.showIndexEditDialog = function ($outer) {
   Indexes.checkIndexType();
@@ -4122,7 +4122,7 @@ AJAX.registerOnload('functions.js', function () {
   /*
    * Display warning regarding SSL when sha256_password
    * method is selected
-   * Used in /user-password (Change Password link on index.php)
+   * Used in /user-password (Change Password link on home.php)
    */
   $(document).on('change', 'select#select_authentication_plugin_cp', function () {
     if (this.value === 'sha256_password') {

@@ -44,7 +44,7 @@ if ($possition1 == "patient") {
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link " href="index.php"><strong><span
+                    <li class="nav-item"><a class="nav-link " href="home.php"><strong><span
                                     style="color: rgb(0, 79, 95);">Home</span></strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact Us</strong></a></li>
@@ -105,7 +105,7 @@ if ($possition1 == "patient") {
 </div>
 
 <div id="back" style="text-align: center;margin-top: 54px;margin-bottom: 3vw"><a class="btn btn-primary ms-md-2 loginbtn btntype2" role="button"
-                                                                                 href="index.php" style="border-style: none; margin-right: 10px"><i class="fa-solid fa-house fa-beat-fade"></i><strong>&nbsp; Home</strong></a><a
+                                                                                 href="home.php" style="border-style: none; margin-right: 10px"><i class="fa-solid fa-house fa-beat-fade"></i><strong>&nbsp; Home</strong></a><a
         class="btn btn-primary ms-md-2 loginbtn" role="button" href="chathome.php" style="border-style: none;">
         <i class="fa-solid fa-backward fa-beat-fade"></i><strong>&nbsp; Back</strong></a>
 </div><!-- Start: footer -->

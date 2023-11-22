@@ -1,9 +1,17 @@
 <?php
 require 'core/init.php';
+require 'core/classes/Doctor.php';
+require 'core/classes/MassageCncpt.php';
+
+use  MyApp\MassageCncpt;
+
+$msg = new MassageCncpt();
 
 if (!$userObj->isLoggedIn()) {
+    $set_btnLog = true;
     $link = "login.php";
 }else{
+    $set_btnLog = false;
     $possition1 = $userObj->newPosition();
     if ($possition1 == "patient") {
         $link = "userprofile.php";
@@ -11,8 +19,13 @@ if (!$userObj->isLoggedIn()) {
         $link = "doctorprofile.php";
     }elseif ($possition1 == "counselor") {
         $link = "counselorprofile.php";
+    }elseif ($possition1 == "admin") {
+        $link = "admin_page.php";
     }
+//    $link2 = "http://localhost/Project_new/chatprofile.php?uname=";
 }
+$doctorObj = new \MyApp\Doctor();
+$approvedDoctors = $doctorObj->getApprovedDoctorDetails();
 
 ?>
 <!DOCTYPE html>
@@ -20,8 +33,8 @@ if (!$userObj->isLoggedIn()) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>about us</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <title>Doctors</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aclonica&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Advent+Pro&amp;display=swap">
@@ -30,12 +43,15 @@ if (!$userObj->isLoggedIn()) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kavivanar&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Stick+No+Bills&amp;display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets/css/aboutus.css">
+    <link rel="stylesheet" href="assets/css/counselors.css">
 
     <?php include_once ('assets/css/set_footer.php');?>
+
 </head>
-<body style="background: rgb(184,241,255);"><!-- Start: nav bar -->
-<div><!-- Start: Navbar Right Links -->
+<body style="background: url(assets/img/aboutusbackground.jpg), rgba(0,0,0,0);background-size: cover, auto;">
+<!-- Start: nav bar -->
+<div>
+    <!-- Start: Navbar Right Links -->
     <nav class="navbar navbar-expand-md bg-body py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"
                                   style="padding-bottom: 0px;margin-top: 0px;padding-top: 0px;"><img
@@ -45,28 +61,84 @@ if (!$userObj->isLoggedIn()) {
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link itemnew" href="home.php"><strong>Home</strong></a></li>
-                    <li class="nav-item"><a class="nav-link active itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
+                    <li class="nav-item"><a class="nav-link itemnew" href="aboutus.php"><strong>About Us</strong></a></li>
                     <li class="nav-item"><a class="nav-link itemnew" href="contactUs.php"><strong>Contact Us</strong></a></li>
                 </ul>
-                <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a>
+                <?php if($set_btnLog){ ?>
+                    <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a>
+                <?php }else{ ?>
+                    <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Profile</strong></a>
+                <?php }?>
             </div>
         </div>
-    </nav><!-- End: Navbar Right Links --></div><!-- End: nav bar --><!-- Start: DA_About -->
-<div class="content d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center highlight-blue"
-     id="About"
-     style="height: 500px;background: url(assets/img/aboutusbackground.jpg), rgba(0,0,0,0);background-size: cover, auto;">
-    <div class="container"><!-- Start: Intro -->
-        <div class="intro"><h2 class="text-center"
-                               style="color: #172f76;background: #00454fcf;border-style: none;font-size: 40PX;padding-bottom: 7px;">
-                <strong><span style="text-decoration: underline; color: rgb(255, 255, 255);">ABOUT US</span></strong></h2>
-            <hr style="height: 2px;color: #a34afb;background-color: #172f76;">
-            <p class="text-center"
-               style="color: #172f76;font-family: Muli, sans-serif;background: rgba(0,69,79,0.85);border-style: none;padding-bottom: 52px;padding-top: 37px;padding-left: 10px;padding-right: 10px;margin-bottom: 15px;">
-                <span style="color: rgb(255, 255, 255);">Welcome to Our Mental Health Services! We are a compassionate team of mental health professionals dedicated to supporting your emotional well-being. Our mission is to provide a safe and nurturing space where you can explore your thoughts and feelings, and receive personalized care tailored to your unique needs. With evidence-based therapies and a focus on holistic healing, we're here to empower you on your journey to mental wellness. Let's walk together towards a healthier, happier you.</span>
-            </p>
-            <div style="text-align: center;"><img src="assets/img/logo.png" style="width: 273px;"></div>
-        </div><!-- End: Intro --></div>
-</div><!-- End: DA_About --><!-- Start: footer -->
+    </nav>
+    <!-- End: Navbar Right Links -->
+</div>
+<!-- End: nav bar -->
+
+<?php
+if (isset($_GET["msg"])) {
+    if ($_GET["msg"] == 1) {
+        $msg->setSuccessMassage("<hr>Appointment successfully<hr>");
+    }elseif ($_GET["err"] == 1){
+        $msg->setErrorMassage("<hr>DB ERROR<hr>");
+    }
+}
+?>
+
+<div class="counselorheader content">
+    <h1 style="
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 50px;
+    font-family: 'Anton';
+    text-shadow: #2b2a2a;
+    /*font-weight: bold;*/
+    color: #495057;
+  /*color: transparent;*/
+  /*  -webkit-text-fill-color: transparent;*/
+  /*  -webkit-text-stroke: 2px white;*/
+    ">
+        CHANEL A DOCTOR</h1>
+</div>
+
+
+<!--    new cards start-->
+
+<main>
+    <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+            <?php
+            foreach ($approvedDoctors as $approvedDoctor) {
+                $id = $_SESSION["userID"] . $approvedDoctor->user_id;
+                ?>
+                <div class="col">
+                    <div class="card h-100 shadow-sm"><img
+                            src="<?=$approvedDoctor->profile_photo;?>"
+                            class="card-img-top" alt="..." style="margin: 15px; width: 250px; border-radius: 15px">
+                        <div class="card-body">
+                            <div class="clearfix mb-3"><span
+                                    class="float-start badge posttag">Doctor</span> <span
+                                    class="float-end price-hp"><?=$approvedDoctor->firstname . " " . $approvedDoctor->lastname;?></span></div>
+                            <hr>
+                            <h5 class="card-title text-center">
+                                <?=$approvedDoctor->description;?>
+                            </h5>
+                            <hr>
+                            <div class="text-center my-4"><a href="appointment.php?set=<?=$id?>" class="btn btn-warning">Create Appointment</a></div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+    </div>
+</main>
+<!--    new cards end-->
+
+
+</div><!-- Start: footer -->
 <div><!-- Start: Footer Basic -->
     <footer class="text-center" style="background: rgb(255,255,255);">
         <div class="container text-muted py-4 py-lg-5">
@@ -75,7 +147,8 @@ if (!$userObj->isLoggedIn()) {
                             style="color: RGBA(86,94,100,var(--bs-link-opacity,1)) ;">mentalhealthservice@gmail.com</span></a>
                 </li>
                 <li class="list-inline-item me-4"><a class="link-secondary" href="#"><br><span
-                            style="color: RGBA(86,94,100,var(--bs-link-opacity,1)) ;">+94 91 890 4444</span></a></li>
+                            style="color: RGBA(86,94,100,var(--bs-link-opacity,1)) ;">+94 91 890 4444</span></a>
+                </li>
             </ul>
             <ul class="list-inline">
                 <li class="list-inline-item me-4">
@@ -99,7 +172,8 @@ if (!$userObj->isLoggedIn()) {
             </ul>
             <p class="mb-0">Copyright © 2023 Mental Health Service</p></div>
     </footer><!-- End: Footer Basic --></div><!-- End: footer -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/aboutus.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </body>
 </html>

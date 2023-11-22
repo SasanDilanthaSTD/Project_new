@@ -1285,7 +1285,7 @@ var makeGrid = function (t, enableResize, enableReorder, enableVisib, enableGrid
         'do_transformations': transformationFields,
         'transform_fields_list': transformFieldsList,
         'relational_display': relationalDisplay,
-        'goto': encodeURIComponent('index.php?route=/sql'),
+        'goto': encodeURIComponent('home.php?route=/sql'),
         'submit_type': 'save'
       };
       if (!g.saveCellsAtOnce) {
