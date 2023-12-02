@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                                     <?php } ?>
                                     <td>
                                         <div style="text-align: center;">
-                                            <form action="process/admin.php" method="post">
+                                            <form action="process/delete.php" method="post">
                                                 <input type="hidden" name="del_id" id="del_id"
                                                        value="<?= $user->user_id ?>">
                                                 <button class="btn btn-danger"

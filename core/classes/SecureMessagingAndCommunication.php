@@ -24,7 +24,7 @@ class SecureMessagingAndCommunication{
         $con = DBConnector::getConnection();
 
         $query = "SELECT * FROM message
-                  LEFT JOIN user ON user.username = message.outgoing_msg_uname
+                  LEFT JOIN user ON user.username = message.incoming_msg_uname
                   WHERE (outgoing_msg_uname=? AND incoming_msg_uname=?) OR (outgoing_msg_uname=? AND incoming_msg_uname=?) ORDER BY message_id  ";
         $pstmt = $con->prepare($query);
         $pstmt->bindValue(1, $outgoingUname);

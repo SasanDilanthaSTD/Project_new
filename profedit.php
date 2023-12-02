@@ -111,7 +111,7 @@ if (isset($_GET["msg"])) {
                     <p style="text-align: center">(<string style="color: #a91414">JPG, JPEG, PNG, HEIC </string> files are only allowed.)</p>
                 </div>
                 <div class="col-md-8">
-                    <h1 style="color: #013138">Edit Your Profile</h1>
+                    <h1 style="color: #ffffff">Edit Your Profile</h1>
                     <hr style="color: white"/>
                     <div class="row">
                         <div class="col-sm-12 col-md-6">

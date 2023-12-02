@@ -39,7 +39,7 @@
                     <h6 style="font-size: 22px;"><strong><span style="color: rgb(0, 115, 139);">for register to our
                   Service</span></strong></h6>
                     <p style="margin-top: 63px;margin-bottom: 10px;">To verify your Email, Click the button below.</p>
-                    <div><button class="btn btn-primary gotoemailbtn" type="button" style="border-style: none;">Go to the Email</button></div>
+                    <div><a href="https://mail.google.com/mail/" style="text-decoration: none"><button class="btn btn-primary gotoemailbtn" type="button" style="border-style: none;">Go to the Email</button></a> </div>
                 </div>
                 <div></div>
             </div>

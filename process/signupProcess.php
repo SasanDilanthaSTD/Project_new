@@ -46,9 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 }else{
                     if ($userObj->getPosition() == "patient") {
                         if ($userObj->insertUser($uID, $tID, $hashedpassword, "", $key)){
-                            $mail_obj = new MailClass($sanitizedAndValidatedemail, $name, "Account Verification", "verify");
-                            $mail_obj->set_key($key);
-                            $mail_obj->send_mail_verify_key();
+//                            $mail_obj = new MailClass($sanitizedAndValidatedemail, $name, "Account Verification", "verify");
+//                            $mail_obj->set_key($key);
+//                            $mail_obj->send_mail_verify_key();
+                            $userObj->redirect("login.php?msg=1");
                         }else{
                             echo 'Please check again';
                         }
@@ -62,7 +63,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                         if (strtolower($fileType) === "pdf"){
                             if (move_uploaded_file($_FILES["cv"]["tmp_name"], $targetFilePath)) {
-                                $userObj->insertUser($uID, $tID, $hashedpassword, $newfileName);
+                                if ($userObj->insertUser($uID, $tID, $hashedpassword, "", $key)){
+                                    $mail_obj = new MailClass($sanitizedAndValidatedemail, $name, "Account Verification", "verify");
+//                                    $this->redirect("login.php?msg=1");
+                                    $mail_obj->set_key($key);
+                                    $mail_obj->send_mail_verify_key();
+                                }else{
+                                    echo 'Please check again';
+                                }
                             } else {
                                 echo "there was an error uploading your PDF file.";
                             }

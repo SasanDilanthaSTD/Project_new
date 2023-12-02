@@ -1,5 +1,8 @@
 <?php
 require 'core/init.php';
+require 'core/classes/MassageCncpt.php';
+
+$massage = new \MyApp\MassageCncpt();
 
 if (!$userObj->isLoggedIn()) {
     $link = "login.php";
@@ -61,8 +64,18 @@ if (!$userObj->isLoggedIn()) {
                 <a class="btn btn-primary ms-md-2 loginbtn" role="button" href="<?php echo $link;?>" style="border-style: none;"><strong><i class="fa-solid fa-right-to-bracket fa-beat-fade"></i>&nbsp Login</strong></a></div>
         </div>
     </nav><!-- End: Navbar Right Links --></div><!-- End: nav bar --><!-- Start: Contact Details -->
+
 <section class="position-relative py-4 py-xl-5 content"
          style="background: url(assets/img/aboutusbackground.jpg);background-size: cover;">
+    <?php
+    if (isset($_GET["msg"])) {
+        if ($_GET["msg"] == 1) {
+            $massage->setSuccessMassage("<hr>Feedback was submitted successfully.<hr>");
+        }
+    } elseif (isset($error)) {
+        $massage->setErrorMassage("<hr>$error<hr>");
+    }
+    ?>
     <div class="container position-relative">
         <div class="row mb-5" style="margin-bottom: 19px;padding-bottom: 0px;background: rgba(0,69,79,0.86);">
             <div class="col-md-8 col-xl-6 text-center mx-auto"><h2><strong><span
@@ -112,6 +125,7 @@ if (!$userObj->isLoggedIn()) {
             </div>
             <div class="col-md-6 col-lg-5 col-xl-4">
                 <div>
+                    <form action="process/conus.php" method="post">
                     <div class="p-3 p-xl-4" ><!-- Start: Success Example -->
                         <div class="mb-3"><input class="form-control" type="text" id="name-1" name="name"
                                                  placeholder="Name"></div><!-- End: Success Example -->
@@ -128,6 +142,7 @@ if (!$userObj->isLoggedIn()) {
                             <div id="success-message" style="color: white;text-align: center;margin-top: 10px"></div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

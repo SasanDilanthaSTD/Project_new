@@ -152,7 +152,8 @@ if (isset($_GET)){
                                 <span class="text-muted me-2">Depression Level : </span><?=$d_socore?>
                             </p>
                             <p>
-                                <span class="text-gray me-2"><small style="font-size: 12px">( © Base on PSS method - State of New Hampshire Employee Assistance Program)</small></span>
+                                <span class="text-gray me-2"><small style="font-size: 12px">( © Base on DASS21 method - Lovibond, S H, and Peter F Lovibond. Manual for the Depression Anxiety Stress Scales. 2nd ed., Sydney,
+N.S.W., Psychology Foundation of Australia, 1995.)</small></span>
                             </p>
                         </div>
                     </div>
@@ -160,20 +161,7 @@ if (isset($_GET)){
                     <div class="row">
                         <div class="col-xl-8">
                             <p class="ms-3 fw-bold">Add additional notes</p>
-                            <ul class="list-unstyled">
-                                <li class="text-muted ms-3">
-                                    <i class="fas fa-feather-pointed me-2"></i>
-                                    <span class="text-black fw-light me-4">Scores ranging from 0-13 would be considered low stress.</span>
-                                </li>
-                                <li class="text-muted ms-3 mt-2">
-                                    <i class="fas fa-feather-pointed me-2"></i>
-                                    <span class="text-black fw-light me-4">Scores ranging from 14-26 would be considered moderate stress.</span>
-                                </li>
-                                <li class="text-muted ms-3 mt-2">
-                                    <i class="fas fa-feather-pointed me-2"></i>
-                                    <span class="text-black fw-light me-4">Scores ranging from 27-40 would be considered high perceived stress.</span>
-                                </li>
-                            </ul>
+                            <img src="assets/img/stress.jpg" alt="">
                         </div>
 
                         <div class="col-xl-3">
@@ -213,7 +201,7 @@ if (isset($_GET)){
         });
 
         $("#btnHome").click(function (){
-            let url = "../index.php?report_status=success&setcookie=yes&id="+unreg;
+            let url = "index.php?report_status=success&setcookie=yes&id="+unreg;
             $(location).attr('href',url);
         });
     });

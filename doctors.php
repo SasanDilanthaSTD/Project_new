@@ -79,7 +79,7 @@ $approvedDoctors = $doctorObj->getApprovedDoctorDetails();
 <?php
 if (isset($_GET["msg"])) {
     if ($_GET["msg"] == 1) {
-        $msg->setSuccessMassage("<hr>Appointment successfully<hr>");
+        $msg->setSuccessMassage("<hr>Appointment placed successfully<hr>");
     }elseif ($_GET["err"] == 1){
         $msg->setErrorMassage("<hr>DB ERROR<hr>");
     }

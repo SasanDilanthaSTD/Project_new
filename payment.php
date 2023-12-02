@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
                 <div class="form-inline">
                     <div class="input-group">
                         <div class="input-group-prepend"><span class="input-group-text">LKR</span></div>
-                        <input type="text" class="form-control text-right" id="exampleInputAmount" value="2500" disabled/>
+                        <input type="text" class="form-control text-right" id="exampleInputAmount" value="1500" disabled/>
                         <div class="input-group-append"><span class="input-group-text">.00</span></div>
                     </div>
                 </div>

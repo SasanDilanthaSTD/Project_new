@@ -167,9 +167,9 @@ if ($visible){
                         <h3 style="color: #00738b; font-weight: bold;padding-bottom: 0px" >Connect with Doctor</h3>
                         <h5 style="color: rgba(53,53,53,0.85); padding-bottom: 10px" >via</h5>
                         <div class="btn-group btn-group-lg" role="group" aria-label="Call to action">
-                            <a type="button" class="btn btn-default btn-lg" href="chathome.php" style="font-weight: bold; background-color:#111e6c ">MHS Chatz</a>
+                            <a type="button" class="btn btn-default btn-lg" href="chathome.php" style="font-weight: bold; background-color:#111e6c "> Message &nbsp; </a>
                             <span class="btn-circle btn-or">or</span>
-                            <a type="button" class="btn btn-default btn-lg" href="videohome.php" style="font-weight: bold;background-color:#111e6c">MHS Videoz</a>
+                            <a type="button" class="btn btn-default btn-lg" href="videohome.php" style="font-weight: bold;background-color:#111e6c">Video Call</a>
                         </div>
                     </div>
                 </div>

@@ -75,8 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
                 <a href="admin_page.php">
                     <button class="btn btn-primary gotoemailbtn m-3" type="button" style="border-style: none;"><< BACK</button>
                 </a>
-                <button class="btn btn-success m-3" type="submit" name="btnAccept" style="border-style: none;" onclick="alert('Are you sure accept this ?')">Accept</button>
-                <button class="btn btn-danger gotoemailbtn m-3" style="background-color: #701010 !important;" type="submit" name="btnReject" style="border-style: none;" onclick="alert('Are you sure reject this ?')">Reject</button>
+                <button class="btn btn-success m-3" type="submit" name="btnAccept" style="border-style: none;" onclick="confirm('Are you sure accept this ?')">Accept</button>
+                <button class="btn btn-danger gotoemailbtn m-3" style="background-color: #701010 !important;" type="submit" name="btnReject" style="border-style: none;" onclick="confirm('Are you sure reject this ?')">Reject</button>
             </div>
             </form>
             <div class="col-md-12" style="background: rgba(255,255,255,0.58);"><!-- Start: Intro -->

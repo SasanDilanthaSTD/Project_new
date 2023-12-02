@@ -24,6 +24,24 @@ class MailClass
 
     private $additional;
 
+    private $msg;
+
+    /**
+     * @param mixed $msg
+     */
+    public function setMsg($msg)
+    {
+        $this->msg = $msg;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMsg()
+    {
+        return $this->msg;
+    }
+
     /**
      * @param mixed $additional
      */
@@ -82,7 +100,9 @@ class MailClass
                     $link = "../doctors.php?msg=1";
                 } elseif ($this->mail_usage == "pay"){
                     $link = "../doctorprofile.php?msg=5";
-                }else {
+                } elseif ($this->mail_usage == "aboutus"){
+                    $link = "../contactUs.php?msg=1";
+                } else {
                     $link = "../reg.php?M=VF1";
                     //header("Location: ../reg.php?M=VF1");
                 }
@@ -108,6 +128,9 @@ class MailClass
         if ($this->mail_usage == "reset") {
             $msg_body = "To reset your account password";
 //            $msg_body = "<p style=\"line-height: 24px;margin-bottom:15px;\">We are delighted to welcome you to the Mental Health Service, a dedicated place of support and healing. Our committed team is here to guide you on your journey to improved mental health.</p><p style=\"line-height: 24px; margin-bottom:20px;\"><b>To verify your account or explore the various ways we can assist you, please click the <span style=\"color: #5caad2;\">\"Verify\"</span>  button below.</b></p><p style=\"line-height: 24px;margin-bottom:15px;\">We understand that your mental well-being is a priority, and we are here for you every step of the way.</P>";
+        }
+        if ($this->mail_usage == "aboutus") {
+            $msg_body = $this->getMsg();
         }
 
         return $msg_body;
@@ -136,9 +159,10 @@ class MailClass
             $msg .= "<a href=\"http://localhost/Project_new/set_appointment_time.php?key={$this->key}\" style=\"color: #ffffff; text-decoration: none;\">SCHEDULE</a>";
         }elseif ($this->mail_usage == "pay"){
             $msg .= "<a href=\"http://localhost/Project_new/payment.php?key={$this->key}\" style=\"color: #ffffff; text-decoration: none;\">PAY</a>";
-        } else{
-            $msg .= "<a href=\"http://localhost/test_mail/process/visit.php\" style=\"color: #ffffff; text-decoration: none;\">VIEW PROFILE</a>";
         }
+//        else{
+//            $msg .= "<a href=\"http://localhost/test_mail/process/visit.php\" style=\"color: #ffffff; text-decoration: none;\">VIEW PROFILE</a>";
+//        }
 
         $msg .= "</div></td></tr><tr><td height=\"10\" style=\"font-size: 10px; line-height: 10px;\">&nbsp;</td></tr></table><p style=\"line-height: 24px\">Warm regards,<br>Mental Health Service</p></td></tr></table></td></tr></table></td></tr><tr><td height=\"40\" style=\"font-size: 40px; line-height: 40px;\">&nbsp;</td></tr></table>";
         $msg .= "<table border=\"0\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"f4f4f4\"><tr><td height=\"25\" style=\"font-size: 25px; line-height: 25px;\">&nbsp;</td></tr><tr><td align=\"center\" class=\"text_color\"><div style=\"color: #333333; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; font-weight: 600; mso-line-height-rule: exactly; line-height: 23px;\">Email us: <br/><span style=\"color: #888888; font-size: 14px; font-family: 'Hind Siliguri', Calibri, Sans-serif; font-weight: 400;\">project1.mhs@gmail.com</span></div></td></tr><tr><td height=\"25\" style=\"font-size: 25px; line-height: 25px;\">&nbsp;</td></tr></table>";
@@ -159,5 +183,6 @@ class MailClass
     public function pay(){
         $this->send_mail();
     }
+
 
 }

@@ -298,8 +298,8 @@ class Admin
         }
     }
 
-    public function for_barchart_c(){
-        $sql_c = "SELECT MONTH(user.time) AS registration_month, COUNT(*) AS registered_count  FROM user WHERE user.user_id LIKE 'COU%' GROUP BY MONTH(user.time) ORDER BY registration_month DESC";
+    public function for_barchart_p(){
+        $sql_c = "SELECT MONTH(user.time) AS registration_month, COUNT(*) AS registered_count  FROM user WHERE user.user_id LIKE 'PAT%' GROUP BY MONTH(user.time) ORDER BY registration_month DESC";
         $stmt_c = $this->con->prepare($sql_c);
         try {
             $stmt_c->execute();

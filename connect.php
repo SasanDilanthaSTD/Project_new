@@ -76,7 +76,7 @@ if ($possition1 == "patient") {
 </div><!-- End: nav bar --><!-- Start: heading -->
 <div style="background: url(&quot;assets/img/doctor.jpg&quot;) no-repeat;background-size: cover;">
     <h1 style="text-align: center;color: rgb(255,255,255);margin: 0px;padding: 6px;padding-top: 40px;padding-bottom: 40px;">
-        MHS VIDEOZ&nbsp;&nbsp;<i class="fa-solid fa-phone-flip fa-shake"></i>&nbsp;&nbsp;<i class="fa-solid fa-video fa-shake"></i></h1>
+        Video Call&nbsp;&nbsp;<i class="fa-solid fa-phone-flip fa-shake"></i>&nbsp;&nbsp;<i class="fa-solid fa-video fa-shake"></i></h1>
 </div><!-- End: heading -->
 
 <!--alert popup-->

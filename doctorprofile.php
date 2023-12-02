@@ -199,7 +199,7 @@ if (isset($_GET["msg"])) {
 
         </div>
         <div class="d-grid gap-2" >
-            <button class="btn btn-primary loginbtn" type="button" style="border: none">Check Appointments</button>
+<!--            <button class="btn btn-primary loginbtn" type="button" style="border: none">Check Appointments</button>-->
             <!--            <button class="btn btn-primary doctrbtn" type="button">Appointment</button>-->
         </div>
 
@@ -220,9 +220,9 @@ if (isset($_GET["msg"])) {
                         <h3 style="color: #00738b; font-weight: bold;padding-bottom: 0px" >Connect with Patient</h3>
                         <h5 style="color: rgba(53,53,53,0.85); padding-bottom: 10px" >via</h5>
                         <div class="btn-group btn-group-lg" role="group" aria-label="Call to action">
-                            <a type="button" class="btn btn-default btn-lg" href="chathome.php" style="font-weight: bold">MHS Chat</a>
+                            <a type="button" class="btn btn-default btn-lg" href="chathome.php" style="font-weight: bold">Message &nbsp;</a>
                             <span class="btn-circle btn-or">or</span>
-                            <a type="button" class="btn btn-default btn-lg" href="videohome.php" style="font-weight: bold">MHS Videoz</a>
+                            <a type="button" class="btn btn-default btn-lg" href="videohome.php" style="font-weight: bold">Video Call</a>
                         </div>
                     </div>
                 </div>

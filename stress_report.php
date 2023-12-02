@@ -235,7 +235,7 @@ if (isset($_COOKIE['unreg_id'])){
         });
 
         $("#btnHome").click(function (){
-            let url = "../index.php?report_status=success&setcookie=yes&id="+unreg;
+            let url = "home.php?report_status=success&setcookie=yes&id="+unreg;
             $(location).attr('href',url);
         });
     });

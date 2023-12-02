@@ -50,7 +50,7 @@ if ($possition1 == "patient") {
 </div><!-- End: nav bar --><!-- Start: heading -->
 <div style="background: url(&quot;assets/img/doctor.jpg&quot;) no-repeat;background-size: cover;">
     <h1 style="text-align: center;color: rgb(250,250,250);margin: 0px;padding: 6px;padding-top: 40px;padding-bottom: 40px;">
-        MHS VIDEOZ&nbsp;&nbsp;<i class="fa-solid fa-phone-flip fa-shake"></i>&nbsp;&nbsp;<i class="fa-solid fa-video fa-shake"></i></h1>
+        Video Call&nbsp;&nbsp;<i class="fa-solid fa-phone-flip fa-shake"></i>&nbsp;&nbsp;<i class="fa-solid fa-video fa-shake"></i></h1>
 </div><!-- End: heading -->
 <div id="chat-body" class="glass"><!-- Start: Chat -->
     <div class="container-fluid">

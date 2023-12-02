@@ -21,121 +21,55 @@ $admin = new Admin();
 $pending_count = $admin->get_pending_applications_count();
 $rs = $admin->get_pending_applications();
 
-// doctor data for bar chart
-$doc_data_set = $admin->for_barchart_d();
-$doc_data = [];
-
-if (!empty($doc_data_set)){
-    foreach ($doc_data_set as $doc) {
-        if ($doc->registration_month == "1") {
-            $doc_data[0] = $doc->registered_count;
-        } elseif ($doc->registration_month == "2") {
-            $doc_data[1] = $doc->registered_count;
-        } elseif ($doc->registration_month == "3") {
-            $doc_data[2] = $doc->registered_count;
-        } elseif ($doc->registration_month == "4") {
-            $doc_data[3] = $doc->registered_count;
-        } elseif ($doc->registration_month == "5") {
-            $doc_data[4] = $doc->registered_count;
-        } elseif ($doc->registration_month == "6") {
-            $doc_data[5] = $doc->registered_count;
-        } elseif ($doc->registration_month == "7") {
-            $doc_data[6] = $doc->registered_count;
-        } elseif ($doc->registration_month == "8") {
-            $doc_data[7] = $doc->registered_count;
-        } elseif ($doc->registration_month == "9") {
-            $doc_data[8] = $doc->registered_count;
-        } elseif ($doc->registration_month == "10") {
-            $doc_data[9] = $doc->registered_count;
-        } elseif ($doc->registration_month == "11") {
-            $doc_data[10] = $doc->registered_count;
-        } elseif ($doc->registration_month == "12") {
-            $doc_data[11] = $doc->registered_count;
-        }
+//view data for chart
+$chart = "month";
+if (isset($_GET['chart'])) {
+    if ($_GET['chart'] == "day")
+        $chart = "day";
+}
+$viw_data_set_m = "";
+$viw_data_set = $admin->for_view_chart_month();
+$viw_data = [];
+$viw_data[0] = $viw_data[1] = $viw_data[2] = $viw_data[3] = $viw_data[4] = $viw_data[5] = $viw_data[6] = $viw_data[7] = $viw_data[8] = $viw_data[9] = $viw_data[10] = $viw_data[11] = 0;
+foreach ($viw_data_set as $view) {
+    if ($view->month == 1) {
+        $viw_data[0] = $view->total_count;
+    } elseif ($view->month == 2) {
+        $viw_data[1] = $view->total_count;
+    } elseif ($view->month == 3) {
+        $viw_data[2] = $view->total_count;
+    } elseif ($view->month == 4) {
+        $viw_data[3] = $view->total_count;
+    } elseif ($view->month == 5) {
+        $viw_data[4] = $view->total_count;
+    } elseif ($view->month == 6) {
+        $viw_data[5] = $view->total_count;
+    } elseif ($view->month == 7) {
+        $viw_data[6] = $view->total_count;
+    } elseif ($view->month == 8) {
+        $viw_data[7] = $view->total_count;
+    } elseif ($view->month == 9) {
+        $viw_data[8] = $view->total_count;
+    } elseif ($view->month == 10) {
+        $viw_data[9] = $view->total_count;
+    } elseif ($view->month == 11) {
+        $viw_data[10] = $view->total_count;
+    } elseif ($view->month == 12) {
+        $viw_data[11] = $view->total_count;
     }
 }
 
-// counselor data for bar chart
-$cou_data_set = $admin->for_barchart_c();
-$cou_data = [];
-
-foreach ($cou_data_set as $doc) {
-    if ($doc->registration_month == 1) {
-        $cou_data[0] = $doc->registered_count;
-    } elseif ($doc->registration_month == 2) {
-        $cou_data[1] = $doc->registered_count;
-    } elseif ($doc->registration_month == 3) {
-        $cou_data[2] = $doc->registered_count;
-    } elseif ($doc->registration_month == 4) {
-        $cou_data[3] = $doc->registered_count;
-    } elseif ($doc->registration_month == 5) {
-        $cou_data[4] = $doc->registered_count;
-    } elseif ($doc->registration_month == 6) {
-        $cou_data[5] = $doc->registered_count;
-    } elseif ($doc->registration_month == 7) {
-        $cou_data[6] = $doc->registered_count;
-    } elseif ($doc->registration_month == 8) {
-        $cou_data[7] = $doc->registered_count;
-    } elseif ($doc->registration_month == 9) {
-        $cou_data[8] = $doc->registered_count;
-    } elseif ($doc->registration_month == 10) {
-        $cou_data[9] = $doc->registered_count;
-    } elseif ($doc->registration_month == 11) {
-        $cou_data[10] = $doc->registered_count;
-    } elseif ($doc->registration_month == 12) {
-        $cou_data[11] = $doc->registered_count;
+$viw_data_set_m = $admin->for_view_chart_day();
+$viw_data_m = [];
+$i = 0;
+if (!empty($viw_data_set_m)) {
+    foreach ($viw_data_set_m as $day) {
+        $viw_data_m[$i]['day'] = $day->date;
+        $viw_data_m[$i]['count'] = $day->count;
+        $i++;
     }
-
-    //view data for chart
-    $chart = "month";
-    if (isset($_GET['chart'])){
-        if ($_GET['chart'] == "day")
-        $chart = "day";
-    }
-    $viw_data_set_m = "";
-    $viw_data_set = $admin->for_view_chart_month();
-    $viw_data = [];
-    $viw_data[0]=$viw_data[1]=$viw_data[2]=$viw_data[3]=$viw_data[4]=$viw_data[5]=$viw_data[6]=$viw_data[7]=$viw_data[8]=$viw_data[9]=$viw_data[10]=$viw_data[11]=0;
-    foreach ($viw_data_set as $view){
-        if ($view->month == 1){
-            $viw_data[0] = $view->total_count;
-        }elseif ($view->month == 2){
-            $viw_data[1] = $view->total_count;
-        }elseif ($view->month == 3){
-            $viw_data[2] = $view->total_count;
-        }elseif ($view->month == 4){
-            $viw_data[3] = $view->total_count;
-        }elseif ($view->month == 5){
-            $viw_data[4] = $view->total_count;
-        }elseif ($view->month == 6){
-            $viw_data[5] = $view->total_count;
-        }elseif ($view->month == 7){
-            $viw_data[6] = $view->total_count;
-        }elseif ($view->month == 8){
-            $viw_data[7] = $view->total_count;
-        }elseif ($view->month == 9){
-            $viw_data[8] = $view->total_count;
-        }elseif ($view->month == 10){
-            $viw_data[9] = $view->total_count;
-        }elseif ($view->month == 11){
-            $viw_data[10] = $view->total_count;
-        }elseif ($view->month == 12){
-            $viw_data[11] = $view->total_count;
-        }
-    }
-
-    $viw_data_set_m = $admin->for_view_chart_day();
-    $viw_data_m =[];
-    $i = 0;
-    if (!empty($viw_data_set_m)){
-        foreach ($viw_data_set_m  as $day){
-            $viw_data_m[$i]['day'] = $day->date;
-            $viw_data_m[$i]['count'] = $day->count;
-            $i++;
-        }
-    }else{
-        echo "erro";
-    }
+} else {
+    echo "erro";
 }
 
 
@@ -148,6 +82,7 @@ foreach ($cou_data_set as $doc) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ADMIN DASHBORD</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
@@ -204,13 +139,13 @@ foreach ($cou_data_set as $doc) {
         <ul class="navbar-nav flex-row me-5">
             <li class="nav-item me-3 me-lg-1">
                 <a class="nav-link d-sm-flex align-items-sm-center">
-                    <img
-                            src="<?php echo $user->profile_photo; ?>"
+                    <!--<img
+                            src="<?php /*echo $user->profile_photo; */?>"
                             class="rounded-circle"
                             height="22"
                             alt="Admin"
                             loading="lazy"
-                    />
+                    />-->
                     <strong class="d-none d-sm-block ms-1"><?php echo $user->firstname . " " . $user->lastname; ?></strong>
 
                 </a>
@@ -230,12 +165,6 @@ foreach ($cou_data_set as $doc) {
                         class="dropdown-menu dropdown-menu-end"
                         aria-labelledby="navbarDropdownMenuLink"
                 >
-                    <li>
-                        <a class="dropdown-item" href="#">Some news</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Another news</a>
-                    </li>
                     <li>
                         <a class="dropdown-item" href="process/logout.php"> <i
                                     class="fa fa-sign-out me-3"></i>Logout</a>
@@ -370,8 +299,10 @@ foreach ($cou_data_set as $doc) {
                                             Filter
                                         </button>
                                         <ul class="dropdown-menu bg-glass">
-                                            <li><a class="dropdown-item text-info" href="admin_page.php?chart=month">Monthly</a></li>
-                                            <li><a class="dropdown-item text-info" href="admin_page.php?chart=day">Nearest 5 days</a></li>
+                                            <li><a class="dropdown-item text-info" href="admin_page.php?chart=month">Monthly</a>
+                                            </li>
+                                            <li><a class="dropdown-item text-info" href="admin_page.php?chart=day">Nearest
+                                                    5 days</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -381,7 +312,7 @@ foreach ($cou_data_set as $doc) {
                         <div class="p-4">
                             <div class="card-body chart-container"
                                  style="position: relative; height: auto; width: 100%;">
-                                <canvas id="myChart"></canvas>
+                                <canvas id="chart_1"></canvas>
                             </div>
                         </div>
                     </div>
@@ -427,7 +358,7 @@ foreach ($cou_data_set as $doc) {
                             <p class="mb-0 text-warning">
                                 <!--<i class="fa-solid fa-hourglass-end fa-fade me-2"></i>-->
                                 <i class="fa-solid fa-person-dots-from-line fa-fade fa-lg fa-fw me-2"></i>
-                                <span class="h4  me-2"><?= $pending_count ?></span>
+                                <span class="h4  me-2"><?=$pending_count-1 ?></span>
                             </p>
                         </div>
                         <div class="col-6 text-end"></div>
@@ -446,43 +377,44 @@ foreach ($cou_data_set as $doc) {
                     <tbody>
                     <?php
                     if (!empty($rs)) {
-                    foreach ($rs as $therapist) {
-                    $name = $therapist->firstname . ' ' . $therapist->lastname;
-                    ?>
-                    <tr class="tb-row">
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="<?php echo $therapist->profile_photo; ?>" alt=""
-                                     style="width: 45px; height: 45px"
-                                     class="rounded-circle"/>
-                                <div class="ms-3">
-                                    <p class="fw-bold text-info mb-1"><?php echo $name; ?></p>
-                                    <p class="text-muted mb-0"><?php echo $therapist->email; ?></p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-warning d-inline">Pending</span>
-                        </td>
-                        <td class="text-info">
-                            <?php
-                            $role = substr($therapist->user_id, 0, 3);
-                            echo ($role == "DOC") ? "Doctor" : "Counselor";
-
+                        foreach ($rs as $therapist) {
+                            $name = $therapist->firstname . ' ' . $therapist->lastname;
                             ?>
-                        </td>
-                        <td>
-                            <p class="text-muted mb-0"><?php echo $therapist->description ?></p>
-                        </td>
-                        <td>
-                            <a href="admin_pdf_view.php?k=<?php echo $therapist->user_id; ?>">
-                                <button type="button" class="btn btn-link  btn-sm btn-rounded btn-outline-info">
-                                    Check
-                                </button>
-                            </a>
-                        </td>
-                    </tr>
-                    <?php }
+                            <tr class="tb-row">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="<?php echo $therapist->profile_photo; ?>" alt=""
+                                             style="width: 45px; height: 45px"
+                                             class="rounded-circle"/>
+                                        <div class="ms-3">
+                                            <p class="fw-bold text-info mb-1"><?php echo $name; ?></p>
+                                            <!--                                    <p class="text-muted mb-0">-->
+                                            <?php //echo $therapist->email; ?><!--</p>-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge badge-warning d-inline">Pending</span>
+                                </td>
+                                <td class="text-info">
+                                    <?php
+                                    $role = substr($therapist->user_id, 0, 3);
+                                    echo ($role == "DOC") ? "Doctor" : "Counselor";
+
+                                    ?>
+                                </td>
+                                <td>
+                                    <p class="text-muted mb-0"><?php echo $therapist->description ?></p>
+                                </td>
+                                <td>
+                                    <a href="admin_pdf_view.php?k=<?php echo $therapist->user_id; ?>">
+                                        <button type="button" class="btn btn-link  btn-sm btn-rounded btn-outline-info">
+                                            Check
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php }
                     } else { ?>
                         <tr class="tb-row">
                             <p class="h3 text-info">New Application haven't Arrived !</p>
@@ -501,14 +433,202 @@ foreach ($cou_data_set as $doc) {
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
 <!--MDB JS-->
 
-<!-- Link to Chart.js library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
-<!-- Link to Chart.js library -->
+
 <!-- Jquery library-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Jquery library-->
-<?php include_once "assets/js/admin_chat_js.php" ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        /*--------------------------------- chart - 1 --------------------------------------------*/
+        const ctx = document.getElementById('chart_1').getContext('2d');
+
+        const data = {
+            <?php
+            if ($chart == "month" ){?>
+            labels: ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [
+                {
+                    label: 'Monthly Visit',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    data: [<?=$viw_data[0]?>, <?=$viw_data[1]?>, <?=$viw_data[2]?>, <?=$viw_data[3]?>, <?=$viw_data[4]?>, <?=$viw_data[5]?>, <?=$viw_data[6]?>, <?=$viw_data[7]?>, <?=$viw_data[8]?>, <?=$viw_data[9]?>, <?=$viw_data[10]?>, <?=$viw_data[11]?>],
+                    tension: 0.3,
+                    fill: true
+                }
+            ],
+            <?php }else {?>
+            labels: ['<?=$viw_data_m[0]['day']?>', '<?=$viw_data_m[1]['day']?>', '<?=$viw_data_m[2]['day']?>', '<?=$viw_data_m[3]['day']?>', '<?=$viw_data_m[4]['day']?>'],
+            datasets: [
+                {
+                    label: 'Nearest 5 days',
+                    borderColor: 'rgba(26, 72, 153, 1)',
+                    backgroundColor: 'rgba(26, 72, 153, 0.2)',
+                    data: [<?=$viw_data_m[0]['count']?>, <?=$viw_data_m[1]['count']?>, <?=$viw_data_m[2]['count']?>, <?=$viw_data_m[3]['count']?>, <?=$viw_data_m[4]['count']?>],
+                    tension: 0.3,
+                    fill: true
+                }
+            ],
+            <?php }?>
+        };
+
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Month',
+                            color: 'rgb(0,196,255)',
+                        },
+                        ticks: {
+                            color: 'rgb(0,196,255)',
+                        },
+                        grid: {
+                            color: 'rgba(255,255,255,0.43)',
+                        },
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Value',
+                            color: 'rgb(0,196,255)',
+                        },
+                        ticks: {
+                            color: 'rgb(0,196,255)',
+                        },
+                        grid: {
+                            color: 'rgba(255,255,255,0.43)',
+                        },
+                    },
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        font: {
+                            size: 24,
+                            color: 'rgba(255,255,255,0.9)'
+                        }
+                    },
+                }
+            },
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let getData = [];
+        var d1;
+        var d2;
+        var d3;
+        var d4;
+        var d5;
+        var d6;
+        var d7;
+        var d8;
+        var d9;
+        var d10;
+        var d11;
+        var d12;
+
+        $.ajax({
+            url: "process/AJAX_request/chart.php",
+            dataType: 'json',
+            success: function (data) {
+                getData = data;
+                d1 = parseInt(getData['cou'][0]);
+                d2 = parseInt(getData['cou'][1]);
+                d3 = parseInt(getData['cou'][2]);
+                d4 = parseInt(getData['cou'][3]);
+                d5 = parseInt(getData['cou'][4]);
+                d6 = parseInt(getData['cou'][5]);
+                d7 = parseInt(getData['cou'][6]);
+                d8 = parseInt(getData['cou'][7]);
+                d9 = parseInt(getData['cou'][8]);
+                d10 = parseInt(getData['cou'][9]);
+                d11 = parseInt(getData['cou'][10]);
+                d12 = parseInt(getData['cou'][11]);
+                console.log(d1);
+
+                // Chart creation inside the success callback
+                const ctx_bar = document.getElementById('barChart').getContext('2d');
+
+                const data_set = {
+                    labels: ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [
+                        {
+                            label: 'Monthly Registered Patient',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            data: [d1, d2, d3, d4, d5,d6,d7,d8,d9,d10,d11],
+                            tension: 0.3,
+                            fill: true
+                        }
+                    ],
+                };
+
+                const barChart = new Chart(ctx_bar, {
+                    type: 'bar',
+                    data: data_set,
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Month',
+                                    color: 'rgb(0,196,255)',
+                                },
+                                ticks: {
+                                    color: 'rgb(0,196,255)',
+                                },
+                                grid: {
+                                    color: 'rgba(255,255,255,0.43)',
+                                },
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Value',
+                                    color: 'rgb(0,196,255)',
+                                },
+                                ticks: {
+                                    color: 'rgb(0,196,255)',
+                                },
+                                grid: {
+                                    color: 'rgba(255,255,255,0.43)',
+                                },
+                            },
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                font: {
+                                    size: 24,
+                                    color: 'rgba(255,255,255,0.9)'
+                                }
+                            },
+                        }
+                    },
+                });
+            }
+        });
+    });
+
+</script>
+
 <?php include_once "AJAX/admin_js.php" ?>
 
 </body>
+
 </html>
